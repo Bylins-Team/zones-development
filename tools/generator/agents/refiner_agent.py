@@ -40,6 +40,14 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
 
         output = result.stdout + result.stderr
 
+        # DEBUG: Показываем что вернул validator
+        print(f"🐛 DEBUG: Validator return code: {result.returncode}")
+        print(f"🐛 DEBUG: Validator output length: {len(output)} chars")
+        if output:
+            print(f"🐛 DEBUG: First 500 chars of output:\n{output[:500]}")
+        else:
+            print(f"🐛 DEBUG: Validator returned EMPTY output!")
+
         # Парсим вывод validator
         errors = []
         warnings = []
