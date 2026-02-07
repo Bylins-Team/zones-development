@@ -11,10 +11,12 @@ LangGraph Orchestrator для Zone Generator
 from typing import TypedDict, Annotated, Literal
 from pathlib import Path
 import operator
+import uuid
+import datetime
 
 try:
     from langgraph.graph import StateGraph, END
-    from langgraph.checkpoint.memory import MemorySaver
+    from langgraph.checkpoint.sqlite import SqliteSaver
     LANGGRAPH_AVAILABLE = True
 except ImportError:
     LANGGRAPH_AVAILABLE = False
@@ -265,6 +267,7 @@ def create_zone_graph(
     workflow.add_edge("structure", "rooms")
     workflow.add_edge("rooms", "mobs")
     workflow.add_edge("mobs", "objects")
+    workflow.add_edge("objects", "quests")
     workflow.add_edge("quests", "validation")
 
     # После валидации - либо refinement, либо конец
@@ -278,12 +281,14 @@ def create_zone_graph(
 
     # === КОМПИЛЯЦИЯ С CHECKPOINTS ===
 
-    # Memory saver для checkpoints
-    memory = MemorySaver()
+    # SQLite saver для persistent checkpoints
+    checkpoint_dir = Path(".checkpoints")
+    checkpoint_dir.mkdir(exist_ok=True)
+    checkpoint_db = checkpoint_dir / "langgraph_checkpoints.db"
 
-    app = workflow.compile(checkpointer=memory)
-
-    return app
+    with SqliteSaver.from_conn_string(str(checkpoint_db)) as checkpointer:
+        app = workflow.compile(checkpointer=checkpointer)
+        return app
 
 
 def run_zone_generation(
@@ -291,7 +296,8 @@ def run_zone_generation(
     level_range: tuple[int, int],
     ollama_url: str = "http://localhost:11434",
     interactive: bool = True,
-    output_dir: str = "zones/draft/"
+    output_dir: str = "zones/draft/",
+    resume_thread_id: str = None
 ) -> Path:
     """
     Запуск генерации зоны через LangGraph
@@ -319,6 +325,24 @@ def run_zone_generation(
     # Создаём граф
     app = create_zone_graph(interactive=interactive)
 
+    # Thread ID для checkpoints
+    if resume_thread_id:
+        thread_id = resume_thread_id
+        print(f"📂 Продолжение генерации: {thread_id}\n")
+    else:
+        # Генерируем уникальный thread_id
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        unique_id = str(uuid.uuid4())[:8]
+        thread_id = f"zone_{timestamp}_{unique_id}"
+        print(f"🆔 Thread ID: {thread_id}")
+        print(f"   Для продолжения используйте: --resume {thread_id}\n")
+
+        # Сохраняем thread_id в файл
+        thread_file = Path(output_dir) / ".last_thread_id"
+        thread_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(thread_file, 'w') as f:
+            f.write(thread_id)
+
     # Начальное состояние
     initial_state = {
         'user_theme': theme,
@@ -335,7 +359,7 @@ def run_zone_generation(
     }
 
     # Конфигурация для checkpoints
-    config = {"configurable": {"thread_id": "zone_generation_1"}}
+    config = {"configurable": {"thread_id": thread_id}}
 
     # Запускаем граф
     try:
@@ -372,7 +396,9 @@ def run_zone_generation(
 
     except KeyboardInterrupt:
         print("\n\n⚠️  Генерация прервана пользователем")
-        print("   Прогресс сохранён в checkpoint, можно продолжить")
+        print(f"   Прогресс сохранён в checkpoint")
+        print(f"\n📂 Для продолжения используйте:")
+        print(f"   python -m tools.generator.main --resume {thread_id}\n")
         raise
 
     except Exception as e:

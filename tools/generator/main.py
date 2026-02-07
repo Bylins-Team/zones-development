@@ -288,20 +288,23 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Примеры:
-  # Интерактивная генерация с темой (профиль по умолчанию)
+  # Интерактивная генерация (LangGraph режим по умолчанию)
   %(prog)s --theme "заброшенная мельница" --level "10-15"
 
   # Автоматическая генерация с профилем RTX 4070 Ti максимум
-  %(prog)s --auto --profile rtx4070ti-max --level "20-25"
+  %(prog)s --auto --profile rtx4070ti-max --theme "соляные копи"
 
-  # RTX 2080 Ti сбалансированный профиль
-  %(prog)s --profile rtx2080ti-balanced --theme "соляные копи"
+  # Продолжить генерацию после Ctrl+C (используется последний checkpoint)
+  %(prog)s --resume zone_20260207_a1b2c3d4
 
   # Список всех доступных профилей
   %(prog)s --list-profiles
 
-  # Улучшение существующей зоны
-  %(prog)s --refine zones/draft/old_zone.yaml
+  # Улучшение существующей зоны (требует --no-langgraph)
+  %(prog)s --no-langgraph --refine zones/draft/old_zone.yaml
+
+  # Fallback на простой генератор (если проблемы с LangGraph)
+  %(prog)s --no-langgraph --theme "тёмный лес" --level "15-20"
         """
     )
 
@@ -377,11 +380,17 @@ def main():
         help='Целевой балл валидации для --refine (по умолчанию 75)'
     )
 
-    # LangGraph режим
+    # Режим работы
     parser.add_argument(
-        '--use-langgraph',
+        '--no-langgraph',
         action='store_true',
-        help='Использовать LangGraph orchestrator (требует установки langgraph)'
+        help='Использовать простой sequential генератор вместо LangGraph'
+    )
+    parser.add_argument(
+        '--resume',
+        type=str,
+        metavar='THREAD_ID',
+        help='Продолжить генерацию с checkpoint'
     )
 
     args = parser.parse_args()
@@ -394,18 +403,26 @@ def main():
     # Определяем interactive режим
     interactive = not args.auto
 
-    # Проверяем LangGraph режим
-    if args.use_langgraph:
-        if not LANGGRAPH_AVAILABLE:
-            print("❌ Ошибка: LangGraph не установлен")
-            print("Установите: pip install langgraph langchain-core")
-            print("Или используйте без --use-langgraph (SimpleZoneGenerator)")
-            sys.exit(1)
+    # Определяем режим работы: LangGraph по умолчанию
+    use_langgraph = not args.no_langgraph
 
-        if args.refine:
-            print("❌ Ошибка: --refine не поддерживается в LangGraph режиме")
-            print("Используйте SimpleZoneGenerator (без --use-langgraph)")
-            sys.exit(1)
+    # Проверяем доступность LangGraph
+    if use_langgraph and not LANGGRAPH_AVAILABLE:
+        print("❌ Ошибка: LangGraph не установлен")
+        print("Установите: pip install langgraph langchain-core")
+        print("Или используйте: --no-langgraph (SimpleZoneGenerator)")
+        sys.exit(1)
+
+    # Валидация режимов
+    if args.refine and use_langgraph:
+        print("❌ Ошибка: --refine поддерживается только в SimpleZoneGenerator")
+        print("Используйте: --no-langgraph --refine <file>")
+        sys.exit(1)
+
+    if args.resume and not use_langgraph:
+        print("❌ Ошибка: --resume работает только в LangGraph режиме")
+        print("Уберите флаг --no-langgraph для использования checkpoints")
+        sys.exit(1)
 
     try:
         # Применяем профиль конфигурации
@@ -416,12 +433,14 @@ def main():
         print(f"   {profile_config['description']}")
         print(f"   VRAM: {profile_config['vram']}")
 
-        if args.use_langgraph:
-            # LangGraph режим
+        if use_langgraph:
+            # LangGraph режим (по умолчанию)
             print(f"   Режим: LangGraph Orchestrator\n")
 
-            if not args.theme:
-                print("❌ Ошибка: --theme обязателен для генерации")
+            # Проверка theme только для новой генерации (не для resume)
+            if not args.resume and not args.theme:
+                print("❌ Ошибка: --theme обязателен для новой генерации")
+                print("   Для продолжения используйте: --resume <thread_id>")
                 sys.exit(1)
 
             level_range = parse_level_range(args.level) if args.level else (10, 15)
@@ -431,12 +450,13 @@ def main():
                 level_range=level_range,
                 ollama_url=args.ollama_url,
                 interactive=interactive,
-                output_dir=args.output
+                output_dir=args.output,
+                resume_thread_id=args.resume
             )
 
         else:
-            # SimpleZoneGenerator режим
-            print(f"   Режим: Sequential Generator\n")
+            # SimpleZoneGenerator режим (fallback)
+            print(f"   Режим: SimpleZoneGenerator (fallback)\n")
 
             generator = SimpleZoneGenerator(
                 interactive=interactive,
