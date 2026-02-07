@@ -435,7 +435,8 @@ rooms:
         lore: Dict,
         rooms_summary: str,
         level_range: Tuple[int, int],
-        estimated_mobs: int
+        estimated_mobs: int,
+        already_generated: int = 0
     ) -> str:
         """
         Промпт для генерации мобов
@@ -444,12 +445,14 @@ rooms:
             lore: Лор зоны
             rooms_summary: Summary комнат
             level_range: Диапазон уровней зоны
-            estimated_mobs: Примерное количество мобов
+            estimated_mobs: Количество мобов для этого batch
+            already_generated: Сколько мобов уже сгенерировано
 
         Returns:
             Промпт для LLM
         """
-        return f"""Создай мобов (NPC) для зоны.
+        batch_info = f" (batch: уже {already_generated}, генерируем ещё {estimated_mobs})" if already_generated > 0 else ""
+        return f"""Создай {estimated_mobs} мобов (NPC) для зоны{batch_info}.
 
 🔧 ДОСТУПНЫЕ ИНСТРУМЕНТЫ:
 У тебя есть функции для точных расчётов баланса:
