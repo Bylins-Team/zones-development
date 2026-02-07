@@ -142,7 +142,7 @@ class PromptLibrary:
         Returns:
             Промпт для LLM
         """
-        return f"""Создай структуру зоны (топологию комнат).
+        return f"""Создай ИНТЕРЕСНУЮ структуру зоны (топологию комнат).
 
 КОНЦЕПЦИЯ:
 {idea}
@@ -150,39 +150,182 @@ class PromptLibrary:
 ЛОР:
 {lore}
 
-Создай граф комнат:
-1. Количество комнат: {idea.get('estimated_rooms', 8-12)} (±2 комнаты)
-2. Топология: линейная, разветвленная, или смешанная
-3. Тематические секции (например: вход → коридоры → зал босса)
-4. Секреты и альтернативные пути (опционально)
+🗺️ ТРЕБОВАНИЯ К ТОПОЛОГИИ:
+1. Количество комнат: {idea.get('estimated_rooms', '8-12')} (±2 комнаты)
+2. **НЕ ДЕЛАЙ ПЛОСКОЙ!** Используй вертикальность (up/down)
+3. Добавь ЦИКЛЫ в графе (можно вернуться разными путями)
+4. Секретные комнаты (не на прямом пути)
+5. Shortcut'ы (обходные пути после открытия дверей/квестов)
+
+📐 ПАТТЕРНЫ ТОПОЛОГИИ (используй комбинацию):
+
+**Hub-and-Spoke** (центральная комната + ответвления):
+```
+    [A]
+     |
+[B]--[HUB]--[C]
+     |
+    [D]
+```
+
+**Vertical Dungeon** (многоуровневое подземелье):
+```
+[Entrance]
+    |down
+[Level 1] --east-- [Secret]
+    |down
+[Level 2]
+    |down
+[Boss Chamber]
+```
+
+**Maze-like** (лабиринт с циклами):
+```
+[A]--[B]--[C]
+ |    |    |
+[D]--[E]--[F]
+ |         |
+[G]-------[H]
+```
+
+**Linear with Branches** (основной путь + боковые ответвления):
+```
+    [Secret1]
+       |
+[Start]--[A]--[B]--[C]--[Boss]
+              |
+          [Secret2]
+```
+
+**Circular** (кольцевая структура):
+```
+[A]--[B]
+ |    |
+[D]--[C]
+```
+
+⚠️ ИЗБЕГАЙ:
+- ❌ Только линейные цепочки (скучно!)
+- ❌ Все комнаты на одном уровне (используй up/down!)
+- ❌ Нет циклов (игрок должен иметь выбор пути)
+- ❌ Нет секретов
+
+✅ ИСПОЛЬЗУЙ:
+- ✅ Вертикальность (башни, подземелья, колодцы)
+- ✅ Циклы (разные пути к одной цели)
+- ✅ Секретные комнаты (hidden exits, за квестами)
+- ✅ Shortcut'ы (сокращенный путь назад после прохождения)
+- ✅ Развилки (выбор пути влияет на сложность)
 
 Выдай JSON:
 ```json
 {{
   "total_rooms": number,
-  "entry_point": "room_id",
-  "topology_type": "linear|branching|circular|mixed",
+  "entry_point": "room_001",
+  "topology_type": "mixed",  // Используй "mixed" для интересных зон!
   "sections": [
     {{
-      "name": "Название секции",
+      "name": "Entrance Level",
       "rooms": ["room_001", "room_002"],
-      "theme": "Тематика секции"
+      "theme": "Темный вход, предчувствие опасности"
+    }},
+    {{
+      "name": "Underground Maze",
+      "rooms": ["room_003", "room_004", "room_005"],
+      "theme": "Запутанные коридоры, циклы"
+    }},
+    {{
+      "name": "Boss Chamber",
+      "rooms": ["room_006"],
+      "theme": "Финальная битва"
     }}
   ],
   "rooms_graph": [
     {{
       "id": "room_001",
-      "name": "Краткое название",
-      "sector": "INSIDE|UNDERGROUND|FOREST|...",
+      "name": "Темный вход",
+      "sector": "INSIDE",
       "exits": [
         {{"direction": "north", "to_room": "room_002"}},
-        {{"direction": "south", "to_room": "world_forest_01"}}
+        {{"direction": "down", "to_room": "room_003"}},  // Вертикальность!
+        {{"direction": "south", "to_room": "world_forest_01"}}  // Выход в мир
       ],
-      "notes": "Заметки для генерации описания"
+      "notes": "Точка входа, должна давать выбор пути"
+    }},
+    {{
+      "id": "room_002",
+      "name": "Башня стража",
+      "sector": "INSIDE",
+      "exits": [
+        {{"direction": "south", "to_room": "room_001"}},
+        {{"direction": "up", "to_room": "room_007"}},  // Вверх на башню!
+        {{"direction": "east", "to_room": "room_004", "flags": ["HIDDEN"]}}  // Секрет!
+      ],
+      "notes": "Опциональная ветка, ведет к секрету"
+    }},
+    {{
+      "id": "room_003",
+      "name": "Подземный коридор",
+      "sector": "UNDERGROUND",
+      "exits": [
+        {{"direction": "up", "to_room": "room_001"}},
+        {{"direction": "north", "to_room": "room_004"}},
+        {{"direction": "east", "to_room": "room_005"}}  // Развилка!
+      ],
+      "notes": "Развилка: север к боссу, восток к сокровищам"
+    }},
+    {{
+      "id": "room_004",
+      "name": "Зал с ловушками",
+      "sector": "UNDERGROUND",
+      "exits": [
+        {{"direction": "south", "to_room": "room_003"}},
+        {{"direction": "north", "to_room": "room_006"}},  // К боссу
+        {{"direction": "west", "to_room": "room_002", "flags": ["HIDDEN"]}}  // Обратный shortcut
+      ],
+      "notes": "Основной путь к боссу, опасный"
+    }},
+    {{
+      "id": "room_005",
+      "name": "Сокровищница",
+      "sector": "UNDERGROUND",
+      "exits": [
+        {{"direction": "west", "to_room": "room_003"}},
+        {{"direction": "north", "to_room": "room_006"}}  // Альтернативный путь к боссу!
+      ],
+      "notes": "Опциональная ветка, лут, но тоже ведет к боссу"
+    }},
+    {{
+      "id": "room_006",
+      "name": "Логово босса",
+      "sector": "UNDERGROUND",
+      "exits": [
+        {{"direction": "south", "to_room": "room_004"}},  // Основной вход
+        {{"direction": "west", "to_room": "room_005"}},   // Альтернативный вход
+        {{"direction": "up", "to_room": "room_001", "flags": ["CLOSED", "QUEST_UNLOCK"]}}  // Shortcut после победы!
+      ],
+      "notes": "BOSS ROOM! 2 входа + shortcut наверх после победы"
+    }},
+    {{
+      "id": "room_007",
+      "name": "Вершина башни (секрет)",
+      "sector": "INSIDE",
+      "exits": [
+        {{"direction": "down", "to_room": "room_002"}}
+      ],
+      "notes": "Секретная комната с уникальным лутом"
     }}
   ]
 }}
 ```
+
+☝️ ОБРАТИ ВНИМАНИЕ в примере:
+- ✅ Вертикальность: up/down между уровнями
+- ✅ Циклы: room_003 ←→ room_004 ←→ room_006 ←→ room_005 ←→ room_003
+- ✅ Секреты: room_007 (скрытый exit), room_002 (HIDDEN exit)
+- ✅ Shortcut: room_006 → room_001 (после победы над боссом)
+- ✅ Развилки: room_003 дает выбор пути
+- ✅ Множественные входы к боссу: через room_004 ИЛИ room_005
 
 Секторы (sector):
 - INSIDE: внутри помещения
