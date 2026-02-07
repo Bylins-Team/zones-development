@@ -9,6 +9,7 @@ from .rooms_agent import rooms_agent
 from .mobs_agent import mobs_agent
 from .objects_agent import objects_agent
 from .quests_agent import quests_agent
+from .refiner_agent import refiner_agent
 
 __all__ = [
     'idea_agent',
@@ -17,5 +18,6 @@ __all__ = [
     'rooms_agent',
     'mobs_agent',
     'objects_agent',
-    'quests_agent'
+    'quests_agent',
+    'refiner_agent'
 ]

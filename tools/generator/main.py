@@ -20,7 +20,8 @@ from generator.agents import (
     rooms_agent,
     mobs_agent,
     objects_agent,
-    quests_agent
+    quests_agent,
+    refiner_agent
 )
 from generator.utils import (
     user_approve,
@@ -175,12 +176,14 @@ class SimpleZoneGenerator:
 
         return output_path
 
-    def refine_zone(self, zone_file: str) -> Path:
+    def refine_zone(self, zone_file: str, max_iterations: int = 3, target_score: int = 75) -> Path:
         """
         Улучшение существующей зоны
 
         Args:
             zone_file: Путь к YAML файлу зоны
+            max_iterations: Максимум итераций улучшения
+            target_score: Целевой балл валидации
 
         Returns:
             Путь к улучшенному файлу
@@ -189,19 +192,25 @@ class SimpleZoneGenerator:
         print("║          ZONE GENERATOR - Улучшение зоны                     ║")
         print("╚══════════════════════════════════════════════════════════════╝")
 
-        print(f"\n📂 Загрузка зоны: {zone_file}")
+        zone_path = Path(zone_file)
 
-        # TODO: Реализовать refiner agent
-        # 1. Загрузить YAML
-        # 2. Запустить validator.py
-        # 3. Собрать ошибки
-        # 4. Вызвать refiner_agent
-        # 5. Сохранить улучшенную версию
+        if not zone_path.exists():
+            raise FileNotFoundError(f"Файл не найден: {zone_file}")
 
-        print("\n⚠️  Функция улучшения пока не реализована (Phase 4)")
-        print("   Используйте validator.py для проверки зоны")
+        # Вызываем refiner agent
+        refined_path = refiner_agent(
+            zone_file=zone_path,
+            ollama_url=self.ollama_url,
+            max_iterations=max_iterations,
+            target_score=target_score
+        )
 
-        return Path(zone_file)
+        print(f"\n🎯 Следующие шаги:")
+        print(f"   1. Проверить улучшенную зону: python tools/validator.py {refined_path}")
+        print(f"   2. Сравнить с оригиналом: diff {zone_file} {refined_path}")
+        print(f"   3. Если нужно ещё улучшение: python -m tools.generator.main --refine {refined_path}")
+
+        return refined_path
 
     def _review_stage(self, stage_name: str, data) -> bool:
         """Интерактивный review этапа"""
@@ -348,6 +357,20 @@ def main():
         help='URL Ollama API'
     )
 
+    # Параметры для режима refine
+    parser.add_argument(
+        '--max-iterations',
+        type=int,
+        default=3,
+        help='Максимум итераций улучшения для --refine (по умолчанию 3)'
+    )
+    parser.add_argument(
+        '--target-score',
+        type=int,
+        default=75,
+        help='Целевой балл валидации для --refine (по умолчанию 75)'
+    )
+
     args = parser.parse_args()
 
     # Показать профили и выйти
@@ -369,7 +392,11 @@ def main():
 
         if args.refine:
             # Режим улучшения
-            generator.refine_zone(args.refine)
+            generator.refine_zone(
+                args.refine,
+                max_iterations=args.max_iterations,
+                target_score=args.target_score
+            )
         else:
             # Режим создания новой зоны
             level_range = parse_level_range(args.level) if args.level else None
