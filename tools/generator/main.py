@@ -35,6 +35,12 @@ from generator.llm import OllamaClient
 from generator.profiles import get_profile, list_profiles, MODEL_PROFILES
 from generator import config
 
+# LangGraph orchestrator (опционально)
+try:
+    from generator.orchestrator import run_zone_generation, LANGGRAPH_AVAILABLE
+except ImportError:
+    LANGGRAPH_AVAILABLE = False
+
 
 class SimpleZoneGenerator:
     """Простой sequential генератор зон (MVP без LangGraph)"""
@@ -371,6 +377,13 @@ def main():
         help='Целевой балл валидации для --refine (по умолчанию 75)'
     )
 
+    # LangGraph режим
+    parser.add_argument(
+        '--use-langgraph',
+        action='store_true',
+        help='Использовать LangGraph orchestrator (требует установки langgraph)'
+    )
+
     args = parser.parse_args()
 
     # Показать профили и выйти
@@ -381,30 +394,72 @@ def main():
     # Определяем interactive режим
     interactive = not args.auto
 
-    try:
-        # Создаём генератор
-        generator = SimpleZoneGenerator(
-            interactive=interactive,
-            ollama_url=args.ollama_url,
-            output_dir=args.output,
-            profile=args.profile
-        )
+    # Проверяем LangGraph режим
+    if args.use_langgraph:
+        if not LANGGRAPH_AVAILABLE:
+            print("❌ Ошибка: LangGraph не установлен")
+            print("Установите: pip install langgraph langchain-core")
+            print("Или используйте без --use-langgraph (SimpleZoneGenerator)")
+            sys.exit(1)
 
         if args.refine:
-            # Режим улучшения
-            generator.refine_zone(
-                args.refine,
-                max_iterations=args.max_iterations,
-                target_score=args.target_score
-            )
-        else:
-            # Режим создания новой зоны
-            level_range = parse_level_range(args.level) if args.level else None
+            print("❌ Ошибка: --refine не поддерживается в LangGraph режиме")
+            print("Используйте SimpleZoneGenerator (без --use-langgraph)")
+            sys.exit(1)
 
-            generator.generate_zone(
+    try:
+        # Применяем профиль конфигурации
+        profile_config = get_profile(args.profile)
+        config.MODEL_CONFIG = profile_config['models']
+
+        print(f"📋 Профиль: {args.profile}")
+        print(f"   {profile_config['description']}")
+        print(f"   VRAM: {profile_config['vram']}")
+
+        if args.use_langgraph:
+            # LangGraph режим
+            print(f"   Режим: LangGraph Orchestrator\n")
+
+            if not args.theme:
+                print("❌ Ошибка: --theme обязателен для генерации")
+                sys.exit(1)
+
+            level_range = parse_level_range(args.level) if args.level else (10, 15)
+
+            run_zone_generation(
                 theme=args.theme,
-                level_range=level_range
+                level_range=level_range,
+                ollama_url=args.ollama_url,
+                interactive=interactive,
+                output_dir=args.output
             )
+
+        else:
+            # SimpleZoneGenerator режим
+            print(f"   Режим: Sequential Generator\n")
+
+            generator = SimpleZoneGenerator(
+                interactive=interactive,
+                ollama_url=args.ollama_url,
+                output_dir=args.output,
+                profile=args.profile
+            )
+
+            if args.refine:
+                # Режим улучшения
+                generator.refine_zone(
+                    args.refine,
+                    max_iterations=args.max_iterations,
+                    target_score=args.target_score
+                )
+            else:
+                # Режим создания новой зоны
+                level_range = parse_level_range(args.level) if args.level else None
+
+                generator.generate_zone(
+                    theme=args.theme,
+                    level_range=level_range
+                )
 
     except KeyboardInterrupt:
         print("\n\n⚠️  Генерация прервана пользователем")

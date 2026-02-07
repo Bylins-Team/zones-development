@@ -1,0 +1,14 @@
+# Zone Generator dependencies
+
+# LangGraph для workflow orchestration
+langgraph>=0.2.0
+langchain-core>=0.3.0
+
+# YAML parsing
+pyyaml>=6.0
+
+# Testing (optional)
+pytest>=7.4.0
+
+# Progress bars (optional)
+tqdm>=4.66.0
