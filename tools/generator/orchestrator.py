@@ -18,9 +18,11 @@ try:
     from langgraph.graph import StateGraph, END
     from langgraph.checkpoint.sqlite import SqliteSaver
     LANGGRAPH_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     LANGGRAPH_AVAILABLE = False
-    print("⚠️  LangGraph не установлен. Установите: pip install langgraph langchain-core")
+    import sys
+    print(f"⚠️  LangGraph импорт ошибка: {e}", file=sys.stderr)
+    print("Установите: pip install langgraph langchain-core", file=sys.stderr)
 
 from .agents import (
     idea_agent,
@@ -63,6 +65,7 @@ class ZoneGenerationState(TypedDict):
     should_refine: bool
     human_approved: bool
     retry_count: int
+    current_stage: str  # Для отслеживания текущего этапа в human review
 
 
 def create_zone_graph(
@@ -94,44 +97,45 @@ def create_zone_graph(
         result = idea_agent(state, ollama_url=state['ollama_url'])
         return {
             'idea': result['idea'],
-            'retry_count': 0  # Сброс счётчика для следующих этапов
+            'retry_count': 0,
+            'current_stage': 'idea'
         }
 
     def lore_node(state: ZoneGenerationState) -> dict:
         """Узел генерации лора"""
         print("\n🔧 ЭТАП 2/7: Генерация лора и атмосферы")
         result = lore_agent(state, ollama_url=state['ollama_url'])
-        return {'lore': result['lore']}
+        return {'lore': result['lore'], 'current_stage': 'lore'}
 
     def structure_node(state: ZoneGenerationState) -> dict:
         """Узел генерации структуры"""
         print("\n🔧 ЭТАП 3/7: Генерация топологии комнат")
         result = structure_agent(state, ollama_url=state['ollama_url'])
-        return {'structure': result['structure']}
+        return {'structure': result['structure'], 'current_stage': 'structure'}
 
     def rooms_node(state: ZoneGenerationState) -> dict:
         """Узел генерации комнат"""
         print("\n🔧 ЭТАП 4/7: Генерация описаний комнат")
         result = rooms_agent(state, ollama_url=state['ollama_url'])
-        return {'rooms': result['rooms']}
+        return {'rooms': result['rooms'], 'current_stage': 'rooms'}
 
     def mobs_node(state: ZoneGenerationState) -> dict:
         """Узел генерации мобов"""
         print("\n🔧 ЭТАП 5/7: Генерация мобов")
         result = mobs_agent(state, ollama_url=state['ollama_url'])
-        return {'mobiles': result['mobiles']}
+        return {'mobiles': result['mobiles'], 'current_stage': 'mobs'}
 
     def objects_node(state: ZoneGenerationState) -> dict:
         """Узел генерации объектов"""
         print("\n🔧 ЭТАП 6/7: Генерация объектов и лута")
         result = objects_agent(state, ollama_url=state['ollama_url'])
-        return {'objects': result['objects']}
+        return {'objects': result['objects'], 'current_stage': 'objects'}
 
     def quests_node(state: ZoneGenerationState) -> dict:
         """Узел генерации квестов"""
         print("\n🔧 ЭТАП 7/7: Генерация квестов")
         result = quests_agent(state, ollama_url=state['ollama_url'])
-        return {'quests': result['quests']}
+        return {'quests': result['quests'], 'current_stage': 'quests'}
 
     # === УЗЛЫ HUMAN-IN-THE-LOOP ===
 
@@ -140,10 +144,25 @@ def create_zone_graph(
         if not state['interactive']:
             return {'human_approved': True}
 
-        stage_name = "зона"  # Можно определить по контексту
+        # Определяем текущий этап
+        stage = state.get('current_stage', 'unknown')
+        stage_names = {
+            'idea': 'Концепция зоны',
+            'lore': 'Лор и атмосфера',
+            'structure': 'Топология комнат',
+            'rooms': 'Описания комнат',
+            'mobs': 'Мобы',
+            'objects': 'Объекты и лут',
+            'quests': 'Квесты'
+        }
+        stage_name = stage_names.get(stage, stage)
+
         print(f"\n{'='*60}")
-        print(f"👤 REVIEW: Проверьте результат")
+        print(f"👤 REVIEW: {stage_name}")
         print(f"{'='*60}")
+
+        # Показываем краткую информацию о сгенерированном этапе
+        _show_stage_preview(state, stage)
 
         choice = user_choice(
             "Что делать дальше?",
@@ -162,6 +181,50 @@ def create_zone_graph(
                 print(f"⚠️  Достигнут лимит попыток ({max_retry}), продолжаем")
                 return {'human_approved': True, 'retry_count': 0}
             return {'human_approved': False, 'retry_count': retry_count}
+
+    def _show_stage_preview(state: ZoneGenerationState, stage: str):
+        """Показать preview сгенерированных данных этапа"""
+        if stage == 'idea':
+            idea = state.get('idea', {})
+            print(f"   Название: {idea.get('name', 'N/A')}")
+            print(f"   Тип: {idea.get('zone_type', 'N/A')}")
+            print(f"   Уровни: {idea.get('level_range', 'N/A')}")
+            print(f"   Комнат (план): {idea.get('estimated_rooms', 'N/A')}")
+        elif stage == 'lore':
+            lore = state.get('lore', {})
+            theme = lore.get('theme', '')[:100] + '...' if len(lore.get('theme', '')) > 100 else lore.get('theme', '')
+            print(f"   Тема: {theme}")
+            print(f"   Атмосфера: {lore.get('atmosphere', 'N/A')}")
+        elif stage == 'structure':
+            structure = state.get('structure', {})
+            print(f"   Комнат: {structure.get('total_rooms', 'N/A')}")
+            print(f"   Топология: {structure.get('topology_type', 'N/A')}")
+            print(f"   Секций: {len(structure.get('sections', []))}")
+        elif stage == 'rooms':
+            rooms = state.get('rooms', [])
+            print(f"   Сгенерировано комнат: {len(rooms)}")
+            for i, room in enumerate(rooms[:3]):  # Первые 3
+                print(f"   • {room.get('name', f'Room {i+1}')}")
+        elif stage == 'mobs':
+            mobs = state.get('mobiles', [])
+            print(f"   Сгенерировано мобов: {len(mobs)}")
+            for mob in mobs[:3]:  # Первые 3
+                name = mob.get('name', {}).get('nominative', 'N/A')
+                level = mob.get('level', '?')
+                role = mob.get('role', 'N/A')
+                print(f"   • {name} (L{level} {role})")
+        elif stage == 'objects':
+            objects = state.get('objects', [])
+            print(f"   Сгенерировано объектов: {len(objects)}")
+            for obj in objects[:3]:  # Первые 3
+                name = obj.get('name', {}).get('nominative', 'N/A')
+                obj_type = obj.get('type', 'N/A')
+                print(f"   • {name} ({obj_type})")
+        elif stage == 'quests':
+            quests = state.get('quests', [])
+            print(f"   Сгенерировано квестов: {len(quests)}")
+            for quest in quests:
+                print(f"   • {quest.get('name', 'N/A')}")
 
     # === УЗЛЫ ВАЛИДАЦИИ ===
 
@@ -251,24 +314,53 @@ def create_zone_graph(
     # Последовательная цепочка генерации
     if interactive:
         # С human review после каждого этапа
+
+        # Все этапы ведут к human_review
         workflow.add_edge("idea", "human_review")
+        workflow.add_edge("lore", "human_review")
+        workflow.add_edge("structure", "human_review")
+        workflow.add_edge("rooms", "human_review")
+        workflow.add_edge("mobs", "human_review")
+        workflow.add_edge("objects", "human_review")
+        workflow.add_edge("quests", "human_review")
 
-        # После review - либо продолжаем, либо retry
-        def after_review_idea(state: ZoneGenerationState) -> Literal["lore", "idea"]:
-            return "lore" if state['human_approved'] else "idea"
+        # Единая routing функция на основе current_stage и human_approved
+        def route_after_review(state: ZoneGenerationState) -> Literal[
+            "idea", "lore", "structure", "rooms", "mobs", "objects", "quests", "validation"
+        ]:
+            """Роутинг после human review на основе текущего этапа"""
+            stage = state.get('current_stage', 'idea')
+            approved = state.get('human_approved', True)
 
-        workflow.add_conditional_edges("human_review", after_review_idea)
-        workflow.add_edge("lore", "structure")
+            # Маппинг: этап → следующий этап
+            next_stage_map = {
+                'idea': 'lore',
+                'lore': 'structure',
+                'structure': 'rooms',
+                'rooms': 'mobs',
+                'mobs': 'objects',
+                'objects': 'quests',
+                'quests': 'validation'
+            }
+
+            if approved:
+                # Одобрено - переход к следующему этапу
+                return next_stage_map.get(stage, 'validation')
+            else:
+                # Не одобрено - повтор текущего этапа
+                return stage
+
+        workflow.add_conditional_edges("human_review", route_after_review)
+
     else:
         # Без review - прямая цепочка
         workflow.add_edge("idea", "lore")
         workflow.add_edge("lore", "structure")
-
-    workflow.add_edge("structure", "rooms")
-    workflow.add_edge("rooms", "mobs")
-    workflow.add_edge("mobs", "objects")
-    workflow.add_edge("objects", "quests")
-    workflow.add_edge("quests", "validation")
+        workflow.add_edge("structure", "rooms")
+        workflow.add_edge("rooms", "mobs")
+        workflow.add_edge("mobs", "objects")
+        workflow.add_edge("objects", "quests")
+        workflow.add_edge("quests", "validation")
 
     # После валидации - либо refinement, либо конец
     def after_validation(state: ZoneGenerationState) -> Literal["refinement", END]:
@@ -355,7 +447,8 @@ def run_zone_generation(
         'warnings': [],
         'should_refine': False,
         'human_approved': True,
-        'retry_count': 0
+        'retry_count': 0,
+        'current_stage': 'idea'
     }
 
     # Конфигурация для checkpoints
