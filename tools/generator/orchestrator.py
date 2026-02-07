@@ -133,7 +133,9 @@ def create_zone_graph(
     def rooms_node(state: ZoneGenerationState) -> dict:
         """Узел генерации комнат"""
         print("\n🔧 ЭТАП 4/7: Генерация описаний комнат")
-        result = rooms_agent(state, ollama_url=state['ollama_url'])
+        # В LangGraph режиме rooms review делается через human_review_node
+        # Поэтому всегда передаём interactive=False для rooms_agent
+        result = rooms_agent(state, ollama_url=state['ollama_url'], interactive=False)
         return {'rooms': result['rooms'], 'current_stage': 'rooms'}
 
     def mobs_node(state: ZoneGenerationState) -> dict:
