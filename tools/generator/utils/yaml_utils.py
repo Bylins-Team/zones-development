@@ -45,10 +45,20 @@ def extract_code_block(text: str, language: str = 'yaml') -> str:
             # Извлекаем контент
             content = text[content_start:end_idx].strip()
             if content:
+                # DEBUG
+                if content.startswith('```'):
+                    print(f"🐛 DEBUG extract_code_block: Контент всё ещё начинается с ``` !")
+                    print(f"🐛 DEBUG: marker={marker}, start_idx={start_idx}, content_start={content_start}, end_idx={end_idx}")
+                    print(f"🐛 DEBUG: Первые 100 символов: {text[:100]}")
                 return content
 
     # Если блока нет, возвращаем как есть
-    return text.strip()
+    result = text.strip()
+    if result.startswith('```'):
+        print(f"🐛 DEBUG extract_code_block: Блок не найден, возвращаем как есть, но начинается с ```!")
+        print(f"🐛 DEBUG: language={language}, text length={len(text)}")
+        print(f"🐛 DEBUG: Первые 100 символов: {text[:100]}")
+    return result
 
 
 def safe_parse_yaml(text: str, retry_count: int = 2) -> Dict:
