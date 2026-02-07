@@ -75,6 +75,7 @@ class ZoneGenerationState(TypedDict):
     # Метаданные
     validation_score: int
     refinement_iteration: int
+    validation_attempts: int  # Счётчик попыток валидации (защита от зацикливания)
     errors: Annotated[list[str], operator.add]  # Накапливаются
     warnings: Annotated[list[str], operator.add]  # Накапливаются
 
@@ -249,7 +250,9 @@ def create_zone_graph(
 
     def validation_node(state: ZoneGenerationState) -> dict:
         """Узел валидации зоны"""
-        print("\n📊 Валидация зоны...")
+        # Увеличиваем счётчик попыток валидации
+        attempts = state.get('validation_attempts', 0) + 1
+        print(f"\n📊 Валидация зоны (попытка {attempts})...")
 
         # Собираем YAML для валидации
         try:
@@ -283,7 +286,8 @@ def create_zone_graph(
                 'validation_score': score,
                 'errors': errors,
                 'warnings': warnings,
-                'should_refine': should_refine
+                'should_refine': should_refine,
+                'validation_attempts': attempts
                 # НЕ сбрасываем refinement_iteration - это делает refinement_node
             }
 
@@ -297,7 +301,8 @@ def create_zone_graph(
                 'validation_score': 0,
                 'errors': [str(e)],
                 'warnings': [],
-                'should_refine': not is_encoding_error
+                'should_refine': not is_encoding_error,
+                'validation_attempts': attempts
                 # НЕ сбрасываем refinement_iteration
             }
 
@@ -392,6 +397,14 @@ def create_zone_graph(
 
     # После валидации - либо refinement, либо конец
     def after_validation(state: ZoneGenerationState) -> Literal["refinement", END]:
+        # Защита от зацикливания: максимум 10 попыток валидации
+        max_validation_attempts = 10
+        attempts = state.get('validation_attempts', 0)
+
+        if attempts >= max_validation_attempts:
+            print(f"\n⚠️  Достигнут лимит попыток валидации ({max_validation_attempts}), завершаем генерацию")
+            return END
+
         return "refinement" if state['should_refine'] else END
 
     workflow.add_conditional_edges("validation", after_validation)
@@ -501,6 +514,7 @@ def run_zone_generation(
                 'interactive': interactive,
                 'validation_score': 0,
                 'refinement_iteration': 0,
+                'validation_attempts': 0,
                 'errors': [],
                 'warnings': [],
                 'should_refine': False,
