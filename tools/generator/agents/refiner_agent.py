@@ -29,11 +29,12 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
         return ([], ["Validator не найден"], 0)
 
     try:
-        # Запускаем validator
+        # Запускаем validator (UTF-8 для Windows)
         result = subprocess.run(
             [sys.executable, str(validator_path), str(zone_file)],
             capture_output=True,
             text=True,
+            encoding='utf-8',
             timeout=30
         )
 
