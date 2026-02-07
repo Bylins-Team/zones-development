@@ -84,6 +84,9 @@ def safe_parse_json(text: str) -> Dict:
     # Удаляем комментарии // (LLM часто их добавляет, но JSON не поддерживает)
     json_text = re.sub(r'//.*?$', '', json_text, flags=re.MULTILINE)
 
+    # Удаляем trailing commas (запятые перед ] или })
+    json_text = re.sub(r',(\s*[}\]])', r'\1', json_text)
+
     try:
         return json.loads(json_text)
     except json.JSONDecodeError as e:
