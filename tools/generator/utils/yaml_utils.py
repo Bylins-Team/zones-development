@@ -89,12 +89,23 @@ def safe_parse_json(text: str) -> Dict:
             json_text = extract_code_block(text, 'javascript')
             return json.loads(json_text)
         except json.JSONDecodeError:
-            # Показываем что именно пришло от LLM
-            preview = text[:200] + '...' if len(text) > 200 else text
+            # Сохраняем полный ответ в файл для отладки
+            import tempfile
+            debug_file = Path(tempfile.gettempdir()) / "llm_response_debug.txt"
+            debug_file.write_text(text, encoding='utf-8')
+
+            # Показываем область с ошибкой
+            lines = json_text.split('\n')
+            error_line = e.lineno - 1 if e.lineno else 0
+            context_start = max(0, error_line - 3)
+            context_end = min(len(lines), error_line + 3)
+            context = '\n'.join(f"{i+1:3}: {lines[i]}" for i in range(context_start, context_end))
+
             raise ValueError(
                 f"Не удалось распарсить JSON от LLM.\n"
                 f"Ошибка: {e}\n"
-                f"Ответ LLM (первые 200 символов):\n{preview}"
+                f"Контекст (строки {context_start+1}-{context_end}):\n{context}\n\n"
+                f"Полный ответ сохранён в: {debug_file}"
             )
 
 
