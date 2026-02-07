@@ -522,11 +522,19 @@ def run_zone_generation(
         state_key = list(final_state.keys())[0]
         final_zone_state = final_state[state_key]
 
+        # DEBUG: Проверяем что в state
+        print(f"\n🐛 DEBUG: final_state keys = {list(final_state.keys())}")
+        print(f"🐛 DEBUG: state_key = {state_key}")
+        print(f"🐛 DEBUG: final_zone_state keys = {list(final_zone_state.keys())}")
+        if 'idea' not in final_zone_state:
+            print("🐛 DEBUG: ⚠️ 'idea' ОТСУТСТВУЕТ в final_zone_state!")
+
         # Собираем финальный YAML
         zone_yaml = assemble_zone_yaml(final_zone_state)
 
         # Сохраняем
-        zone_name = final_zone_state['idea'].get('name', 'generated_zone')
+        idea = final_zone_state.get('idea', {})
+        zone_name = idea.get('name', 'generated_zone')
         safe_name = sanitize_filename(zone_name)
         output_path = Path(output_dir) / f"{safe_name}.yaml"
         output_path.parent.mkdir(parents=True, exist_ok=True)
