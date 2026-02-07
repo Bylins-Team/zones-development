@@ -2,37 +2,26 @@
 Конфигурация Zone Generator
 """
 
-# RTX 4070 Ti = 12GB VRAM (Ada Lovelace, очень быстрая)
-# Qwen2.5:14b (9GB) - влезает комфортно, лучшая утилизация GPU
-# Qwen3:8b (5GB) - новее, но меньше (если доступен)
-# Qwen2.5:32b-q4_K_M (10-11GB quantized) - тоже влезет!
+from .profiles import get_profile
 
-MODEL_CONFIG = {
-    # RTX 4070 Ti: используем 14b для баланса качества и скорости
-    # 9GB занято, 3GB свободно для KV cache
-    'idea': 'qwen2.5:14b',          # Креативная генерация концепции
-    'lore': 'qwen2.5:14b',          # Фольклор и нарратив
-    'rooms': 'qwen2.5:14b',         # Качество описаний комнат
-    'mobs': 'qwen2.5:14b',          # Описания + характеристики мобов
-    'quests': 'qwen2.5:14b',        # Нарративное качество квестов
+# Профиль по умолчанию (можно переопределить через --profile в CLI)
+DEFAULT_PROFILE = 'default'
 
-    # Структурные этапы - можно 7b (быстрее, проще задача)
-    'structure': 'qwen2.5:7b',      # Топология графа комнат
-    'objects': 'qwen2.5:7b',        # Описания объектов
+# Загружаем профиль по умолчанию
+# Чтобы изменить, используйте --profile в командной строке:
+#   python -m tools.generator.main --profile rtx4070ti-max ...
+#
+# Доступные профили (см. profiles.py):
+#   default              - RTX 4070 Ti сбалансированный (14b креативные, 7b структурные)
+#   rtx4070ti-max        - RTX 4070 Ti максимум (все 14b)
+#   rtx4070ti-light      - RTX 4070 Ti быстрый (все 7b)
+#   rtx2080ti-balanced   - RTX 2080 Ti сбалансированный (14b креативные, 7b структурные)
+#   rtx2080ti-max        - RTX 2080 Ti максимум (все 14b)
+#   rtx2080ti-light      - RTX 2080 Ti быстрый (все 7b)
+#   low-vram             - Слабые GPU < 8GB (все 7b)
+#   cpu-only             - CPU-only режим (все 7b)
 
-    # Рефайнмент - 14b для качества финальной полировки
-    'refiner': 'qwen2.5:14b',
-
-    # Для слабых машин (< 8GB VRAM) закомментируйте выше и используйте:
-    # 'idea': 'qwen2.5:7b',
-    # 'lore': 'qwen2.5:7b',
-    # 'rooms': 'qwen2.5:7b',
-    # 'mobs': 'qwen2.5:7b',
-    # 'quests': 'qwen2.5:7b',
-    # 'structure': 'qwen2.5:7b',
-    # 'objects': 'qwen2.5:7b',
-    # 'refiner': 'qwen2.5:7b',
-}
+MODEL_CONFIG = get_profile(DEFAULT_PROFILE)['models']
 
 # Температуры для разных задач
 TEMPERATURE_CONFIG = {

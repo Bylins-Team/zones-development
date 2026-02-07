@@ -31,6 +31,8 @@ from generator.utils import (
     sanitize_filename
 )
 from generator.llm import OllamaClient
+from generator.profiles import get_profile, list_profiles, MODEL_PROFILES
+from generator import config
 
 
 class SimpleZoneGenerator:
@@ -40,12 +42,21 @@ class SimpleZoneGenerator:
         self,
         interactive: bool = True,
         ollama_url: str = "http://localhost:11434",
-        output_dir: str = "zones/draft/"
+        output_dir: str = "zones/draft/",
+        profile: str = "default"
     ):
         self.interactive = interactive
         self.ollama_url = ollama_url
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Применяем профиль конфигурации
+        profile_config = get_profile(profile)
+        config.MODEL_CONFIG = profile_config['models']
+
+        print(f"📋 Профиль: {profile}")
+        print(f"   {profile_config['description']}")
+        print(f"   VRAM: {profile_config['vram']}\n")
 
         # Проверка подключения к Ollama
         ollama = OllamaClient(ollama_url=ollama_url)
@@ -262,11 +273,17 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Примеры:
-  # Интерактивная генерация с темой
+  # Интерактивная генерация с темой (профиль по умолчанию)
   %(prog)s --theme "заброшенная мельница" --level "10-15"
 
-  # Автоматическая генерация
-  %(prog)s --auto --level "20-25"
+  # Автоматическая генерация с профилем RTX 4070 Ti максимум
+  %(prog)s --auto --profile rtx4070ti-max --level "20-25"
+
+  # RTX 2080 Ti сбалансированный профиль
+  %(prog)s --profile rtx2080ti-balanced --theme "соляные копи"
+
+  # Список всех доступных профилей
+  %(prog)s --list-profiles
 
   # Улучшение существующей зоны
   %(prog)s --refine zones/draft/old_zone.yaml
@@ -313,10 +330,16 @@ def main():
         help='Директория для сохранения (по умолчанию zones/draft/)'
     )
     parser.add_argument(
-        '--model',
+        '--profile',
         type=str,
-        default='qwen2.5:14b',
-        help='Модель Ollama (по умолчанию qwen2.5:14b)'
+        default='default',
+        choices=list(MODEL_PROFILES.keys()),
+        help='Профиль GPU конфигурации (по умолчанию: default)'
+    )
+    parser.add_argument(
+        '--list-profiles',
+        action='store_true',
+        help='Показать все доступные профили и выйти'
     )
     parser.add_argument(
         '--ollama-url',
@@ -327,6 +350,11 @@ def main():
 
     args = parser.parse_args()
 
+    # Показать профили и выйти
+    if args.list_profiles:
+        list_profiles()
+        sys.exit(0)
+
     # Определяем interactive режим
     interactive = not args.auto
 
@@ -335,7 +363,8 @@ def main():
         generator = SimpleZoneGenerator(
             interactive=interactive,
             ollama_url=args.ollama_url,
-            output_dir=args.output
+            output_dir=args.output,
+            profile=args.profile
         )
 
         if args.refine:
