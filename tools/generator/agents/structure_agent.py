@@ -61,8 +61,16 @@ def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> 
         if 'rooms_graph' not in structure:
             raise ValueError("Отсутствует 'rooms_graph' в структуре")
 
-        if 'total_rooms' not in structure:
-            structure['total_rooms'] = len(structure['rooms_graph'])
+        # Проверка соответствия total_rooms и len(rooms_graph)
+        actual_rooms = len(structure['rooms_graph'])
+        declared_rooms = structure.get('total_rooms', actual_rooms)
+
+        if actual_rooms != declared_rooms:
+            print(f"   ⚠️  Несоответствие: total_rooms={declared_rooms}, но сгенерировано {actual_rooms} комнат")
+            print(f"   → Исправляем total_rooms на фактическое количество")
+            structure['total_rooms'] = actual_rooms
+        elif 'total_rooms' not in structure:
+            structure['total_rooms'] = actual_rooms
 
         # Обновление state
         state['structure'] = structure
