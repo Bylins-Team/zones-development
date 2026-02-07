@@ -304,6 +304,15 @@ rooms:
         """
         return f"""Создай мобов (NPC) для зоны.
 
+🔧 ДОСТУПНЫЕ ИНСТРУМЕНТЫ:
+У тебя есть функции для точных расчётов баланса:
+- calc_mob_exp(level, role) - рассчитать EXP моба
+- calc_mob_gold(level, role) - рассчитать gold моба
+- calc_damage_dice(level, role) - рассчитать урон моба
+- calc_player_hp(level) - средний HP игрока
+
+ИСПОЛЬЗУЙ эти функции вместо того чтобы считать вручную!
+
 ЛОР ЗОНЫ:
 {lore}
 
@@ -356,10 +365,10 @@ mobiles:
 
     stats:
       hp: 260          # HP = 100 + level * 20 (примерно)
-      damage_dice: "2d8+15"  # Используй инструмент calc_damage_dice
+      damage_dice: "2d8+15"  # ИСПОЛЬЗУЙ функцию calc_damage_dice(level, role)!
       armor_class: 30   # AC = базовый - уровень (меньше = лучше броня)
       hitroll: 10       # Hitroll ≈ level / 2
-      # exp и gold НЕ указывай - они рассчитаются автоматически!
+      # exp и gold НЕ указывай - используй calc_mob_exp() и calc_mob_gold()!
 
     abilities:
       - "bash"        # Умения: bash, kick, rescue, disarm, etc

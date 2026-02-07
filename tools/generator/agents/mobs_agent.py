@@ -12,6 +12,7 @@ from ..balance import (
     calc_damage_dice,
     damage_close_enough
 )
+from ..tools_definitions import get_tools_for_stage, execute_tool_call
 
 
 def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
@@ -53,12 +54,25 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
     print(f"   Примерно мобов: {estimated_mobs}")
 
     try:
-        # Вызов LLM
+        # Получаем tools для этапа mobs
+        tools = get_tools_for_stage('mobs')
+
+        # Вызов LLM с function calling
         response = ollama.generate(
             prompt=prompt,
             stage='mobs',
-            system=prompts.SYSTEM_DESIGNER
+            system=prompts.SYSTEM_DESIGNER,
+            tools=tools if tools else None
         )
+
+        # Обработка tool calls если есть
+        if response.get('tool_calls'):
+            print(f"   🔧 LLM вызвал {len(response['tool_calls'])} функций для расчётов")
+            for tool_call in response['tool_calls']:
+                tool_name = tool_call['function']['name']
+                arguments = tool_call['function']['arguments']
+                result = execute_tool_call(tool_name, arguments)
+                print(f"      • {tool_name}({arguments}) = {result}")
 
         # Парсинг ответа
         parsed = safe_parse_yaml(response['content'])
