@@ -20,12 +20,20 @@ def extract_code_block(text: str, language: str = 'yaml') -> str:
     Returns:
         Извлеченный код
     """
-    # Ищем блок ```yaml ... ```
-    pattern = f'```{language}\\s*\\n(.*?)```'
-    match = re.search(pattern, text, re.DOTALL)
+    # Ищем блок ```yaml ... ``` (более гибкий паттерн)
+    # Паттерн учитывает:
+    # - Опциональные пробелы и переносы строк после открывающих ```
+    # - Windows (\r\n) и Unix (\n) переносы строк
+    # - Опциональный язык (```yaml или просто ```)
+    patterns = [
+        f'```{language}\\s*([\\s\\S]*?)```',  # ```yaml ... ```
+        f'```\\s*([\\s\\S]*?)```',            # ``` ... ``` (без языка)
+    ]
 
-    if match:
-        return match.group(1).strip()
+    for pattern in patterns:
+        match = re.search(pattern, text, re.DOTALL)
+        if match:
+            return match.group(1).strip()
 
     # Если нет блока, возвращаем как есть
     return text.strip()
