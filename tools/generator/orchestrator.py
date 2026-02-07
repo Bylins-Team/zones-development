@@ -19,12 +19,14 @@ try:
     LANGGRAPH_AVAILABLE = True
 
     # Импортируем checkpointers
+    # В LangGraph 1.0+ SqliteSaver в отдельном пакете
     try:
-        from langgraph.checkpoint.sqlite import SqliteSaver
+        from langgraph_checkpoint_sqlite import SqliteSaver
         SQLITE_AVAILABLE = True
     except ImportError:
         try:
-            from langgraph.checkpoint.memory import SqliteSaver
+            # Старые версии LangGraph (0.x)
+            from langgraph.checkpoint.sqlite import SqliteSaver
             SQLITE_AVAILABLE = True
         except ImportError:
             SQLITE_AVAILABLE = False
@@ -37,7 +39,7 @@ except ImportError as e:
     SQLITE_AVAILABLE = False
     import sys
     print(f"⚠️  Ошибка импорта: {e}", file=sys.stderr)
-    print("Установите: pip install -U langgraph>=0.2.0 langchain-core>=0.3.0", file=sys.stderr)
+    print("Установите: pip install langgraph langgraph-checkpoint-sqlite langchain-core", file=sys.stderr)
 
 from .agents import (
     idea_agent,
