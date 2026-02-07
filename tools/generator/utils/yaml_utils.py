@@ -111,11 +111,22 @@ def safe_parse_json(text: str) -> Dict:
     try:
         return json.loads(json_text)
     except json.JSONDecodeError as first_error:
-        # Попытка 1: Закрываем незакрытые объекты/массивы
-        # Анализируем ошибку и пытаемся починить
-        lines = json_text.split('\n')
+        # Попытка 1: Если ошибка "Expecting ',' delimiter", это обычно означает
+        # что объект не закрыт перед ] или }
+        error_msg = str(first_error)
+        if "Expecting ',' delimiter" in error_msg or "Expecting ':' delimiter" in error_msg:
+            # Пробуем добавить } перед каждым ] в JSON
+            repaired = json_text
+            # Ищем паттерн: "..." \n  ] (строка заканчивается, потом идёт ])
+            # и вставляем } перед ]
+            repaired = re.sub(r'("\s*)(\n\s*])', r'\1}\2', repaired)
 
-        # Простая эвристика: считаем незакрытые { [ и пытаемся их закрыть
+            try:
+                return json.loads(repaired)
+            except json.JSONDecodeError:
+                pass
+
+        # Попытка 2: Закрываем все незакрытые скобки в конце
         open_braces = json_text.count('{') - json_text.count('}')
         open_brackets = json_text.count('[') - json_text.count(']')
 
@@ -131,7 +142,7 @@ def safe_parse_json(text: str) -> Dict:
             except json.JSONDecodeError:
                 pass
 
-        # Если repair не помог, выбрасываем оригинальную ошибку
+        # Если все repair попытки не помогли, выбрасываем оригинальную ошибку
         raise first_error from None
     except json.JSONDecodeError as e:
         # Пытаемся с другим форматом
