@@ -518,16 +518,18 @@ def run_zone_generation(
         if not final_state:
             raise RuntimeError("Граф не вернул результат")
 
-        # Берём последнее состояние
-        state_key = list(final_state.keys())[0]
-        final_zone_state = final_state[state_key]
+        # Получаем ПОЛНЫЙ state из checkpointer (не частичный update!)
+        # app.stream() возвращает только частичные обновления от каждого node
+        # Для полного state нужно использовать app.get_state()
+        full_state = app.get_state(config)
+        final_zone_state = full_state.values
 
         # DEBUG: Проверяем что в state
-        print(f"\n🐛 DEBUG: final_state keys = {list(final_state.keys())}")
-        print(f"🐛 DEBUG: state_key = {state_key}")
-        print(f"🐛 DEBUG: final_zone_state keys = {list(final_zone_state.keys())}")
+        print(f"\n🐛 DEBUG: final_zone_state keys = {list(final_zone_state.keys())}")
         if 'idea' not in final_zone_state:
             print("🐛 DEBUG: ⚠️ 'idea' ОТСУТСТВУЕТ в final_zone_state!")
+        else:
+            print(f"🐛 DEBUG: ✓ 'idea' присутствует: {final_zone_state.get('idea', {}).get('name', 'N/A')}")
 
         # Собираем финальный YAML
         zone_yaml = assemble_zone_yaml(final_zone_state)
