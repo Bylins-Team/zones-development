@@ -468,33 +468,43 @@ def run_zone_generation(
         with open(thread_file, 'w') as f:
             f.write(thread_id)
 
-    # Начальное состояние
-    initial_state = {
-        'user_theme': theme,
-        'level_range': level_range,
-        'ollama_url': ollama_url,
-        'interactive': interactive,
-        'validation_score': 0,
-        'refinement_iteration': 0,
-        'errors': [],
-        'warnings': [],
-        'should_refine': False,
-        'human_approved': True,
-        'retry_count': 0,
-        'current_stage': 'idea'
-    }
-
     # Конфигурация для checkpoints
     config = {"configurable": {"thread_id": thread_id}}
 
     # Запускаем граф
     try:
         final_state = None
-        for output in app.stream(initial_state, config):
-            # Выводим промежуточные результаты
-            for key, value in output.items():
-                print(f"\n✓ Узел '{key}' завершён")
-            final_state = output
+
+        if resume_thread_id:
+            # При resume НЕ передаём initial_state - LangGraph загрузит из checkpoint
+            print("🔄 Загрузка состояния из checkpoint...\n")
+            for output in app.stream(None, config):
+                # Выводим промежуточные результаты
+                for key, value in output.items():
+                    print(f"\n✓ Узел '{key}' завершён")
+                final_state = output
+        else:
+            # При новой генерации передаём начальное состояние
+            initial_state = {
+                'user_theme': theme,
+                'level_range': level_range,
+                'ollama_url': ollama_url,
+                'interactive': interactive,
+                'validation_score': 0,
+                'refinement_iteration': 0,
+                'errors': [],
+                'warnings': [],
+                'should_refine': False,
+                'human_approved': True,
+                'retry_count': 0,
+                'current_stage': 'idea'
+            }
+
+            for output in app.stream(initial_state, config):
+                # Выводим промежуточные результаты
+                for key, value in output.items():
+                    print(f"\n✓ Узел '{key}' завершён")
+                final_state = output
 
         if not final_state:
             raise RuntimeError("Граф не вернул результат")
