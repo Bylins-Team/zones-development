@@ -46,8 +46,16 @@ def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> 
             timeout=timeout
         )
 
+        # Проверка ответа
+        if not response or 'content' not in response:
+            raise ValueError(f"LLM вернул некорректный ответ: {response}")
+
+        content = response['content']
+        if not content or not content.strip():
+            raise ValueError("LLM вернул пустой content")
+
         # Парсинг ответа
-        structure = safe_parse_json(response['content'])
+        structure = safe_parse_json(content)
 
         # Валидация
         if 'rooms_graph' not in structure:

@@ -73,17 +73,29 @@ def safe_parse_json(text: str) -> Dict:
         Распарсенные данные
 
     Raises:
-        json.JSONDecodeError: Если парсинг провалился
+        ValueError: Если текст пустой или парсинг провалился
     """
+    if not text or not text.strip():
+        raise ValueError("LLM вернул пустой ответ")
+
     # Извлекаем JSON из markdown если есть
     json_text = extract_code_block(text, 'json')
 
     try:
         return json.loads(json_text)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
         # Пытаемся с другим форматом
-        json_text = extract_code_block(text, 'javascript')
-        return json.loads(json_text)
+        try:
+            json_text = extract_code_block(text, 'javascript')
+            return json.loads(json_text)
+        except json.JSONDecodeError:
+            # Показываем что именно пришло от LLM
+            preview = text[:200] + '...' if len(text) > 200 else text
+            raise ValueError(
+                f"Не удалось распарсить JSON от LLM.\n"
+                f"Ошибка: {e}\n"
+                f"Ответ LLM (первые 200 символов):\n{preview}"
+            )
 
 
 def assemble_zone_yaml(state: Dict) -> str:
