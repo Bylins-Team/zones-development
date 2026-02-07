@@ -20,21 +20,34 @@ def extract_code_block(text: str, language: str = 'yaml') -> str:
     Returns:
         Извлеченный код
     """
-    # Ищем блок ```yaml ... ``` (более гибкий паттерн)
-    # Используем raw strings для корректной работы regex
-    patterns = [
-        rf'```{language}\s*(.*?)```',  # ```yaml ... ``` (конкретный язык)
-        r'```\w*\s*(.*?)```',          # ```<любой_язык> ... ``` или ``` ... ```
-    ]
+    # Простой подход через строковые операции (надёжнее regex)
+    markers = [f'```{language}', '```']
 
-    for pattern in patterns:
-        match = re.search(pattern, text, re.DOTALL)
-        if match:
-            extracted = match.group(1).strip()
-            if extracted:  # Проверяем, что извлекли непустой контент
-                return extracted
+    for marker in markers:
+        if marker in text:
+            # Находим начало блока
+            start_idx = text.find(marker)
+            if start_idx == -1:
+                continue
 
-    # Если нет блока, возвращаем как есть
+            # Пропускаем маркер
+            content_start = start_idx + len(marker)
+
+            # Пропускаем все whitespace (пробелы, табы, переносы строк)
+            while content_start < len(text) and text[content_start] in ' \t\r\n':
+                content_start += 1
+
+            # Находим закрывающие ```
+            end_idx = text.find('```', content_start)
+            if end_idx == -1:
+                continue
+
+            # Извлекаем контент
+            content = text[content_start:end_idx].strip()
+            if content:
+                return content
+
+    # Если блока нет, возвращаем как есть
     return text.strip()
 
 
