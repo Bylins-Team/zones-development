@@ -144,6 +144,10 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
             print(f"      ✗ Ошибка при генерации batch: {e}")
             raise
 
+    # ВАЖНО: Присваиваем уникальные ID всем мобам
+    for idx, mob in enumerate(all_mobiles, start=1):
+        mob['id'] = f"mob_{idx:03d}"  # mob_001, mob_002, etc.
+
     # Обновление state
     state['mobiles'] = all_mobiles
 

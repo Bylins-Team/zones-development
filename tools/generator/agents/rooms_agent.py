@@ -109,6 +109,10 @@ def rooms_agent(
             print(f"      ✗ Ошибка при генерации batch: {e}")
             raise
 
+    # ВАЖНО: Присваиваем уникальные ID всем комнатам
+    for idx, room in enumerate(all_rooms, start=1):
+        room['id'] = f"room_{idx:03d}"  # room_001, room_002, etc.
+
     # Обновление state
     state['rooms'] = all_rooms
 
