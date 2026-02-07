@@ -81,6 +81,9 @@ def safe_parse_json(text: str) -> Dict:
     # Извлекаем JSON из markdown если есть
     json_text = extract_code_block(text, 'json')
 
+    # Удаляем комментарии // (LLM часто их добавляет, но JSON не поддерживает)
+    json_text = re.sub(r'//.*?$', '', json_text, flags=re.MULTILINE)
+
     try:
         return json.loads(json_text)
     except json.JSONDecodeError as e:
