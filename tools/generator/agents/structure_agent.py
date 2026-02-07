@@ -6,6 +6,7 @@ from typing import Dict
 from ..llm import OllamaClient
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_json
+from ..config import GENERATION_CONFIG
 
 
 def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
@@ -36,11 +37,13 @@ def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> 
     print(f"   Зона: {idea['name']}")
 
     try:
-        # Вызов LLM
+        # Вызов LLM с увеличенным timeout (сложный промпт)
+        timeout = GENERATION_CONFIG.get('timeout_structure', 300)
         response = ollama.generate(
             prompt=prompt,
             stage='structure',
-            system=prompts.SYSTEM_DESIGNER
+            system=prompts.SYSTEM_DESIGNER,
+            timeout=timeout
         )
 
         # Парсинг ответа

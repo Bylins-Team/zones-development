@@ -54,8 +54,14 @@ GENERATION_CONFIG = {
     'batch_size_rooms': 3,      # Комнат за раз
     'max_refinement_iterations': 3,  # Максимум итераций улучшения
     'target_validation_score': 90,   # Целевой балл валидации
-    'ollama_timeout': 180,      # Таймаут запроса в секундах
+    'ollama_timeout': 180,      # Таймаут по умолчанию (секунды)
     'ollama_retry': True,       # Retry при timeout
+
+    # Специальные таймауты для тяжелых этапов
+    'timeout_structure': 300,   # Структура: сложный промпт с примерами (5 минут)
+    'timeout_lore': 240,        # Лор: длинные описания (4 минуты)
+    'timeout_mobs': 240,        # Мобы: много расчётов + function calling (4 минуты)
+    'timeout_refiner': 360,     # Refiner: большие зоны (6 минут)
 }
 
 # Пути
