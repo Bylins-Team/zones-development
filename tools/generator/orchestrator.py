@@ -16,13 +16,28 @@ import datetime
 
 try:
     from langgraph.graph import StateGraph, END
-    from langgraph.checkpoint.sqlite import SqliteSaver
     LANGGRAPH_AVAILABLE = True
+
+    # Импортируем checkpointers
+    try:
+        from langgraph.checkpoint.sqlite import SqliteSaver
+        SQLITE_AVAILABLE = True
+    except ImportError:
+        try:
+            from langgraph.checkpoint.memory import SqliteSaver
+            SQLITE_AVAILABLE = True
+        except ImportError:
+            SQLITE_AVAILABLE = False
+
+    # MemorySaver всегда доступен как fallback
+    from langgraph.checkpoint.memory import MemorySaver
+
 except ImportError as e:
     LANGGRAPH_AVAILABLE = False
+    SQLITE_AVAILABLE = False
     import sys
-    print(f"⚠️  LangGraph импорт ошибка: {e}", file=sys.stderr)
-    print("Установите: pip install langgraph langchain-core", file=sys.stderr)
+    print(f"⚠️  Ошибка импорта: {e}", file=sys.stderr)
+    print("Установите: pip install -U langgraph>=0.2.0 langchain-core>=0.3.0", file=sys.stderr)
 
 from .agents import (
     idea_agent,
@@ -373,14 +388,19 @@ def create_zone_graph(
 
     # === КОМПИЛЯЦИЯ С CHECKPOINTS ===
 
-    # SQLite saver для persistent checkpoints
-    checkpoint_dir = Path(".checkpoints")
-    checkpoint_dir.mkdir(exist_ok=True)
-    checkpoint_db = checkpoint_dir / "langgraph_checkpoints.db"
+    if SQLITE_AVAILABLE:
+        # SQLite saver для persistent checkpoints
+        checkpoint_dir = Path(".checkpoints")
+        checkpoint_dir.mkdir(exist_ok=True)
+        checkpoint_db = checkpoint_dir / "langgraph_checkpoints.db"
+        checkpointer = SqliteSaver.from_conn_string(str(checkpoint_db))
+    else:
+        # Fallback на MemorySaver (checkpoints не сохраняются между запусками)
+        print("⚠️  SqliteSaver недоступен, используется MemorySaver (checkpoints только в памяти)")
+        checkpointer = MemorySaver()
 
-    with SqliteSaver.from_conn_string(str(checkpoint_db)) as checkpointer:
-        app = workflow.compile(checkpointer=checkpointer)
-        return app
+    app = workflow.compile(checkpointer=checkpointer)
+    return app
 
 
 def run_zone_generation(
@@ -413,6 +433,11 @@ def run_zone_generation(
     print("╔══════════════════════════════════════════════════════════════╗")
     print("║          ZONE GENERATOR - LangGraph Mode                     ║")
     print("╚══════════════════════════════════════════════════════════════╝")
+
+    # Предупреждение если SqliteSaver недоступен
+    if not SQLITE_AVAILABLE and resume_thread_id:
+        print("⚠️  ВНИМАНИЕ: SqliteSaver недоступен, --resume не будет работать")
+        print("   Обновите LangGraph: pip install -U langgraph>=0.2.0\n")
 
     # Создаём граф
     app = create_zone_graph(interactive=interactive)
