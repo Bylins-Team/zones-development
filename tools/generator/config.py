@@ -58,10 +58,10 @@ GENERATION_CONFIG = {
     'ollama_retry': True,       # Retry при timeout
 
     # Специальные таймауты для тяжелых этапов
-    'timeout_structure': 300,   # Структура: сложный промпт с примерами (5 минут)
-    'timeout_lore': 240,        # Лор: длинные описания (4 минуты)
-    'timeout_mobs': 240,        # Мобы: много расчётов + function calling (4 минуты)
-    'timeout_refiner': 360,     # Refiner: большие зоны (6 минут)
+    'timeout_structure': 600,   # Структура: сложный промпт с примерами (10 минут)
+    'timeout_lore': 300,        # Лор: длинные описания (5 минут)
+    'timeout_mobs': 300,        # Мобы: много расчётов + function calling (5 минут)
+    'timeout_refiner': 600,     # Refiner: большие зоны (10 минут)
 }
 
 # Пути
