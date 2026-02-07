@@ -255,9 +255,9 @@ def create_zone_graph(
         try:
             zone_yaml = assemble_zone_yaml(state)
 
-            # Временный файл для валидации
+            # Временный файл для валидации (UTF-8 для Windows)
             import tempfile
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
                 f.write(zone_yaml)
                 temp_path = Path(f.name)
 
@@ -284,11 +284,15 @@ def create_zone_graph(
 
         except Exception as e:
             print(f"⚠️  Ошибка валидации: {e}")
+
+            # Encoding ошибки нельзя исправить через refinement
+            is_encoding_error = 'codec' in str(e).lower() or 'encoding' in str(e).lower()
+
             return {
                 'validation_score': 0,
                 'errors': [str(e)],
                 'warnings': [],
-                'should_refine': True,
+                'should_refine': not is_encoding_error,  # Не рефайним если encoding проблема
                 'refinement_iteration': 0
             }
 
