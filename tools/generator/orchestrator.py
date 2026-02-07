@@ -392,10 +392,14 @@ def create_zone_graph(
 
     if SQLITE_AVAILABLE:
         # SQLite saver для persistent checkpoints
+        # В LangGraph 1.0+ используется SqliteSaver напрямую с conn
         checkpoint_dir = Path(".checkpoints")
         checkpoint_dir.mkdir(exist_ok=True)
-        checkpoint_db = checkpoint_dir / "langgraph_checkpoints.db"
-        checkpointer = SqliteSaver.from_conn_string(str(checkpoint_db))
+
+        # Создаём connection для SqliteSaver
+        import sqlite3
+        conn = sqlite3.connect(str(checkpoint_dir / "langgraph_checkpoints.db"), check_same_thread=False)
+        checkpointer = SqliteSaver(conn)
     else:
         # Fallback на MemorySaver (checkpoints не сохраняются между запусками)
         print("⚠️  SqliteSaver недоступен, используется MemorySaver (checkpoints только в памяти)")
