@@ -107,8 +107,32 @@ def safe_parse_json(text: str) -> Dict:
     # Удаляем trailing commas (запятые перед ] или })
     json_text = re.sub(r',(\s*[}\]])', r'\1', json_text)
 
+    # Пытаемся починить частые ошибки LLM перед парсингом
     try:
         return json.loads(json_text)
+    except json.JSONDecodeError as first_error:
+        # Попытка 1: Закрываем незакрытые объекты/массивы
+        # Анализируем ошибку и пытаемся починить
+        lines = json_text.split('\n')
+
+        # Простая эвристика: считаем незакрытые { [ и пытаемся их закрыть
+        open_braces = json_text.count('{') - json_text.count('}')
+        open_brackets = json_text.count('[') - json_text.count(']')
+
+        repair_suffix = ''
+        for _ in range(open_braces):
+            repair_suffix += '\n}'
+        for _ in range(open_brackets):
+            repair_suffix += '\n]'
+
+        if repair_suffix:
+            try:
+                return json.loads(json_text + repair_suffix)
+            except json.JSONDecodeError:
+                pass
+
+        # Если repair не помог, выбрасываем оригинальную ошибку
+        raise first_error from None
     except json.JSONDecodeError as e:
         # Пытаемся с другим форматом
         try:
