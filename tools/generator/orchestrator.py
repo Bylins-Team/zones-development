@@ -272,14 +272,19 @@ def create_zone_graph(
             print(f"  Ошибок: {len(errors)}")
             print(f"  Предупреждений: {len(warnings)}")
 
-            should_refine = (score < target_score or len(errors) > 0)
+            # Score=0 без ошибок = системная проблема (не рефайнить)
+            if score == 0 and len(errors) == 0:
+                print("⚠️  Score=0 без ошибок - системная проблема валидатора")
+                should_refine = False
+            else:
+                should_refine = (score < target_score or len(errors) > 0)
 
             return {
                 'validation_score': score,
                 'errors': errors,
                 'warnings': warnings,
-                'should_refine': should_refine,
-                'refinement_iteration': 0
+                'should_refine': should_refine
+                # НЕ сбрасываем refinement_iteration - это делает refinement_node
             }
 
         except Exception as e:
@@ -292,8 +297,8 @@ def create_zone_graph(
                 'validation_score': 0,
                 'errors': [str(e)],
                 'warnings': [],
-                'should_refine': not is_encoding_error,  # Не рефайним если encoding проблема
-                'refinement_iteration': 0
+                'should_refine': not is_encoding_error
+                # НЕ сбрасываем refinement_iteration
             }
 
     def refinement_node(state: ZoneGenerationState) -> dict:
