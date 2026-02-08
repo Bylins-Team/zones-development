@@ -5,7 +5,14 @@
 
 import os
 from typing import Dict, Any, Optional, List
-from litellm import completion
+
+try:
+    from litellm import completion
+    LITELLM_AVAILABLE = True
+except ImportError:
+    LITELLM_AVAILABLE = False
+    completion = None
+
 from .providers import ProviderConfig, normalize_provider_name
 
 
@@ -28,6 +35,28 @@ class UniversalLLMClient:
             timeout: Timeout в секундах
             retry_enabled: Включить retry при ошибках
         """
+        # Проверяем что LiteLLM установлен
+        if not LITELLM_AVAILABLE:
+            raise ImportError(
+                "\n╔══════════════════════════════════════════════════════════════╗\n"
+                "║  ❌ ОШИБКА: LiteLLM не установлен                            ║\n"
+                "╚══════════════════════════════════════════════════════════════╝\n"
+                "\n"
+                "Для использования множественных LLM провайдеров нужен LiteLLM.\n"
+                "\n"
+                "📦 УСТАНОВКА:\n"
+                "   pip install litellm python-dotenv\n"
+                "\n"
+                "Или активируйте venv и установите зависимости:\n"
+                "   source .venv/bin/activate  # Linux/Mac\n"
+                "   .venv\\Scripts\\activate     # Windows\n"
+                "   pip install -r requirements.txt\n"
+                "\n"
+                "💡 АЛЬТЕРНАТИВА:\n"
+                "   Используйте только Ollama (не требует LiteLLM):\n"
+                "   python -m tools.generator.main --provider ollama ...\n"
+            )
+
         self.provider = normalize_provider_name(provider)
         self.model_config = model_config or {}
         self.temp_config = temp_config or {}
