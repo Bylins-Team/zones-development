@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
 
-from ..llm import OllamaClient
+from ..llm import create_llm_client
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml, extract_code_block
 
@@ -81,18 +81,24 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
 
 def refiner_agent(
     zone_file: Path,
-    ollama_url: str = "http://localhost:11434",
+    provider: str = "ollama",
+    model: str = None,
+    model_config: dict = None,
     max_iterations: int = 3,
-    target_score: int = 75
+    target_score: int = 75,
+    ollama_url: str = "http://localhost:11434"  # Backward compatibility
 ) -> Path:
     """
     Агент для улучшения зоны через итеративное исправление ошибок
 
     Args:
         zone_file: Путь к YAML файлу зоны
-        ollama_url: URL Ollama API
+        provider: Провайдер LLM ('ollama', 'openrouter', etc.)
+        model: Модель для всех этапов (переопределяет model_config)
+        model_config: Словарь stage -> model
         max_iterations: Максимум итераций улучшения
         target_score: Целевой балл валидации
+        ollama_url: URL Ollama API (для обратной совместимости)
 
     Returns:
         Путь к улучшенному файлу
@@ -102,6 +108,9 @@ def refiner_agent(
     print(f"{'='*60}\n")
 
     print(f"📂 Файл: {zone_file}")
+    print(f"🌐 Провайдер: {provider}")
+    if model:
+        print(f"🤖 Модель: {model}")
 
     # Проверяем что файл существует
     if not zone_file.exists():
@@ -113,7 +122,13 @@ def refiner_agent(
 
     print(f"✓ Загружено {len(current_yaml)} символов\n")
 
-    ollama = OllamaClient(ollama_url=ollama_url)
+    # Создаём LLM клиент через фабрику
+    llm = create_llm_client(
+        provider=provider,
+        model=model,
+        model_config=model_config,
+        ollama_url=ollama_url
+    )
     prompts = PromptLibrary()
 
     # Итеративное улучшение
@@ -180,7 +195,7 @@ def refiner_agent(
 
         # Вызываем LLM
         print(f"\n🤖 Генерация исправлений...")
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='refiner',
             system=prompts.SYSTEM_DESIGNER,
@@ -198,6 +213,22 @@ def refiner_agent(
         parsed = safe_parse_yaml(refined_yaml)
         if parsed is None:
             print(f"\n⚠️  Исправленный YAML не парсится, используем оригинал")
+            break
+
+        # КРИТИЧНО: Проверяем что структура сохранена
+        if not isinstance(parsed, dict) or 'zone' not in parsed:
+            print(f"\n⚠️  LLM вернул невалидную структуру (нет корневого 'zone'), используем оригинал")
+            print(f"      Ключи в ответе: {list(parsed.keys()) if isinstance(parsed, dict) else type(parsed)}")
+            break
+
+        # Проверяем обязательные секции
+        zone_data = parsed.get('zone', {})
+        required_sections = ['meta', 'rooms']  # Минимально необходимые
+        missing_sections = [s for s in required_sections if s not in zone_data]
+
+        if missing_sections:
+            print(f"\n⚠️  LLM вернул неполную структуру, отсутствуют секции: {missing_sections}")
+            print(f"      Используем оригинал")
             break
 
         # Обновляем текущую версию
