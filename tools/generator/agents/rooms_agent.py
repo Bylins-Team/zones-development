@@ -113,6 +113,34 @@ def rooms_agent(
     for idx, room in enumerate(all_rooms, start=1):
         room['id'] = f"room_{idx:03d}"  # room_001, room_002, etc.
 
+    # КРИТИЧНО: Восстанавливаем exits из structure (граф был валидирован!)
+    # LLM мог сгенерировать неправильные exits при создании описаний
+    structure = state.get('structure', {})
+    rooms_graph = structure.get('rooms_graph', [])
+
+    if rooms_graph:
+        print(f"   🔧 Восстановление exits из валидированной структуры...")
+
+        # Создаём маппинг ID → exits из структуры
+        exits_map = {}
+        for room_def in rooms_graph:
+            room_id = room_def.get('id')
+            if room_id and 'exits' in room_def:
+                exits_map[room_id] = room_def['exits']
+
+        # Применяем exits к сгенерированным комнатам
+        fixed_count = 0
+        for room in all_rooms:
+            room_id = room.get('id')
+            if room_id in exits_map:
+                # Заменяем exits на те что были в валидированной структуре
+                room['exits'] = exits_map[room_id]
+                fixed_count += 1
+
+        print(f"   ✓ Восстановлено exits для {fixed_count}/{len(all_rooms)} комнат")
+    else:
+        print(f"   ⚠️  Структура не найдена, exits не восстановлены")
+
     # Обновление state
     state['rooms'] = all_rooms
 
