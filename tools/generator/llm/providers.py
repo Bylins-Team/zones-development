@@ -22,6 +22,7 @@ class ProviderConfig:
         'xai': 'XAI_API_KEY',
         'cerebras': 'CEREBRAS_API_KEY',
         'kilo': 'KILO_API_KEY',  # Kilo AI (OpenAI-compatible)
+        'openrouter': 'OPENROUTER_API_KEY',  # OpenRouter (unified LLM access)
     }
 
     # Маппинг провайдер → base URL (для провайдеров с custom endpoint)
@@ -30,6 +31,7 @@ class ProviderConfig:
         'deepseek': 'https://api.deepseek.com',
         'cerebras': 'https://api.cerebras.ai/v1',
         'kilo': os.getenv('KILO_BASE_URL', 'https://api.kilo.ai/v1'),  # Настраиваемый
+        'openrouter': 'https://openrouter.ai/api/v1',
     }
 
     # Дефолтные модели для каждого провайдера
@@ -41,6 +43,7 @@ class ProviderConfig:
         'xai': os.getenv('XAI_DEFAULT_MODEL', 'grok-2-latest'),
         'cerebras': os.getenv('CEREBRAS_DEFAULT_MODEL', 'llama-3.3-70b'),
         'kilo': os.getenv('KILO_DEFAULT_MODEL', 'kilo-chat'),  # Настраиваемая модель
+        'openrouter': os.getenv('OPENROUTER_DEFAULT_MODEL', 'anthropic/claude-sonnet-4.5'),
     }
 
     # LiteLLM model prefixes для каждого провайдера
@@ -52,6 +55,7 @@ class ProviderConfig:
         'xai': 'xai/',
         'cerebras': 'cerebras/',
         'kilo': 'openai/',  # Kilo использует OpenAI-совместимый API
+        'openrouter': 'openrouter/',
     }
 
     # Рекомендуемые модели для разных задач (по провайдеру)
@@ -90,6 +94,11 @@ class ProviderConfig:
             'creative': 'kilo-chat',
             'structural': 'kilo-chat',
             'refiner': 'kilo-chat',
+        },
+        'openrouter': {
+            'creative': 'anthropic/claude-sonnet-4.5',
+            'structural': 'anthropic/claude-haiku-4.5',
+            'refiner': 'anthropic/claude-opus-4.6',
         },
     }
 

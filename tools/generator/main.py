@@ -385,7 +385,7 @@ def main():
         '--provider',
         type=str,
         default='ollama',
-        choices=['ollama', 'anthropic', 'openai', 'deepseek', 'xai', 'cerebras', 'kilo', 'claude', 'chatgpt', 'gpt', 'grok'],
+        choices=['ollama', 'anthropic', 'openai', 'deepseek', 'xai', 'cerebras', 'kilo', 'openrouter', 'claude', 'chatgpt', 'gpt', 'grok'],
         help='LLM провайдер (по умолчанию: ollama). Алиасы: claude→anthropic, chatgpt/gpt→openai, grok→xai'
     )
 

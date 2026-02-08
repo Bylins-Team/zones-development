@@ -89,6 +89,16 @@ PROVIDER_MODEL_CONFIGS = {
         'quests': 'kilo-chat',
         'refiner': 'kilo-chat',
     },
+    'openrouter': {
+        'idea': 'anthropic/claude-sonnet-4.5',
+        'lore': 'anthropic/claude-sonnet-4.5',
+        'structure': 'anthropic/claude-haiku-4.5',
+        'rooms': 'anthropic/claude-sonnet-4.5',
+        'mobs': 'anthropic/claude-sonnet-4.5',
+        'objects': 'anthropic/claude-haiku-4.5',
+        'quests': 'anthropic/claude-sonnet-4.5',
+        'refiner': 'anthropic/claude-opus-4.6',
+    },
 }
 
 # ═══════════════════════════════════════════════════════════════════
