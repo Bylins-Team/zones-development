@@ -76,15 +76,15 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
         )
 
         try:
-            # Получаем tools для этапа mobs
-            tools = get_tools_for_stage('mobs')
+            # НЕ используем tools для mobs - они усложняют парсинг ответа
+            # Формулы баланса применяем в post-processing
 
-            # Вызов LLM с function calling (увеличенный timeout для батча мобов)
+            # Вызов LLM БЕЗ function calling (увеличенный timeout для батча мобов)
             response = llm.generate(
                 prompt=prompt,
                 stage='mobs',
                 system=prompts.SYSTEM_DESIGNER,
-                tools=tools if tools else None,
+                tools=None,  # Отключаем tools
                 timeout=GENERATION_CONFIG['timeout_mobs']  # 300s = 5 минут
             )
 
@@ -93,15 +93,26 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
                 print(f"      🔧 LLM вызвал {len(response['tool_calls'])} функций")
 
             # Парсинг ответа
-            parsed = safe_parse_yaml(response['content'], stage='mobs')
+            content = response.get('content', '')
+
+            # Если content пустой (может быть после function calling), пропускаем batch
+            if not content or not content.strip():
+                print(f"      ⚠️  Пустой ответ от LLM (возможно только function calls), пропускаем batch")
+                continue
+
+            parsed = safe_parse_yaml(content, stage='mobs')
 
             # Извлекаем мобов
             if isinstance(parsed, dict) and 'mobiles' in parsed:
                 batch_mobiles = parsed['mobiles']
             elif isinstance(parsed, list):
                 batch_mobiles = parsed
+            elif isinstance(parsed, dict) and not parsed:
+                # Пустой dict - пропускаем
+                print(f"      ⚠️  Пустой YAML, пропускаем batch")
+                continue
             else:
-                raise ValueError(f"Неожиданный формат ответа: {type(parsed)}")
+                raise ValueError(f"Неожиданный формат ответа: {type(parsed)}, content: {content[:200]}")
 
             # POST-PROCESSING: применяем формулы баланса для batch
             for idx, mob in enumerate(batch_mobiles):
