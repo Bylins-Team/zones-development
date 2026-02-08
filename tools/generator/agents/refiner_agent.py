@@ -30,12 +30,13 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
 
     try:
         # Запускаем validator (UTF-8 для Windows)
+        # Timeout 180s для LLM оценки (может быть долгой)
         result = subprocess.run(
             [sys.executable, str(validator_path), str(zone_file)],
             capture_output=True,
             text=True,
             encoding='utf-8',
-            timeout=30
+            timeout=180
         )
 
         output = result.stdout + result.stderr
@@ -55,10 +56,11 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
 
         lines = output.split('\n')
         for line in lines:
-            # Ищем score
-            if 'Общий балл:' in line or 'Score:' in line:
+            # Ищем score (проверяем все возможные форматы)
+            if 'ОЦЕНКА:' in line or 'Общий балл:' in line or 'Score:' in line:
                 try:
-                    score_str = line.split(':')[-1].strip().split('/')[0]
+                    # Формат: "ОЦЕНКА: 73/100 баллов" или "Score: 73/100"
+                    score_str = line.split(':')[-1].strip().split('/')[0].strip()
                     score = int(score_str)
                 except:
                     pass
