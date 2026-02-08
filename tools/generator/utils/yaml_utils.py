@@ -39,25 +39,28 @@ def extract_code_block(text: str, language: str = 'yaml') -> str:
 
             # Находим закрывающие ```
             end_idx = text.find('```', content_start)
-            if end_idx == -1:
-                continue
 
             # Извлекаем контент
-            content = text[content_start:end_idx].strip()
+            if end_idx != -1:
+                content = text[content_start:end_idx].strip()
+            else:
+                # Если закрывающих маркеров нет, берём всё до конца
+                content = text[content_start:].strip()
+
             if content:
-                # DEBUG
-                if content.startswith('```'):
-                    print(f"🐛 DEBUG extract_code_block: Контент всё ещё начинается с ``` !")
-                    print(f"🐛 DEBUG: marker={marker}, start_idx={start_idx}, content_start={content_start}, end_idx={end_idx}")
-                    print(f"🐛 DEBUG: Первые 100 символов: {text[:100]}")
                 return content
 
-    # Если блока нет, возвращаем как есть
+    # Если блока нет, пробуем удалить ``` вручную
     result = text.strip()
-    if result.startswith('```'):
-        print(f"🐛 DEBUG extract_code_block: Блок не найден, возвращаем как есть, но начинается с ```!")
-        print(f"🐛 DEBUG: language={language}, text length={len(text)}")
-        print(f"🐛 DEBUG: Первые 100 символов: {text[:100]}")
+    if result.startswith('```yaml'):
+        result = result[7:].lstrip()  # Убираем ```yaml
+    elif result.startswith('```'):
+        result = result[3:].lstrip()  # Убираем ```
+
+    # Убираем закрывающие ``` если есть
+    if result.endswith('```'):
+        result = result[:-3].rstrip()
+
     return result
 
 
