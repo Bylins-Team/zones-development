@@ -397,6 +397,20 @@ def main():
         help='Желаемое количество комнат в зоне (например: --rooms 15). По умолчанию LLM решает сам (~8-12 комнат)'
     )
 
+    # Model selection
+    parser.add_argument(
+        '--model',
+        type=str,
+        metavar='MODEL',
+        help='Модель для использования (для всех этапов). Примеры: gpt-4o, claude-opus-4.6, qwen2.5:14b, anthropic/claude-sonnet-4.5'
+    )
+    parser.add_argument(
+        '--models',
+        type=str,
+        metavar='JSON',
+        help='JSON конфиг моделей для разных этапов. Пример: \'{"idea": "gpt-4o", "rooms": "claude-sonnet-4.5"}\''
+    )
+
     # Режим работы
     parser.add_argument(
         '--no-langgraph',
@@ -462,6 +476,16 @@ def main():
 
             level_range = parse_level_range(args.level) if args.level else (10, 15)
 
+            # Парсим model config
+            model_config = None
+            if args.models:
+                try:
+                    import json
+                    model_config = json.loads(args.models)
+                except json.JSONDecodeError as e:
+                    print(f"❌ Ошибка парсинга --models JSON: {e}")
+                    sys.exit(1)
+
             run_zone_generation(
                 theme=args.theme,
                 level_range=level_range,
@@ -470,7 +494,9 @@ def main():
                 output_dir=args.output,
                 resume_thread_id=args.resume,
                 provider=args.provider,
-                requested_rooms=args.rooms
+                requested_rooms=args.rooms,
+                model=args.model,
+                model_config=model_config
             )
 
         else:

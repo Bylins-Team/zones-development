@@ -22,6 +22,8 @@ class LLMClientFactory:
         provider: Optional[str] = None,
         use_universal: bool = True,
         timeout: Optional[int] = None,
+        model: Optional[str] = None,
+        model_config: Optional[Dict[str, str]] = None,
         **kwargs
     ):
         """
@@ -33,6 +35,8 @@ class LLMClientFactory:
             use_universal: Использовать UniversalLLMClient (True) или
                           legacy OllamaClient (False, только для Ollama)
             timeout: Дефолтный timeout в секундах
+            model: Модель для всех этапов (override конфига)
+            model_config: Словарь stage -> model (override конфига)
             **kwargs: Дополнительные параметры для клиента
 
         Returns:
@@ -56,8 +60,19 @@ class LLMClientFactory:
                 f"   2. Добавьте API ключ для {provider.upper()}"
             )
 
-        # Модели для провайдера
-        model_config = PROVIDER_MODEL_CONFIGS.get(provider, {})
+        # Модели для провайдера (из конфига или переданные)
+        final_model_config = PROVIDER_MODEL_CONFIGS.get(provider, {}).copy()
+
+        # Override из параметров
+        if model_config:
+            final_model_config.update(model_config)
+
+        # Если указана одна модель для всех этапов
+        if model:
+            final_model_config = {
+                stage: model
+                for stage in ['idea', 'lore', 'structure', 'rooms', 'mobs', 'objects', 'quests', 'refiner']
+            }
 
         # Timeout
         if timeout is None:
@@ -74,7 +89,7 @@ class LLMClientFactory:
         # Универсальный клиент для всех провайдеров
         return UniversalLLMClient(
             provider=provider,
-            model_config=model_config,
+            model_config=final_model_config,
             temp_config=TEMPERATURE_CONFIG,
             timeout=timeout,
             retry_enabled=GENERATION_CONFIG.get('ollama_retry', True)

@@ -442,7 +442,9 @@ def run_zone_generation(
     output_dir: str = "zones/draft/",
     resume_thread_id: str = None,
     provider: str = "ollama",
-    requested_rooms: int = None
+    requested_rooms: int = None,
+    model: str = None,
+    model_config: dict = None
 ) -> Path:
     """
     Запуск генерации зоны через LangGraph
@@ -456,6 +458,8 @@ def run_zone_generation(
         resume_thread_id: Thread ID для продолжения с checkpoint
         provider: LLM провайдер
         requested_rooms: Желаемое количество комнат (опционально)
+        model: Модель для всех этапов (опционально)
+        model_config: Словарь stage -> model (опционально)
 
     Returns:
         Путь к сгенерированному файлу
@@ -520,6 +524,8 @@ def run_zone_generation(
                 'interactive': interactive,
                 'provider': provider,
                 'requested_rooms': requested_rooms,  # Желаемое количество комнат (или None)
+                'model': model,  # Модель для всех этапов (или None)
+                'model_config': model_config,  # Словарь stage -> model (или None)
                 'validation_score': 0,
                 'refinement_iteration': 0,
                 'validation_attempts': 0,

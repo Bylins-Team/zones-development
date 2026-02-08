@@ -23,7 +23,9 @@ def idea_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
     """
     prompts = PromptLibrary()
     provider = state.get('provider', 'ollama')
-    llm = create_llm_client(provider=provider)
+    model = state.get('model')
+    model_config = state.get('model_config')
+    llm = create_llm_client(provider=provider, model=model, model_config=model_config)
 
     # Получить параметры
     user_theme = state.get('user_theme')
