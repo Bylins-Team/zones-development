@@ -137,11 +137,21 @@ TEMPERATURE_CONFIG = {
 }
 
 # Context window sizes
-CONTEXT_WINDOW = {
+CONTEXT_WINDOWS = {
+    # Ollama models
     'qwen2.5:7b': 32768,
     'qwen2.5:14b': 32768,
     'qwen2.5:32b': 32768,
     'qwen2.5:32b-q4': 32768,
+
+    # OpenRouter models
+    'deepseek/deepseek-chat': 32768,
+    'deepseek/deepseek-r1': 32768,
+    'anthropic/claude-sonnet-4.5': 200000,
+    'anthropic/claude-opus-4.6': 200000,
+    'anthropic/claude-haiku-4.5': 200000,
+    'openai/gpt-4o': 128000,
+    'google/gemini-pro-1.5': 1000000,  # 1M context!
 }
 
 # Альтернативные модели (для экспериментов)

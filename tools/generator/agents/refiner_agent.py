@@ -7,9 +7,242 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
 
+import re
 from ..llm import create_llm_client
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml, extract_code_block
+
+
+def _extract_problematic_ids(messages: List[str], element_type: str) -> set:
+    """
+    Извлекает ID проблемных элементов из списка ошибок/warnings
+
+    Args:
+        messages: Список сообщений об ошибках/warnings
+        element_type: 'room' или 'mob' или 'obj'
+
+    Returns:
+        Set ID проблемных элементов
+    """
+    ids = set()
+    pattern = rf"'{element_type}_(\d+)'"
+
+    for msg in messages:
+        matches = re.findall(pattern, msg)
+        for match in matches:
+            ids.add(f"{element_type}_{match}")
+
+    return ids
+
+
+def _get_room_neighbors(room: dict, all_rooms_map: dict) -> set:
+    """Получить ID соседних комнат"""
+    neighbors = set()
+    for exit_data in room.get('exits', []):
+        to_room = exit_data.get('to_room')
+        if to_room and to_room in all_rooms_map:
+            neighbors.add(to_room)
+    return neighbors
+
+
+def _get_mobs_in_room(room_id: str, zone: dict) -> set:
+    """Получить ID мобов, которые спавнятся в комнате"""
+    mob_ids = set()
+    for mob in zone.get('mobiles', []):
+        # Проверяем есть ли spawn в этой комнате
+        spawns = mob.get('spawns', [])
+        for spawn in spawns:
+            if spawn.get('room') == room_id:
+                mob_ids.add(mob['id'])
+                break
+    return mob_ids
+
+
+def _create_zone_subset_with_context(
+    zone: dict,
+    problematic_room_ids: set,
+    problematic_mob_ids: set,
+    context_window_tokens: int
+) -> Tuple[dict, int]:
+    """
+    Создаёт subset зоны с проблемными элементами + контекст
+    С дедупликацией и учётом budget
+
+    Args:
+        zone: Полные данные зоны
+        problematic_room_ids: ID проблемных комнат
+        problematic_mob_ids: ID проблемных мобов
+        context_window_tokens: Доступный бюджет токенов
+
+    Returns:
+        (subset, использовано_токенов)
+    """
+    # Создаём карты для быстрого доступа
+    all_rooms_map = {r['id']: r for r in zone.get('rooms', [])}
+    all_mobs_map = {m['id']: m for m in zone.get('mobiles', [])}
+
+    # Фиксированные части
+    FIXED_OVERHEAD = 3000  # schema + errors + instructions
+    remaining_budget = context_window_tokens - FIXED_OVERHEAD
+
+    # Lore summary (краткий)
+    lore = zone.get('lore', {})
+    lore_summary = str(lore.get('theme', ''))[:500] if lore else ''
+    lore_tokens = len(lore_summary) // 4
+    remaining_budget -= lore_tokens
+
+    # Tracking
+    included_problematic_rooms = []
+    included_context_rooms = {}  # id -> trimmed data
+    included_context_mobs = {}   # id -> trimmed data
+    seen_room_ids = set()
+    seen_mob_ids = set()
+
+    # Обрабатываем проблемные комнаты по одной
+    for room_id in problematic_room_ids:
+        if room_id not in all_rooms_map:
+            continue
+
+        room = all_rooms_map[room_id]
+
+        # Стоимость проблемной комнаты (FULL)
+        room_yaml = str(room)  # Приблизительно
+        room_tokens = len(room_yaml) // 4
+
+        # Соседи (только те, кого ещё НЕТ)
+        neighbors = _get_room_neighbors(room, all_rooms_map)
+        new_neighbors = neighbors - seen_room_ids - problematic_room_ids
+        neighbor_tokens = len(new_neighbors) * 25  # ~100 chars per trimmed room
+
+        # Мобы в комнате (только те, кого ещё НЕТ)
+        mobs_here = _get_mobs_in_room(room_id, zone)
+        new_mobs = mobs_here - seen_mob_ids - problematic_mob_ids
+        mob_tokens = len(new_mobs) * 12  # ~50 chars per trimmed mob
+
+        # Проверяем влезает ли
+        total_cost = room_tokens + neighbor_tokens + mob_tokens
+        if total_cost > remaining_budget:
+            print(f"   ⚠️  Бюджет исчерпан, обработано {len(included_problematic_rooms)} комнат", flush=True)
+            break
+
+        # Добавляем
+        included_problematic_rooms.append(room)
+        seen_room_ids.add(room_id)
+        remaining_budget -= total_cost
+
+        # Добавляем новых соседей (trimmed)
+        for neighbor_id in new_neighbors:
+            neighbor = all_rooms_map[neighbor_id]
+            included_context_rooms[neighbor_id] = {
+                'id': neighbor_id,
+                'name': neighbor.get('name', ''),
+                'sector': neighbor.get('sector', 'INSIDE')
+            }
+            seen_room_ids.add(neighbor_id)
+
+        # Добавляем новых мобов (trimmed)
+        for mob_id in new_mobs:
+            mob = all_mobs_map[mob_id]
+            mob_name = mob.get('name', {})
+            included_context_mobs[mob_id] = {
+                'id': mob_id,
+                'name': mob_name.get('nominative', '') if isinstance(mob_name, dict) else str(mob_name),
+                'level': mob.get('level', 1),
+                'role': mob.get('role', 'TRASH')
+            }
+            seen_mob_ids.add(mob_id)
+
+    # Обрабатываем проблемных мобов аналогично
+    included_problematic_mobs = []
+    for mob_id in problematic_mob_ids:
+        if mob_id not in all_mobs_map or mob_id in seen_mob_ids:
+            continue
+
+        mob = all_mobs_map[mob_id]
+        mob_yaml = str(mob)
+        mob_tokens = len(mob_yaml) // 4
+
+        if mob_tokens > remaining_budget:
+            break
+
+        included_problematic_mobs.append(mob)
+        seen_mob_ids.add(mob_id)
+        remaining_budget -= mob_tokens
+
+    # Собираем subset
+    subset = {
+        'meta': zone.get('meta', {}),
+        'lore': {'theme': lore_summary} if lore_summary else {}
+    }
+
+    if included_problematic_rooms:
+        subset['rooms'] = included_problematic_rooms
+
+    if included_problematic_mobs:
+        subset['mobiles'] = included_problematic_mobs
+
+    if included_context_rooms:
+        subset['context_rooms'] = list(included_context_rooms.values())
+
+    if included_context_mobs:
+        subset['context_mobs'] = list(included_context_mobs.values())
+
+    used_tokens = context_window_tokens - remaining_budget
+    return subset, used_tokens
+
+
+def _merge_refinements(original_zone: dict, refined_zone: dict, room_ids: set, mob_ids: set) -> dict:
+    """
+    Мержит исправленные элементы обратно в оригинальную зону
+
+    Args:
+        original_zone: Оригинальные данные зоны
+        refined_zone: Исправленные данные (subset)
+        room_ids: ID исправленных комнат
+        mob_ids: ID исправленных мобов
+
+    Returns:
+        Объединённая зона
+    """
+    result = original_zone.copy()
+
+    # Обновляем meta если изменился
+    if 'meta' in refined_zone:
+        result['meta'] = refined_zone['meta']
+
+    # Мержим комнаты
+    if room_ids and 'rooms' in refined_zone:
+        refined_rooms_map = {r['id']: r for r in refined_zone['rooms']}
+        updated_rooms = []
+
+        for room in original_zone.get('rooms', []):
+            room_id = room.get('id')
+            if room_id in room_ids and room_id in refined_rooms_map:
+                # Используем исправленную версию
+                updated_rooms.append(refined_rooms_map[room_id])
+            else:
+                # Оригинальная версия
+                updated_rooms.append(room)
+
+        result['rooms'] = updated_rooms
+
+    # Мержим мобов
+    if mob_ids and 'mobiles' in refined_zone:
+        refined_mobs_map = {m['id']: m for m in refined_zone['mobiles']}
+        updated_mobs = []
+
+        for mob in original_zone.get('mobiles', []):
+            mob_id = mob.get('id')
+            if mob_id in mob_ids and mob_id in refined_mobs_map:
+                # Используем исправленную версию
+                updated_mobs.append(refined_mobs_map[mob_id])
+            else:
+                # Оригинальная версия
+                updated_mobs.append(mob)
+
+        result['mobiles'] = updated_mobs
+
+    return result
 
 
 def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
@@ -176,6 +409,54 @@ def refiner_agent(
             for warn in warnings[:5]:
                 print(f"   {warn}", flush=True)
 
+        # Парсим текущую зону
+        zone_data = safe_parse_yaml(current_yaml)
+        if not zone_data or 'zone' not in zone_data:
+            print(f"\n⚠️  Невалидная зона, пропускаем refinement", flush=True)
+            break
+
+        # Извлекаем проблемные ID из warnings/errors
+        problematic_rooms = _extract_problematic_ids(warnings + errors, 'room')
+        problematic_mobs = _extract_problematic_ids(warnings + errors, 'mob')
+
+        print(f"\n📋 Проблемные элементы:", flush=True)
+        print(f"   Комнат: {len(problematic_rooms)}", flush=True)
+        print(f"   Мобов: {len(problematic_mobs)}", flush=True)
+
+        # Если проблем нет - выходим
+        total_problems = len(problematic_rooms) + len(problematic_mobs)
+        if total_problems == 0:
+            print(f"\n✅ Нет конкретных проблемных элементов", flush=True)
+            break
+
+        # Определяем context window модели (70% для безопасности)
+        from ..config import PROVIDER_MODEL_CONFIGS, CONTEXT_WINDOWS
+
+        # Получаем название модели
+        if model:
+            model_name = model
+        elif model_config and 'refiner' in model_config:
+            model_name = model_config['refiner']
+        else:
+            provider_config = PROVIDER_MODEL_CONFIGS.get(provider, {})
+            model_name = provider_config.get('refiner', 'qwen2.5:14b')
+
+        # Получаем context window (по умолчанию 32K)
+        context_limit = CONTEXT_WINDOWS.get(model_name, 32768)
+        context_budget = int(context_limit * 0.7)  # 70% безопасно
+
+        print(f"\n📊 Context window: {context_limit} tokens (используем {context_budget} = 70%)", flush=True)
+
+        # Создаём subset с контекстом и дедупликацией
+        zone_subset, used_tokens = _create_zone_subset_with_context(
+            zone_data['zone'],
+            problematic_rooms,
+            problematic_mobs,
+            context_budget
+        )
+
+        print(f"   Использовано токенов: {used_tokens} / {context_budget}", flush=True)
+
         # Формируем feedback для LLM
         if score < 60:
             llm_feedback = "Качество низкое. Улучши описания, добавь детали атмосферы."
@@ -184,11 +465,16 @@ def refiner_agent(
         else:
             llm_feedback = "Качество хорошее. Просто исправь технические ошибки."
 
-        # Генерируем промпт для исправления
+        # Генерируем промпт для исправления (ТОЛЬКО проблемные элементы)
+        import yaml as yaml_lib
+        subset_yaml = yaml_lib.dump({'zone': zone_subset}, allow_unicode=True, default_flow_style=False, sort_keys=False)
+
+        print(f"\n📊 Размер промпта: {len(subset_yaml)} символов (вместо {len(current_yaml)})", flush=True)
+
         prompt = prompts.get_refiner_prompt(
-            zone_yaml=current_yaml,
-            validation_errors=errors,
-            validation_warnings=warnings,
+            zone_yaml=subset_yaml,
+            validation_errors=errors[:10],  # Топ-10 ошибок
+            validation_warnings=warnings[:10],  # Топ-10 warnings
             llm_feedback=llm_feedback,
             iteration=iteration
         )
@@ -199,7 +485,7 @@ def refiner_agent(
             prompt=prompt,
             stage='refiner',
             system=prompts.SYSTEM_DESIGNER,
-            timeout=300  # 5 минут на большие зоны
+            timeout=300
         )
 
         # Извлекаем YAML из ответа
@@ -211,29 +497,23 @@ def refiner_agent(
 
         # Проверяем что YAML парсится
         parsed = safe_parse_yaml(refined_yaml)
-        if parsed is None:
-            print(f"\n⚠️  Исправленный YAML не парсится, используем оригинал", flush=True)
+        if parsed is None or 'zone' not in parsed:
+            print(f"\n⚠️  Исправленный YAML невалиден, используем оригинал", flush=True)
             break
 
-        # КРИТИЧНО: Проверяем что структура сохранена
-        if not isinstance(parsed, dict) or 'zone' not in parsed:
-            print(f"\n⚠️  LLM вернул невалидную структуру (нет корневого 'zone'), используем оригинал", flush=True)
-            print(f"      Ключи в ответе: {list(parsed.keys()) if isinstance(parsed, dict) else type(parsed)}", flush=True)
-            break
+        # Мержим исправления обратно в полную зону
+        print(f"🔄 Мерж исправлений в полную зону...", flush=True)
+        zone_data['zone'] = _merge_refinements(
+            zone_data['zone'],
+            parsed['zone'],
+            problematic_rooms,
+            problematic_mobs
+        )
 
-        # Проверяем обязательные секции
-        zone_data = parsed.get('zone', {})
-        required_sections = ['meta', 'rooms']  # Минимально необходимые
-        missing_sections = [s for s in required_sections if s not in zone_data]
-
-        if missing_sections:
-            print(f"\n⚠️  LLM вернул неполную структуру, отсутствуют секции: {missing_sections}", flush=True)
-            print(f"      Используем оригинал", flush=True)
-            break
-
-        # Обновляем текущую версию
-        current_yaml = refined_yaml
-        print(f"✓ Исправления применены ({len(refined_yaml)} символов)", flush=True)
+        # Сериализуем обратно в YAML
+        import yaml as yaml_lib
+        current_yaml = yaml_lib.dump(zone_data, allow_unicode=True, default_flow_style=False, sort_keys=False, width=120)
+        print(f"✓ Исправления применены", flush=True)
 
     # Сохраняем улучшенную версию
     output_file = zone_file.parent / f"{zone_file.stem}_refined.yaml"
