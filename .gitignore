@@ -13,6 +13,9 @@ __pycache__/
 # LangGraph checkpoints
 .checkpoints/
 
+# Zone generator temp files
+.last_thread_id
+
 # Temporary files
 *.tmp
 *.log
