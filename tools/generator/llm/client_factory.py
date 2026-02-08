@@ -61,18 +61,17 @@ class LLMClientFactory:
             )
 
         # Модели для провайдера (из конфига или переданные)
-        final_model_config = PROVIDER_MODEL_CONFIGS.get(provider, {}).copy()
-
-        # Override из параметров
-        if model_config:
-            final_model_config.update(model_config)
-
-        # Если указана одна модель для всех этапов
+        # Если указана одна модель для всех этапов - она имеет приоритет
         if model:
             final_model_config = {
                 stage: model
                 for stage in ['idea', 'lore', 'structure', 'rooms', 'mobs', 'objects', 'quests', 'refiner']
             }
+        else:
+            # Иначе берем из конфига и применяем model_config override
+            final_model_config = PROVIDER_MODEL_CONFIGS.get(provider, {}).copy()
+            if model_config:
+                final_model_config.update(model_config)
 
         # Timeout
         if timeout is None:
