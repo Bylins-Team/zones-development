@@ -1,0 +1,1841 @@
+zone:
+  meta:
+    id: zone_tsyganov_livnya
+    name: Тайная деревня Тсюганова
+    author: Zone Generator
+    version: '1.0'
+    description: Маленькая тихая деревушка, страдающая от наводнений и проклятия нечистой
+      силы. Здесь жители ведут скрытный образ жизни, опасаясь пришествия водной нечисти.
+    recommended_level:
+    - 5
+    - 10
+  lore:
+    history: Долгое время деревня Тсюганова стояла на высоком берегу реки, процветая
+      за счет рыбного промысла. Однако в те дни, когда злобная баба Яга поставила
+      на деревню чары, наводнения стали происходить каждый год. Люди начали покидать
+      свои дома, а оставшиеся жители обратились к древним магическим традициям для
+      защиты.
+    folklore_basis: Фольклорные истории о водяных и бабе Яге, которые часто используют
+      вода и наводнения как средство отомстить людям. Поверья о том, что мертвые могут
+      восставать из воды после наводнений.
+    current_state: Теперь деревня Тсюганова погружена во тьму и страх. Жители живут
+      в подвалах и катакомбах, опасаясь нечистой силы, что выходит с реки во время
+      наводнений.
+    conflict: Жителям деревни нужна помощь для разрушения проклятия бабы Яги и освобождения
+      их от водной нечисти. Игрокам предстоит помочь им в этом, исследуя древние ритуалы
+      и преодолевая загадки.
+    key_characters:
+    - name: Иван Тсюганов
+      role: Последний деревенский староста
+      description: Старый мужик, который помнит традиции защиты от наводнений и знает
+        о древних ритуалах.
+    - name: Матрена Невестка
+      role: Жрица воды, изгоняющая нечисть
+      description: Несущая свет в темное время деревни. Она обучает игроков магии
+        водной стихии и помогает справляться с духами реки.
+    atmosphere:
+      sounds:
+      - Шум воды под наводнением
+      - Плач жителей, боящихся за свои жизни
+      smells:
+      - Запах сырой земли и тины от наводненной реки
+      - Гнилостный запах мертвых тел
+      visuals:
+      - Тусклые факелы в подвалах деревни, освещающие только крохотные участки
+      - Вода, переполняющая улицы и дома
+      feeling: Общее ощущение места – тьма и страх. Каждое место напоминает о том,
+        что наводнения близко.
+    secrets:
+    - Заброшенная церковь с древними ритуалами против водной нечисти
+    - Подземный ход к реке, где можно найти духа воды для переговоров.
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Узкий проход, освещенный лишь тусклым светом факела. Вода капает
+      с потолка и собирается на полу.
+
+      Шум воды слышится отовсюду, плач жителей доносится издалека.
+
+      Запах сырой земли и гнилостный запах мертвых тел витают в воздухе.
+
+      '
+    examine: "На стенах видны следы воды и ржавые цепи, возможно использованные для\
+      \ затворов. \nСтены украшены древними символами против водной нечисти.\n"
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+      description: Башня стража.
+    - direction: down
+      to_room: room_003
+      description: Подземный коридор.
+    - direction: south
+      to_room: world_forest_01
+      description: Вход в лес.
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: "Высокая башня с единственным окном, через которое видны туманы над\
+      \ рекой. \nВнутри стоит старый стол и несколько факелов на стенах.\nШум воды\
+      \ и плач жителей слышатся отовсюду.\n"
+    examine: 'На стене висит древний меч, возможно использованный для защиты деревни.
+
+      Надпись на стене указывает на подъемный механизм в башне.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+      description: Темный вход.
+    - direction: up
+      to_room: room_007
+      description: Призрачные уровни башни.
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+      description: Скрытый проход.
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: "Темный подземный коридор с мокрыми стенами и сводчатым потолком.\n\
+      Вода капает из щелей, собравшись в лужи на полу. \nЗапах сырой земли и гнилостного\
+      \ запаха трупов преследует вас.\n"
+    examine: 'На стенах видны следы древних ритуалов против водной нечисти.
+
+      Стены украшены символами, предупреждающими о близости опасности.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: up
+      to_room: room_001
+      description: Темный вход.
+    - direction: north
+      to_room: room_004
+      description: Подземная пещера с боссом.
+    - direction: east
+      to_room: room_005
+      description: Комната с сокровищами.
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Замкнутый туннель, освещенный лишь слабыми факелами. Воздух наполнен
+      запахом пыли и ржавчины. На стенах видны следы старых ловушек — колючие проволоки
+      и расставленные капканы. Шум воды доносится издалека, а эхо шагов усиливает
+      ощущение опасности.
+
+      '
+    examine: 'В углу заметен сломанный механизм ловушки, словно кто-то недавно здесь
+      побывал и попытался его обезвредить. На стенах видны древние надписи — предупреждения
+      о тайных путях.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: south
+      to_room: room_003
+      description: Темный коридор ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Зловещий проход, освещенный лишь тусклыми факелами, ведет дальше.
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+      description: Скрытая дверь ведет к башне стража.
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Темная зала с высокими сводами, освещенная лишь несколькими факелами.
+      Воздух здесь тяжёлый и влажный от сырости. На стенах видны следы древних символов
+      — защитных рун и заклинаний. Звуки воды доносятся издалека.
+
+      '
+    examine: 'В углу заметен старинный сундук, покрытый пылью и паутиной. На стене
+      висит древний меч — возможно, ключ к решению одной из загадок.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+      description: Короткий коридор ведет к подземному туннелю.
+    - direction: north
+      to_room: room_006
+      description: Узкий проход, освещенный факелами, ведет дальше.
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'Темная пещера с высокими сводами и тусклым освещением от факелов.
+      Воздух здесь наполнен запахом сырости и древности. На стенах видны следы старых
+      ритуалов — защитных заклинаний и символов. Звуки воды доносятся издалека, а
+      эхо шагов усиливает ощущение опасности.
+
+      '
+    examine: 'В центре зала заметен древний алтарь с символами водной стихии. Возможно,
+      здесь можно найти ключ к разрушению проклятия бабы Яги.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Темный проход ведет к залу с ловушками.
+    - direction: west
+      to_room: room_005
+      description: Узкий коридор ведет к сокровищнице.
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+      description: Тяжёлая дверь, открывающаяся только после выполнения задания.
+  - id: room_007
+    vnum: 20013
+    name: Вершина башни (секрет)
+    description: 'Верхняя часть высокой башни, где воздух холоднее и тише. Вокруг
+      лишь мрачные облака да слабый свет факела на стене. Звуки ветра проникают через
+      щели.
+
+      Запах сырости и древесины наполняет пространство, а стены покрыты плесенью.
+
+      '
+    examine: 'На полу лежит старая книга с рунами, возможно, ключ к разгадке тайны
+      деревни. В углу виднеется небольшой шкаф с древними предметами.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: down
+      to_room: room_002
+      description: Лестница ведет вниз к башне стража.
+  - id: room_008
+    vnum: 20014
+    name: Подземный тупик
+    description: 'Узкий коридор, заканчивающийся перед каменной стеной. Вода капает
+      с потолка и собирается в лужи на полу.
+
+      Шум воды заполняет пространство, а от стены исходит холодный туман.
+
+      '
+    examine: 'На стене заметен древний рисунок, изображающий водяного. Возможно, это
+      подсказка для ритуала против нечисти реки.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_003
+      description: Узкий коридор ведет дальше.
+  - id: room_009
+    vnum: 20015
+    name: Камера ловушек
+    description: 'Закрытая камера с ржавыми цепями и грубо сколоченными дверьми. Воздух
+      здесь тяжелый, как будто давит на плечи.
+
+      Едкий запах ржавчины и древесины проникает в нос.
+
+      '
+    examine: 'На стене видна выемка для ключа, возможно, ловушка была частью системы
+      защиты деревни от нечистой силы. В углу заметен старый кнут с обрывками веревок.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Камера ведет к другим помещениям.
+  - id: room_010
+    vnum: 20010
+    name: Подземный склад
+    description: 'Тесные каменные стены, покрытые плесенью и паутиной. Вода капает
+      с потолка на мокрый пол.
+
+      Шум воды издалека напоминает приближение наводнения.
+
+      '
+    examine: 'Здесь лежат старые бочки и корзины, забытые временем. На стенах видны
+      древние рисунки с защитными заклинаниями.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_005
+      description: Узкий проход ведет на север.
+  - id: room_011
+    vnum: 20011
+    name: Подземный туннель
+    description: 'Низкие сводчатые потолки и сырой воздух. Вода медленно стекает по
+      стенам.
+
+      Плач жителей слышится издалека, словно крик о помощи.
+
+      '
+    examine: 'На стенах видны следы от ладоней, как будто кто-то пытался выбраться
+      на поверхность. В углу заметна старая железная цепь.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_006
+      description: Туннель ведет на юг.
+  - id: room_012
+    vnum: 20012
+    name: Подземный ход
+    description: 'Узкий проход с мокрыми камнями под ногами. Вода капает со сводов,
+      создавая ледяной ветер.
+
+      Звуки воды и шорох крыльев летучих мышей заполняют пространство.
+
+      '
+    examine: 'Здесь можно заметить следы древних ритуалов - мелкие камни и кости у
+      входа. В глубине хода слышны странные голоса.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_007
+      description: Узкий ход ведет на север.
+  - id: room_013
+    vnum: 20501
+    name: Подземный проход
+    description: 'Тусклый свет факела освещает сырой каменный коридор. Вода капает
+      с потолка, образуя лужи на полу.
+
+      Звуки течения реки слышны вдалеке, смешивающиеся со звуками плача жителей деревни.
+
+      Стены покрыты мхом и плесенью, придавая проходу запах сырой земли и гнилых водорослей.
+
+      '
+    examine: 'На стенах видны древние рисунки, изображающие заклинания против водной
+      нечисти.
+
+      Каменные плиты скользкие от воды, но на некоторых можно заметить следы старинных
+      надписей.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_008
+      description: Продолжение темного коридора.
+  - id: room_014
+    vnum: 20502
+    name: Подземный проход
+    description: 'Узкий каменный проход, освещаемый тусклыми факелами. Вода струится
+      по стенам и полу.
+
+      Слышны приглушенные голоса жителей деревни, боящихся за свои жизни. Шум воды
+      под наводнением усиливается.
+
+      Запах гниющих водорослей и сырой земли проникает в каждый уголок.
+
+      '
+    examine: 'На стенах видны следы древних ритуалов, изображающие защитные символы
+      против водной нечисти.
+
+      Пол скользкий от воды, но на некоторых местах можно заметить старые надписи
+      и рисунки.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_009
+      description: Продолжение узкого коридора.
+  - id: room_015
+    vnum: 20503
+    name: Подземный проход
+    description: 'Темный каменный проход, освещаемый тусклыми факелами. Вода капает
+      с потолка и стекает по стенам.
+
+      Слышны приглушенные голоса жителей деревни, боящихся за свои жизни. Шум воды
+      под наводнением усиливается.
+
+      Запах гниющих водорослей и сырой земли проникает в каждый уголок.
+
+      '
+    examine: 'На стенах видны следы древних ритуалов, изображающие защитные символы
+      против водной нечисти.
+
+      Пол скользкий от воды, но на некоторых местах можно заметить старые надписи
+      и рисунки.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_010
+      description: Продолжение темного коридора.
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 7
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 4d8+6
+      armor_class: 84
+      hitroll: 3
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 490
+      gold:
+        min: 24
+        max: 45
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Водяной дух
+      genitive: Духа воды
+      dative: Духу воды
+      accusative: Духа воды
+      instrumental: Духом воды
+      prepositional: Духе воды
+    level: 9
+    role: TRASH
+    race: SPIRIT
+    description: 'Водяной дух в виде маленького мальчика с голубыми глазами.
+
+      '
+    examine: 'Он держит ракушку, из которой слышится шепот волн.
+
+      '
+    action: 'Дух плачет и тонет в луже под ногами игрока.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 4d8+10
+      armor_class: 82
+      hitroll: 4
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 75
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 810
+      gold:
+        min: 31
+        max: 58
+    spawn:
+      rooms:
+      - room_003
+      - room_011
+      max_count: 4
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Мокрый бродяга
+      genitive: Мокрого бродяги
+      dative: Мокрому бродяге
+      accusative: Мокрого бродягу
+      instrumental: Мокрым бродягой
+      prepositional: Мокром бродяге
+    level: 5
+    role: TRASH
+    race: ZOMBIE
+    description: 'Мокрая фигура в рваных одеждах, с заплесневелыми ранами.
+
+      '
+    examine: 'Сквозь его тело видны следы старого наводнения.
+
+      '
+    action: 'Бродяга хрипит и падает на колени перед игроком.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 3d8+6
+      armor_class: 90
+      hitroll: 2
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      exp: 250
+      gold:
+        min: 17
+        max: 32
+    spawn:
+      rooms:
+      - room_004
+      - room_012
+      max_count: 2
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Водяной чародей
+      genitive: Водяного чародея
+      dative: Водяному чародею
+      accusative: Водяного чародея
+      instrumental: Водяным чародеем
+      prepositional: Водяном чародея
+    level: 10
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Молодой человек в мокрой одежде с блестящими глазами.
+
+      '
+    examine: 'Он держит книгу древних заклинаний, покрытую водорослями.
+
+      '
+    action: 'Чародей шепчет заклинание и вызывает поток воды из воздуха.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d12+21
+      armor_class: 75
+      hitroll: 4
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 80
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_002
+      - room_013
+      max_count: 3
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Страж воды
+      genitive: Стража воды
+      dative: Стражу воды
+      accusative: Стража воды
+      instrumental: Стражем воды
+      prepositional: Страже воды
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Величественная фигура в мокрой броне с короной на голове.
+
+      '
+    examine: 'Он держит древний ключ от затопленного храма.
+
+      '
+    action: 'Страж воды кричит и вызывает волну из-под земли.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+18
+      armor_class: 68
+      hitroll: 5
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 90
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 70
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_014
+      max_count: 1
+  - id: mob_006
+    vnum: 20106
+    name:
+      nominative: Водяной дух
+      genitive: Водяного духа
+      dative: Водяному духу
+      accusative: Водяного духа
+      instrumental: Водным духом
+      prepositional: Водном духе
+    level: 7
+    role: TRASH
+    race: SPIRIT
+    description: 'Светящаяся фигура в форме человека, покрытая каплями воды.
+
+      '
+    examine: 'Вокруг него вьются тонкие струйки воды и блестят капли света.
+
+      '
+    action: 'Водяной дух бормочет древние заклинания, вызывая водную волну.
+
+      '
+    stats:
+      hp: 210
+      damage_dice: 4d8+6
+      armor_class: 65
+      hitroll: 4
+    abilities:
+    - water_wave
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 100
+      electricity: 25
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 30
+      exp: 490
+      gold:
+        min: 24
+        max: 45
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 4
+  - id: mob_007
+    vnum: 20107
+    name:
+      nominative: Трясущийся дух
+      genitive: Трясущего духа
+      dative: Трясущему духу
+      accusative: Трясущего духа
+      instrumental: Трясущим духом
+      prepositional: Трясущем духе
+    level: 9
+    role: TANK
+    race: GHOST
+    description: 'Тускло светящийся призрак с тяжелой броней.
+
+      '
+    examine: 'Его одежда покрыта ржавчиной и пылью от долгого пребывания в воде.
+
+      '
+    action: 'Трясущийся дух начинает кричать, вызывая страх у противников.
+
+      '
+    stats:
+      hp: 270
+      damage_dice: 3d6+9
+      armor_class: 50
+      hitroll: 6
+    abilities:
+    - fear_cry
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -25
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 40
+      exp: 810
+      gold:
+        min: 31
+        max: 58
+    spawn:
+      rooms:
+      - room_003
+      - room_010
+      max_count: 2
+  - id: mob_008
+    vnum: 20108
+    name:
+      nominative: Морская ведьма
+      genitive: Морской ведьмы
+      dative: Морской ведьме
+      accusative: Морскую ведьму
+      instrumental: Морской ведьмой
+      prepositional: Морской ведьме
+    level: 10
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Старая женщина в разодранной одежде, окружённая водяными пузырями.
+
+      '
+    examine: 'Её глаза светятся холодным огоньком, а руки дрожат от магической силы.
+
+      '
+    action: 'Морская ведьма начинает читать древние заклинания, вызывая шторм.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 6d12+21
+      armor_class: 60
+      hitroll: 5
+    abilities:
+    - storm_call
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 75
+      electricity: 25
+    loot:
+      items:
+      - item_id: obj_008
+        chance: 35
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_006
+      - room_012
+      max_count: 3
+  - id: mob_009
+    vnum: 20109
+    name:
+      nominative: Баба Яга
+      genitive: Бабы Яги
+      dative: Бабе Яге
+      accusative: Бабу Ягу
+      instrumental: Бабой Ягой
+      prepositional: Бабе Яге
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Старая ведьма с костылями, покрытая шерстью и кожей.
+
+      '
+    examine: 'Её глаза горят злобным огнем, а вокруг неё вьются тени.
+
+      '
+    action: 'Баба Яга начинает читать древние заклинания, вызывая ужасный шторм.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+18
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - storm_call
+    - fear_cry
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 75
+      electricity: 25
+      cold: 100
+      fire: -25
+    loot:
+      items:
+      - item_id: obj_009
+        chance: 60
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_010
+    vnum: 20110
+    name:
+      nominative: Водяной кентавр
+      genitive: Водяного кентавра
+      dative: Водяному кентавру
+      accusative: Водяного кентавра
+      instrumental: Водным кентавром
+      prepositional: Водном кентавре
+    level: 8
+    role: MELLEE_DMG
+    race: SPIRIT
+    description: 'Полупризрачное тело кентавра, покрытое каплями воды.
+
+      '
+    examine: 'Его рога светятся холодным огнем, а руки держат древнее оружие.
+
+      '
+    action: 'Водяной кентавр начинает бить своим древним мечом.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 6d8+9
+      armor_class: 60
+      hitroll: 7
+    abilities:
+    - water_wave
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 50
+      electricity: 25
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 35
+      exp: 960
+      gold:
+        min: 44
+        max: 83
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 3
+  - id: mob_011
+    vnum: 20105
+    name:
+      nominative: Водяной дух
+      genitive: Водяного духа
+      dative: Водяному духу
+      accusative: Водяного духа
+      instrumental: Водным духом
+      prepositional: Водном духе
+    level: 7
+    role: TRASH
+    race: SPIRIT
+    description: 'Тусклый светящийся силуэт, похожий на человека, но с рыбьими плавниками
+      вместо рук и ног.
+
+      '
+    examine: 'Водяной дух издает тихое плескание воды при каждом движении.
+
+      '
+    action: 'Он исчезает в воде, оставляя лишь легкий след на поверхности.
+
+      '
+    stats:
+      hp: 210
+      damage_dice: 4d8+6
+      armor_class: 68
+      hitroll: 4
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    resistances:
+      water: 50
+      lightning: -20
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 50
+      exp: 490
+      gold:
+        min: 24
+        max: 45
+    spawn:
+      rooms:
+      - room_008
+      - room_014
+      max_count: 2
+  - id: mob_012
+    vnum: 20106
+    name:
+      nominative: Призрачная рыба
+      genitive: Призрачной рыбы
+      dative: Призрачной рыбе
+      accusative: Призрачную рыбу
+      instrumental: Призрачной рыбой
+      prepositional: Призрачной рыбе
+    level: 9
+    role: TRASH
+    race: SPIRIT
+    description: 'Длинное прозрачное существо, напоминающее огромную рыбу.
+
+      '
+    examine: 'Призрачная рыба издает тихий шепот, когда проходит мимо.
+
+      '
+    action: 'Она плавает вокруг игрока и исчезает в воде.
+
+      '
+    stats:
+      hp: 230
+      damage_dice: 4d8+10
+      armor_class: 64
+      hitroll: 5
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    resistances:
+      water: 75
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 30
+      exp: 810
+      gold:
+        min: 31
+        max: 58
+    spawn:
+      rooms:
+      - room_008
+      - room_014
+      max_count: 2
+  - id: mob_013
+    vnum: 20107
+    name:
+      nominative: Водяной вор
+      genitive: Водного вора
+      dative: Водному вору
+      accusative: Водного вора
+      instrumental: Водным вором
+      prepositional: Водном воре
+    level: 10
+    role: ROGUE
+    race: BASIC
+    description: 'Ловкий человек с маской на лице и кинжалами на поясе.
+
+      '
+    examine: 'Водяной вор прячется за каждым углом, готовый напасть внезапно.
+
+      '
+    action: 'Он бросает свои кинжалы в игрока, прежде чем исчезнуть во тьме.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 7d8+13
+      armor_class: 60
+      hitroll: 5
+    abilities:
+    - backstab
+    flags:
+    - AGGRESSIVE
+    resistances:
+      water: 50
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 20
+      exp: 1500
+      gold:
+        min: 70
+        max: 130
+    spawn:
+      rooms:
+      - room_008
+      - room_014
+      max_count: 2
+  - id: mob_014
+    vnum: 20108
+    name:
+      nominative: Водяной маг
+      genitive: Водного мага
+      dative: Водному магу
+      accusative: Водного мага
+      instrumental: Водным магом
+      prepositional: Водном маге
+    level: 12
+    role: MAGE_DMG
+    race: BASIC
+    description: 'Старец в длинной белой одежде, держащий древний свиток.
+
+      '
+    examine: 'Водяной маг изучает заклинания, которые вызывают водную стихию.
+
+      '
+    action: 'Он бросает на игрока мощное водное заклинание.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d12+29
+      armor_class: 58
+      hitroll: 7
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    resistances:
+      water: 75
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 30
+      exp: 2592
+      gold:
+        min: 100
+        max: 187
+    spawn:
+      rooms:
+      - room_008
+      - room_014
+      max_count: 2
+  - id: mob_015
+    vnum: 20109
+    name:
+      nominative: Водяной титан
+      genitive: Водного титана
+      dative: Водному титану
+      accusative: Водного титана
+      instrumental: Водным титаном
+      prepositional: Водном титане
+    level: 15
+    role: BOSS
+    race: BASIC
+    description: 'Массивное существо, покрытое водорослями и ракушками.
+
+      '
+    examine: 'Водяной титан издает громкий рык при приближении игрока.
+
+      '
+    action: 'Он бросает камни в игроков, вызывая мощные взрывы воды.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 7d10+21
+      armor_class: 46
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    resistances:
+      water: 90
+    loot:
+      items:
+      - item_id: obj_015
+        chance: 70
+      exp: 6750
+      gold:
+        min: 262
+        max: 487
+    spawn:
+      rooms:
+      - room_008
+      - room_014
+      max_count: 1
+  - id: mob_016
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 7
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 4d8+6
+      armor_class: 30
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 490
+      gold:
+        min: 24
+        max: 45
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_017
+    vnum: 20102
+    name:
+      nominative: Мокрый леший
+      genitive: Мокрого лешего
+      dative: Мокрому лешему
+      accusative: Мокрого лешего
+      instrumental: Мокрым лешим
+      prepositional: Мокром лешем
+    level: 8
+    role: TRASH
+    race: SPIRIT
+    description: 'Мокрая фигура в изодранной одежде, похожая на человека.
+
+      '
+    examine: 'Его волосы и одежду покрывает толстый слой грязи.
+
+      '
+    action: 'Мокрый леший шепчет проклятия тем, кто осмелился приблизиться к нему.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 4d8+8
+      armor_class: 30
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 50
+      lightning: -25
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 640
+      gold:
+        min: 28
+        max: 52
+    spawn:
+      rooms:
+      - room_004
+      - room_003
+      max_count: 2
+  - id: mob_018
+    vnum: 20103
+    name:
+      nominative: Водяной дух
+      genitive: Водяного духа
+      dative: Водяному духу
+      accusative: Водяного духа
+      instrumental: Водяным духом
+      prepositional: Водяном духе
+    level: 10
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Тусклый светящийся силуэт, похожий на человека.
+
+      '
+    examine: 'Его фигура покрыта водяными каплями и мерцает тихим светом.
+
+      '
+    action: 'Водяной дух призывает потоки воды для атаки врагов.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 6d12+21
+      armor_class: 25
+      hitroll: 8
+    abilities:
+    - water_blast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 75
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 60
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_004
+      - room_012
+      max_count: 1
+  - id: mob_019
+    vnum: 20104
+    name:
+      nominative: Стражник-призрак
+      genitive: Стражника-призрака
+      dative: Стражнику-призраку
+      accusative: Стражника-призрака
+      instrumental: Стражником-призраком
+      prepositional: Стражнике-призраке
+    level: 9
+    role: TANK
+    race: GHOST
+    description: 'Призрачная фигура в старой стражей форме.
+
+      '
+    examine: 'Его доспехи покрыты толстым слоем соли и грязи.
+
+      '
+    action: 'Стражник-призрак призывает других духов для защиты своей территории.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 3d6+9
+      armor_class: 40
+      hitroll: 12
+    abilities:
+    - summon_spirit
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 50
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 70
+      exp: 810
+      gold:
+        min: 31
+        max: 58
+    spawn:
+      rooms:
+      - room_002
+      - room_012
+      max_count: 2
+  - id: mob_020
+    vnum: 20105
+    name:
+      nominative: Водяной царь
+      genitive: Водного царя
+      dative: Водному царю
+      accusative: Водного царя
+      instrumental: Водным царем
+      prepositional: Водном царе
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Величественная фигура, покрытая водой и светом.
+
+      '
+    examine: 'Его одежда из сверкающих чешуй и драгоценных камней.
+
+      '
+    action: 'Водяной царь призывает мощные потоки воды для атаки врагов.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+18
+      armor_class: 35
+      hitroll: 16
+    abilities:
+    - water_torrent
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 80
+      fire: -40
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 80
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_012
+      - room_013
+      max_count: 1
+  - id: mob_021
+    vnum: 20102
+    name:
+      nominative: Грязный водяной
+      genitive: Грязного водяного
+      dative: Грязному водяному
+      accusative: Грязного водяного
+      instrumental: Грязным водяным
+      prepositional: Грязном водяном
+    level: 7
+    role: TRASH
+    race: SPIRIT
+    description: 'Маленький, но злобный дух воды с мутными глазами.
+
+      '
+    examine: 'Его тело покрыто грязью и водорослями.
+
+      '
+    action: 'Грязный водяной шипит и бросает грязь в противника.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 4d8+6
+      armor_class: 65
+      hitroll: 4
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 100
+      fire: -25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 490
+      gold:
+        min: 24
+        max: 45
+    spawn:
+      rooms:
+      - room_008
+      - room_010
+      max_count: 2
+  - id: mob_022
+    vnum: 20103
+    name:
+      nominative: Деревянный страж
+      genitive: Деревянного стража
+      dative: Деревянному стражу
+      accusative: Деревянного стража
+      instrumental: Деревянным стражем
+      prepositional: Деревянном страже
+    level: 9
+    role: TANK
+    race: CONSTRUCT
+    description: 'Высокий деревянный идол с острыми когтями.
+
+      '
+    examine: 'Идёт по коридорам, охраняя входы в подземелье.
+
+      '
+    action: 'Деревянный страж громко хлопает дверьми, призывая других стражей.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 3d6+9
+      armor_class: 40
+      hitroll: 6
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 30
+      exp: 810
+      gold:
+        min: 31
+        max: 58
+    spawn:
+      rooms:
+      - room_006
+      - room_012
+      max_count: 1
+  - id: mob_023
+    vnum: 20104
+    name:
+      nominative: Мокрая ведьма
+      genitive: Мокрой ведьмы
+      dative: Мокрой ведьме
+      accusative: Мокрую ведьму
+      instrumental: Мокрой ведьмой
+      prepositional: Мокрой ведьме
+    level: 10
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Женщина с длинными мокрыми волосами и злобным взглядом.
+
+      '
+    examine: 'Она держит в руках кристаллы воды, излучающие холодное свечение.
+
+      '
+    action: 'Мокрая ведьма шепчет заклинания, вызывая ледяные стрелы.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 6d12+21
+      armor_class: 75
+      hitroll: 8
+    abilities:
+    - ice_blast
+    - water_ball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 40
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_009
+      - room_013
+      max_count: 2
+  - id: mob_024
+    vnum: 20105
+    name:
+      nominative: Леший-хранитель
+      genitive: Лешего-хранителя
+      dative: Лешему-хранителю
+      accusative: Лешего-хранителя
+      instrumental: Лешим-хранителем
+      prepositional: Лешем-хранителе
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Старый леший с корявой бородой и кривыми зубами.
+
+      '
+    examine: 'Его глаза светятся мудростью веков, а тело покрыто растительностью.
+
+      '
+    action: 'Леший-хранитель рычит и земля под ним начинает дрожать.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+18
+      armor_class: 50
+      hitroll: 10
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 30
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_007
+      - room_014
+      max_count: 1
+  - id: mob_025
+    vnum: 20106
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 8
+    role: TRASH
+    race: GHOST
+    description: 'Призрак в изодранной рубахе с мешком за спиной.
+
+      '
+    examine: 'Его тело пронизано свечением, как будто он светится изнутри.
+
+      '
+    action: 'Призрачный рудокоп рычит и бросает камни в противника.
+
+      '
+    stats:
+      hp: 270
+      damage_dice: 4d8+8
+      armor_class: 65
+      hitroll: 4
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 30
+      exp: 640
+      gold:
+        min: 28
+        max: 52
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 2
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    wear_slots:
+    - HOLD
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: TREASURE
+    name:
+      nominative: Зелье соленого ветра
+      genitive: Зелья соленого ветра
+      dative: Зелью соленого ветра
+      accusative: Зелье соленого ветра
+      instrumental: Зельем соленого ветра
+      prepositional: Зелье соленого ветра
+    description: 'Зеленоватая жидкость, наполненная свежим морским бризом.
+
+      '
+    examine: 'Жидкость пахнет солью и свежестью моря.
+
+      '
+    value: 20
+    weight: 0.1
+    material: FLUID
+    effects:
+    - type: HEAL
+      amount: 20
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_003
+    vnum: 20203
+    type: TREASURE
+    name:
+      nominative: Ключ от соляной пещеры
+      genitive: Ключа от соляной пещеры
+      dative: Ключу от соляной пещеры
+      accusative: Ключ от соляной пещеры
+      instrumental: Ключем от соляной пещеры
+      prepositional: От соляной пещеры
+    description: 'Простой ключ из серебра, покрытый мелкими сольными кристаллами.
+
+      '
+    examine: 'Ключ выглядит как бы натертыми солью.
+
+      '
+    value: 10
+    weight: 0.2
+    material: SILVER
+    flags:
+    - KEY
+  - id: obj_004
+    vnum: 20204
+    type: WEAPON
+    name:
+      nominative: Сольный кинжал
+      genitive: Сольного кинжала
+      dative: Сольному кинжалу
+      accusative: Сольной кинжал
+      instrumental: Сольным кинжалом
+      prepositional: Сольном кинжале
+    description: 'Клинок из тончайшей соли, острый и ледяной на ощупь.
+
+      '
+    examine: 'Оружие кажется холодным и острым.
+
+      '
+    value: 150
+    weight: 2.5
+    material: CRYSTAL
+    wear_slots:
+    - WEAPON
+    affects:
+    - type: DAMAGE
+      amount: 10
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_005
+    vnum: 20205
+    type: ARMOR
+    name:
+      nominative: Сольный браслет
+      genitive: Сольного браслета
+      dative: Сольному браслету
+      accusative: Сольной браслет
+      instrumental: Сольным браслетом
+      prepositional: Сольном браслете
+    description: 'Браслет из ледяных солевых кристаллов, придающий защиту.
+
+      '
+    examine: 'Каждый кристалл браслета кажется холодным и прочным.
+
+      '
+    value: 120
+    weight: 1.5
+    material: CRYSTAL
+    wear_slots:
+    - WEAR
+    affects:
+    - type: ARMOR
+      amount: 5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_006
+    vnum: 20206
+    type: SCROLL
+    name:
+      nominative: Сольный свиток
+      genitive: Сольного свитка
+      dative: Сольному свитку
+      accusative: Сольной свиток
+      instrumental: Сольным свитком
+      prepositional: Сольном свитке
+    description: 'Свиток с рунами, написанными на ледяных кристаллах.
+
+      '
+    examine: 'Руны на свитке кажутся живыми и магическими.
+
+      '
+    value: 30
+    weight: 0.5
+    material: PAPER
+    effects:
+    - type: REPAIR
+      amount: 25
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_007
+    vnum: 20207
+    type: FOOD
+    name:
+      nominative: Сольный хлеб
+      genitive: Сольного хлеба
+      dative: Сольному хлебу
+      accusative: Сольной хлеб
+      instrumental: Сольным хлебом
+      prepositional: Сольном хлебе
+    description: 'Хлеб, приготовленный из соленой муки, наполненный морской свежестью.
+
+      '
+    examine: 'Хлеб имеет непередаваемый вкус соли и свежести моря.
+
+      '
+    value: 10
+    weight: 2.0
+    material: BREAD
+    effects:
+    - type: HEAL
+      amount: 15
+    flags:
+    - FOOD
+  quests:
+  - id: quest_001
+    name: Разрушение проклятия бабы Яги
+    type: KILL
+    description: 'Последний староста деревни Иван Тсюганов просит вас помочь освободить
+      деревню от проклятия бабы Яги. Вам нужно изучить древние ритуалы и уничтожить
+      водную нечисть, чтобы снять заклятие.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_019
+      count: 3
+    - type: COLLECT
+      item: obj_rune
+      count: 5
+    - type: KILL
+      target: mob_024
+      count: 1
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_key_to_boss
+    giver_npc: npc_ivan_tsyganov
+    completion_npc: npc_ivan_tsyganov
+  - id: quest_002
+    name: Спасение бабушки Маши
+    type: ESCORT
+    description: 'Бабушка Маша попала в ловушку призрачных стражников. Вам нужно провести
+      ее до безопасного места, чтобы она смогла продолжить ритуал снятия проклятия.
+
+      '
+    objectives:
+    - type: ESCORT
+      npc: npc_babushka_masha
+      destination_room: room_012
+    rewards:
+      exp: 2500
+      gold: 100
+      items:
+      - obj_healing_potion
+    giver_npc: npc_tsyganov_son
+    completion_npc: npc_babushka_masha
+  - id: quest_003
+    name: Секретная реликвия
+    type: EXPLORE|COLLECT
+    description: 'В секретной комнате под старым кладбищем спрятана древняя реликвия,
+      способная помочь в снятии проклятия. Найдите вход в эту комнату и получите реликвию.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room_id: room_secret
+    - type: COLLECT
+      item: obj_relic
+      count: 1
+    rewards:
+      exp: 3000
+      gold: 150
+      items:
+      - obj_rare_ingredient
+    giver_npc: null
+    completion_npc: null

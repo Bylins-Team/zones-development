@@ -4,7 +4,7 @@ Structure Agent - генерация топологии зоны (граф ко�
 
 from typing import Dict, Set, List
 from collections import deque
-from ..llm import OllamaClient
+from ..llm import create_llm_client
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_json
 from ..config import GENERATION_CONFIG
@@ -141,7 +141,8 @@ def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> 
         raise ValueError("Отсутствует 'lore' в state")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
 
     idea = state['idea']
     lore = state['lore']
@@ -155,7 +156,7 @@ def structure_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> 
     try:
         # Вызов LLM с увеличенным timeout (сложный промпт)
         timeout = GENERATION_CONFIG.get('timeout_structure', 300)
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='structure',
             system=prompts.SYSTEM_DESIGNER,

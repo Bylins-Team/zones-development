@@ -4,7 +4,7 @@ Rooms Agent - генерация описаний комнат (batch processing
 
 import json
 from typing import Dict, List
-from ..llm import OllamaClient, ContextManager
+from ..llm import create_llm_client, ContextManager
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml, user_approve, print_section
 from ..config import GENERATION_CONFIG
@@ -19,7 +19,7 @@ def rooms_agent(
     Генерация описаний комнат (batch по 3 комнаты)
 
     Args:
-        state: State с ключами 'lore', 'structure'
+        state: State с ключами 'lore', 'structure', 'provider'
         interactive: Показывать каждый batch для review
 
     Returns:
@@ -31,7 +31,8 @@ def rooms_agent(
         raise ValueError("Отсутствует 'structure' в state")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
     context_mgr = ContextManager()
 
     lore = state['lore']
@@ -69,14 +70,14 @@ def rooms_agent(
 
         try:
             # Вызов LLM
-            response = ollama.generate(
+            response = llm.generate(
                 prompt=prompt,
                 stage='rooms',
                 system=prompts.SYSTEM_DESIGNER
             )
 
             # Парсинг ответа
-            parsed = safe_parse_yaml(response['content'])
+            parsed = safe_parse_yaml(response['content'], stage='rooms')
 
             # Извлекаем комнаты
             if isinstance(parsed, dict) and 'rooms' in parsed:
@@ -85,6 +86,18 @@ def rooms_agent(
                 batch_rooms = parsed
             else:
                 raise ValueError(f"Неожиданный формат ответа: {type(parsed)}")
+
+            # КРИТИЧНО: Добавляем ID и exits из валидированной структуры
+            # LLM генерирует только описания, ID и exits берем из структуры!
+            for idx, room in enumerate(batch_rooms):
+                if idx < len(batch_info):
+                    room['id'] = batch_info[idx]['id']
+                    room['exits'] = batch_info[idx].get('exits', [])
+                    # Копируем также sector и name если их нет
+                    if 'sector' not in room:
+                        room['sector'] = batch_info[idx].get('sector', 'INSIDE')
+                    if 'name' not in room:
+                        room['name'] = batch_info[idx].get('name', 'Комната')
 
             # Показываем batch для review
             if interactive:
@@ -109,37 +122,8 @@ def rooms_agent(
             print(f"      ✗ Ошибка при генерации batch: {e}")
             raise
 
-    # ВАЖНО: Присваиваем уникальные ID всем комнатам
-    for idx, room in enumerate(all_rooms, start=1):
-        room['id'] = f"room_{idx:03d}"  # room_001, room_002, etc.
-
-    # КРИТИЧНО: Восстанавливаем exits из structure (граф был валидирован!)
-    # LLM мог сгенерировать неправильные exits при создании описаний
-    structure = state.get('structure', {})
-    rooms_graph = structure.get('rooms_graph', [])
-
-    if rooms_graph:
-        print(f"   🔧 Восстановление exits из валидированной структуры...")
-
-        # Создаём маппинг ID → exits из структуры
-        exits_map = {}
-        for room_def in rooms_graph:
-            room_id = room_def.get('id')
-            if room_id and 'exits' in room_def:
-                exits_map[room_id] = room_def['exits']
-
-        # Применяем exits к сгенерированным комнатам
-        fixed_count = 0
-        for room in all_rooms:
-            room_id = room.get('id')
-            if room_id in exits_map:
-                # Заменяем exits на те что были в валидированной структуре
-                room['exits'] = exits_map[room_id]
-                fixed_count += 1
-
-        print(f"   ✓ Восстановлено exits для {fixed_count}/{len(all_rooms)} комнат")
-    else:
-        print(f"   ⚠️  Структура не найдена, exits не восстановлены")
+    # ID и exits уже установлены из структуры в каждом batch (строки 91-101)
+    print(f"   ✓ ID и exits взяты из валидированной структуры для всех {len(all_rooms)} комнат")
 
     # Обновление state
     state['rooms'] = all_rooms

@@ -1,0 +1,2074 @@
+zone:
+  meta:
+    id: suzdal_siege
+    name: Осада Суздаля
+    author: Zone Generator
+    version: '1.0'
+    description: Зона, основанная на легендах о древнерусских осадах и защите родного
+      города. Игроки оказывают помощь защитникам Суздаля против вражеского нашествия.
+    recommended_level:
+    - 13
+    - 18
+  lore:
+    history: Долгое время Суздаль был тихим городком на северо-востоке Руси, известным
+      своими ремесленниками и торговцами. Однако век назад город был атакован врагом
+      из степей, что привело к кровопролитной обороне, о которой до сих пор рассказывают
+      легенды. С тех пор Суздаль стал символом мужества и стойкости русских защитников.
+    folklore_basis: Легенда гласит, что во время осады на помощь городу пришли не
+      только люди, но и духи лесов и рек. Говорят, что домовые помогали ремонтировать
+      стены, а русалки предупреждали о подходе врага через каналы. Существует поверье,
+      что лишь те, кто чисты душой и сильны сердцем, могут присоединиться к обороне.
+    current_state: 'Суздаль снова стоит под угрозой: городские стены испещрены трещинами
+      от предыдущих осад. Защитники ожидают нового нашествия и готовятся бороться
+      с помощью старых традиций и новых союзников.'
+    conflict: Враги, поддерживаемые магическими силами зла, вновь приближаются к Суздали.
+      Защитники города нуждаются в помощи бойцов доказать свою верность Родине и предотвратить
+      падение города.
+    key_characters:
+    - name: Великий стражник Иван
+      role: Главный военачальник защитников Суздаля
+      description: Старый герой, с мечом в руке и гордым взглядом. Он руководит обороной
+        города и обучает новобранцев.
+    - name: Домовой Гришка
+      role: Союзник защитников
+      description: Маленький дух леса, помогающий ремонтировать стены и предупреждать
+        о враге. Он знает каждый закоулок города.
+    - name: Русалка Анна
+      role: Прорицательница
+      description: Сказочная дева, живущая в канале Суздаля. Она предсказывает будущее
+        и дает советы защитникам о том, как противостоять приближающейся опасности.
+    atmosphere:
+      sounds:
+      - Звуки боевых барабанов
+      - Треск стрел из луков
+      smells:
+      - Паленый порох и дым костров
+      visuals:
+      - Стены города, испещренные трещинами от прошлых осад
+      - Каналы с темными водами
+      feeling: Общее ощущение напряжения и угрозы, смешанное с надеждой на победу
+        и защиту Родины
+    secrets:
+    - Сокровища старого князя спрятаны в подземных ходах города
+    - Волшебный амулет силы, созданный древним магом, находится у Великого стражника
+      Ивана
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Тусклый коридор, испещренный трещинами от давнего боя. Стены покрыты
+      мхом и плесенью. Вдали слышны боевые барабаны. Пахнет сыростью и паленой древесиной.
+
+      '
+    examine: 'На стенах видны старые надписи защитников, предупреждающие о враге.
+      Здесь можно разглядеть следы битвы: латники, упавшие на пол сражаясь до последнего
+      вздоха.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+      description: Темный проход ведет к башне стража.
+    - direction: down
+      to_room: room_003
+      description: Узкий ход погружает вас под землю.
+    - direction: south
+      to_room: world_forest_01
+      description: Выйти на улицу и оказаться в лесу.
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: 'Высокая башня с круглыми окнами, пропитанная историей. Внутри темно
+      и прохладно. Стены покрыты древними рунами и символами защиты. Звук барабана
+      вдали.
+
+      '
+    examine: 'На стене видна старая карта города с пометками о предыдущих осадах.
+      Здесь можно заметить следы магических ритуалов, направленных на защиту Суздаля.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+      description: Выйти из башни обратно в коридор.
+    - direction: up
+      to_room: room_007
+      description: Подняться на верхнюю площадку башни.
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: 'Темный, узкий туннель с сырыми стенами. Воздух здесь холоден и влажен.
+      Из глубины доносится слабый шепот воды. Запах сырой земли.
+
+      '
+    examine: 'На стенах видны старые рисунки, изображающие защитников города во время
+      предыдущей осады. Здесь можно найти следы древних подземных ходов.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: up
+      to_room: room_001
+      description: Выйти обратно в коридор.
+    - direction: north
+      to_room: room_004
+      description: Продолжить путь к тайне.
+    - direction: east
+      to_room: room_005
+      flags:
+      - HIDDEN
+      description: Скрытый ход ведет на восток.
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Темный и узкий коридор, испещренный трещинами от времени. Треск
+      под ногами при каждом шаге. Воздух наполнен запахом пыли и ржавчины. Стены украшены
+      сложными механизмами ловушек.
+
+      '
+    examine: 'Механизмы ловушек кажутся древними, но все еще опасными. По углам виднеются
+      останки предыдущих исследователей.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_003
+      description: Выход в подземный коридор.
+    - direction: north
+      to_room: room_006
+      description: Короткий проход к логову босса.
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+      description: Скрытая дверь ведет в башню стража.
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Подземный зал, освещенный тусклыми факелами. Стены украшены драгоценностями
+      и старинными монетами. Звук капающей воды и слабый запах сырости.
+
+      '
+    examine: 'В углу лежит старая шкатулка, возможно, здесь скрываются сокровища древнего
+      князя.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+      description: Выход в подземный коридор.
+    - direction: north
+      to_room: room_006
+      description: Проход к логову босса.
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'Темная пещера с высокими сводами. В центре огромный каменный трон,
+      украшенный древними символами силы. Звук дыхания чудовища и слабый свет от волшебного
+      амулета.
+
+      '
+    examine: 'На стенах видны следы битвы, возможно, здесь когда-то сражался Великий
+      стражник Иван.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Выход в зал с ловушками.
+    - direction: west
+      to_room: room_005
+      description: Проход из сокровищницы.
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+      description: Закрытая лестница ведет наверх, но открывается после победы над
+        боссом.
+  - id: room_007
+    vnum: 20013
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине старинной башни, где враги не могут добраться. Вокруг
+      видны трещины от прошлых боев.
+
+      Слышно тихое гудение ветра и эхо шагов ниже. Пахнет древесиной и мхом. Камень
+      под ногами холодный.
+
+      '
+    examine: 'Здесь можно найти старые доспехи и артефакты прошлых защитников. В центре
+      башни - каменная плита с рунами.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: down
+      to_room: room_002
+      description: Лестница ведет вниз.
+  - id: room_008
+    vnum: 20014
+    name: Подземный ход
+    description: 'Вы находитесь в узком подземном коридоре, где стены покрыты плесенью
+      и паутиной. Впереди видна лишь тьма.
+
+      Слышится слабый шепот воды и капли с потолка. Пахнет сыростью и гнилью. Пол
+      каменный, скользкий от влаги.
+
+      '
+    examine: 'На стенах можно заметить древние рисунки - знаки защитников города.
+      Здесь когда-то проходили тайные встречи.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_003
+      description: Коридор ведет южнее.
+    - direction: north
+      to_room: room_009
+      description: Путь продолжается на север.
+  - id: room_009
+    vnum: 20015
+    name: Зал зеркал
+    description: 'Вы в зале, где стены увешаны старыми зеркалами. В каждом отражении
+      видны разные части коридора.
+
+      Слышатся эхо шагов и тихий шепот. Пахнет пылью и мокрой кожей. Пол каменный,
+      холодный на ощупь.
+
+      '
+    examine: 'Зеркала кажутся немного старомодными - они отражают не только вас, но
+      и прошлое этого места.
+
+      В углу заметно странное устройство с рунами - возможно, волшебная ловушка для
+      нежити.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_008
+      description: Коридор ведет южнее.
+    - direction: north
+      to_room: room_010
+      description: Путь продолжается на север.
+  - id: room_010
+    vnum: 20010
+    name: Подземная ловушка
+    description: 'Темный подвал с каменными стенами и потолком. В воздухе висит запах
+      сырости и ржавчины.
+
+      Слышно тихое капание воды и скрип половиц, словно кто-то бродит поблизости.
+
+      '
+    examine: 'На полу валяются обломки старых ловушек. В углу можно заметить следы
+      крови на камнях.
+
+      Здесь когда-то проходили боевые действия с использованием подземных механизмов.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_009
+      description: Небольшой проход ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Путь к таинственной ловушке, за которой скрывается босс.
+  - id: room_011
+    vnum: 20011
+    name: Подземный тоннель
+    description: 'Темный коридор с узкими стенами и сводчатым потолком. Воздух холодный
+      и сырой.
+
+      Слышно, как где-то вдали стучат копьями и мечами.
+
+      '
+    examine: 'На стенах видны следы камней и стрел. Здесь когда-то проходили ожесточенные
+      бои.
+
+      В глубине тоннеля можно заметить слабое свечение, которое исходит от босса.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_005
+      description: Тоннель ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Путь к таинственной ловушке, за которой скрывается босс.
+  - id: room_012
+    vnum: 20012
+    name: Подземный тайник
+    description: 'Узкий коридор с каменными стенами и потолком. Воздух здесь холодный
+      и сыроватый.
+
+      Слышно, как где-то вдали стучат копьями и мечами.
+
+      '
+    examine: 'На стенах видны следы камней и стрел. Здесь когда-то проходили ожесточенные
+      бои.
+
+      В глубине тайника можно заметить слабое свечение, которое исходит от босса.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_011
+      description: Тоннель ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Путь к таинственной ловушке, за которой скрывается босс.
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 13
+    role: TRASH
+    race: UNDEAD
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+9
+      armor_class: 74
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Стрелок из степей
+      genitive: Стрелка из степей
+      dative: Стрелку из степей
+      accusative: Стрелка из степей
+      instrumental: Стрелком из степей
+      prepositional: Стрелке из степях
+    level: 15
+    role: ARCHER
+    race: HUMAN
+    description: 'Молодой воин с луком и колчаном стрел.
+
+      '
+    examine: 'На его одежде видны следы битв, а глаза полны решимости.
+
+      '
+    action: 'Стрелок из степей направляет лук на цель.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 8d8+16
+      armor_class: 68
+      hitroll: 7
+    abilities:
+    - arrow
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 45
+      exp: 2700
+      gold:
+        min: 73
+        max: 136
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Каменный гигант
+      genitive: Каменного гиганта
+      dative: Каменному гиганту
+      accusative: Каменного гиганта
+      instrumental: Каменным гигантом
+      prepositional: Каменном гиганте
+    level: 17
+    role: TANK
+    race: GIANT
+    description: 'Огромный каменный великан, ступнями разрушающий стены.
+
+      '
+    examine: 'Каждый его шаг сотрясает землю и вызывает трещины в стенах.
+
+      '
+    action: 'Каменный гигант тяжело дышит перед боем.
+
+      '
+    stats:
+      hp: 450
+      damage_dice: 5d6+13
+      armor_class: 62
+      hitroll: 8
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -50
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_006
+      - room_011
+      max_count: 1
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Огненный маг
+      genitive: Огненного мага
+      dative: Огненному магу
+      accusative: Огненного мага
+      instrumental: Огненным магом
+      prepositional: Огненном маге
+    level: 16
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Туманная фигура с оранжевыми глазами и пламенем вокруг.
+
+      '
+    examine: 'Его присутствие наполняет воздух жаром и трепещущим светом.
+
+      '
+    action: 'Огненный маг создает вихрь огня перед собой.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 8d12+32
+      armor_class: 72
+      hitroll: 8
+    abilities:
+    - fireball
+    - lightning
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 50
+      cold: -50
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 35
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_002
+      - room_012
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Ледяная ведьма
+      genitive: Ледяной ведьмы
+      dative: Ледяному ведьме
+      accusative: Ледяную ведьму
+      instrumental: Ледяной ведьмой
+      prepositional: Ледяной ведьме
+    level: 18
+    role: BOSS
+    race: UNDEAD
+    description: 'Холодная фигура в белоснежном одеянии с ледяными глазами.
+
+      '
+    examine: 'Ее присутствие вызывает озноб и покрытые инеем волосы.
+
+      '
+    action: 'Ледяная ведьма замерзает воздух вокруг, готовясь к бою.
+
+      '
+    stats:
+      hp: 500
+      damage_dice: 8d10+25
+      armor_class: 64
+      hitroll: 9
+    abilities:
+    - ice_blast
+    - summon_skeletons
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -100
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 25
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_006
+      - room_013
+      max_count: 1
+  - id: mob_006
+    vnum: 20102
+    name:
+      nominative: Стрелок из степи
+      genitive: Стрелка из степи
+      dative: Стрелку из степи
+      accusative: Стрелка из степи
+      instrumental: Стрелком из степи
+      prepositional: Стрелке из степи
+    level: 15
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин с луком и колчаном за спиной.
+
+      '
+    examine: 'На его одежде видны следы недавних боев.
+
+      '
+    action: 'Стрелок из степи натягивает тетиву, готовый выпустить стрелу.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 6d8+13
+      armor_class: 25
+      hitroll: 8
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      - item_id: obj_003
+        chance: 15
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 2
+  - id: mob_007
+    vnum: 20103
+    name:
+      nominative: Громовой дух
+      genitive: Громового духа
+      dative: Громовому духу
+      accusative: Громового духа
+      instrumental: Громовым духом
+      prepositional: Громовом духе
+    level: 17
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Светящаяся фигура с молниями, исходящими из рук.
+
+      '
+    examine: 'Вокруг него витает атмосфера грозы и опасности.
+
+      '
+    action: 'Громовой дух разражается мощным ударом молнии.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+36
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - lightning_bolt
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      - item_id: obj_005
+        chance: 10
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_007
+      - room_008
+      max_count: 2
+  - id: mob_008
+    vnum: 20104
+    name:
+      nominative: Каменный титан
+      genitive: Каменного титана
+      dative: Каменному титану
+      accusative: Каменного титана
+      instrumental: Каменным титаном
+      prepositional: Каменном титане
+    level: 18
+    role: TANK
+    race: GIANT
+    description: 'Массивная фигура из камня и металла, покрытая ржавчиной.
+
+      '
+    examine: 'Его кожа покрыта древними шрамами от прошлых боев.
+
+      '
+    action: 'Каменный титан медленно шагает вперед, размахивая огромным молотом.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 5d6+14
+      armor_class: 20
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 25
+      - item_id: obj_007
+        chance: 10
+      exp: 3240
+      gold:
+        min: 62
+        max: 117
+    spawn:
+      rooms:
+      - room_009
+      - room_010
+      max_count: 1
+  - id: mob_009
+    vnum: 20105
+    name:
+      nominative: Великий стражник Иван
+      genitive: Великого стражника Ивана
+      dative: Великому стражнику Ивану
+      accusative: Великого стражника Ивана
+      instrumental: Великим стражником Иваном
+      prepositional: Великом стражнике Иване
+    level: 16
+    role: BOSS
+    race: HUMAN
+    description: 'Старый воин с мечом в руках и гордым взглядом.
+
+      '
+    examine: 'На его одежде видны знаки заслуг и ранений.
+
+      '
+    action: 'Великий стражник Иван кричит, призывая своих людей к бою.
+
+      '
+    stats:
+      hp: 500
+      damage_dice: 7d10+24
+      armor_class: 30
+      hitroll: 12
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 40
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 5
+      - item_id: obj_011
+        chance: 20
+      exp: 7680
+      gold:
+        min: 280
+        max: 520
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_010
+    vnum: 20106
+    name:
+      nominative: Теневой разбойник
+      genitive: Теневого разбойника
+      dative: Теневому разбойнику
+      accusative: Теневого разбойника
+      instrumental: Теневым разбойником
+      prepositional: Теневом разбойнике
+    level: 14
+    role: ROGUE
+    race: HUMAN
+    description: 'Молодой человек в темной одежде с кинжалами.
+
+      '
+    examine: 'На его поясе висят несколько небольших мешочков.
+
+      '
+    action: 'Теневой разбойник тихо подкрадывается и бросает кинжал.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 9d8+16
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - backstab
+    - steal
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 25
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 30
+      - item_id: obj_013
+        chance: 10
+      exp: 2940
+      gold:
+        min: 98
+        max: 182
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 2
+  - id: mob_011
+    vnum: 20102
+    name:
+      nominative: Стрелок из Суздаля
+      genitive: Стрелка из Суздаля
+      dative: Стрелку из Суздаля
+      accusative: Стрелка из Суздаля
+      instrumental: Стрелком из Суздаля
+      prepositional: Стрелке из Суздале
+    level: 14
+    role: ARCHER
+    race: HUMAN
+    description: 'Молодой боец с луком в руках и колчаном стрел за спиной.
+
+      '
+    examine: 'Его одежда изношена, но глаз у него острые как иглы.
+
+      '
+    action: 'Стрелок натягивает тетиву и целится в цель.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d8+13
+      armor_class: 34
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 40
+      - item_id: obj_002
+        chance: 30
+      exp: 2352
+      gold:
+        min: 68
+        max: 127
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_012
+    vnum: 20103
+    name:
+      nominative: Гигантский трупокрад
+      genitive: Гигантского трупокрада
+      dative: Гигантскому трупокраду
+      accusative: Гигантского трупокрада
+      instrumental: Гиганским трупокрадом
+      prepositional: Гигантском трупокраде
+    level: 16
+    role: TRASH
+    race: UNDEAD
+    description: 'Зловонное существо, покрытое гнилыми лохмотьями.
+
+      '
+    examine: 'Его глаза горят холодным огнем, несмотря на разлагающееся тело.
+
+      '
+    action: 'Трупокрад рычит и бросается в атаку.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d8+15
+      armor_class: 36
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 45
+      - item_id: obj_004
+        chance: 20
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_008
+      - room_011
+      max_count: 2
+  - id: mob_013
+    vnum: 20104
+    name:
+      nominative: Великий стражник Иван
+      genitive: Великого стражника Ивана
+      dative: Великому стражнику Ивану
+      accusative: Великого стражника Ивана
+      instrumental: Великим стражником Иваном
+      prepositional: Великом стражнике Иване
+    level: 18
+    role: BOSS
+    race: HUMAN
+    description: 'Старый воин с мечом в руках и гордым взглядом.
+
+      '
+    examine: 'На его шлеме видна древняя эмблема защитников Суздаля.
+
+      '
+    action: 'Великий стражник Иван кричит боевой клич, поднимая дух своих соратников.
+
+      '
+    stats:
+      hp: 450
+      damage_dice: 3d8+25
+      armor_class: 30
+      hitroll: 14
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 75
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 25
+      - item_id: obj_006
+        chance: 10
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_002
+      - room_007
+      max_count: 1
+  - id: mob_014
+    vnum: 20105
+    name:
+      nominative: Леший Суздальский
+      genitive: Лешего Суздальского
+      dative: Лешему Суздальскому
+      accusative: Лешего Суздальского
+      instrumental: Лешим Суздальским
+      prepositional: Лешем Суздальском
+    level: 15
+    role: TANK
+    race: SPIRIT
+    description: 'Маленький дух леса с густыми бородой и усами.
+
+      '
+    examine: 'Он держит в руках древнюю палицу, покрытую мхом.
+
+      '
+    action: 'Леший Суздальский кричит на незваных гостей леса.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 2d8+10
+      armor_class: 40
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 75
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 30
+      - item_id: obj_008
+        chance: 20
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_004
+      - room_010
+      max_count: 2
+  - id: mob_015
+    vnum: 20106
+    name:
+      nominative: Маг-пожиратель душ
+      genitive: Мага-пожирателя душ
+      dative: Магу-пожирателю душ
+      accusative: Мага-пожирателя душ
+      instrumental: Магом-пожирателем душ
+      prepositional: Маге-пожирателе душ
+    level: 17
+    role: MAGE_DMG
+    race: UNDEAD
+    description: 'Старик в черной мантии с пустыми глазницами.
+
+      '
+    examine: 'Его руки движутся, создавая сложные заклинания.
+
+      '
+    action: 'Маг-пожиратель душ выпускает поток темного пламени.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 8d12+36
+      armor_class: 45
+      hitroll: 9
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 75
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_009
+        chance: 35
+      - item_id: obj_010
+        chance: 20
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_006
+      - room_011
+      max_count: 1
+  - id: mob_016
+    vnum: 20102
+    name:
+      nominative: Стрелок из степи
+      genitive: Стрелка из степи
+      dative: Стрелку из степи
+      accusative: Стрелка из степи
+      instrumental: Стрелком из степи
+      prepositional: Стрелке из степи
+    level: 15
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин с луком и колчаном стрел.
+
+      '
+    examine: 'На его лице отчетливо видны следы недавнего боя.
+
+      '
+    action: 'Стрелок из степи натягивает тетиву, готовый к бою.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d8+13
+      armor_class: 34
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_002
+      - room_008
+      max_count: 2
+  - id: mob_017
+    vnum: 20103
+    name:
+      nominative: Каменный гигант
+      genitive: Каменного гиганта
+      dative: Каменному гиганту
+      accusative: Каменного гиганта
+      instrumental: Каменным гигантом
+      prepositional: Каменном гиганте
+    level: 17
+    role: TANK
+    race: GIANT
+    description: 'Массивное существо, покрытое каменной коркой.
+
+      '
+    examine: 'Каменный гигант медленно передвигается, словно не замечая присутствия
+      других.
+
+      '
+    action: 'Гигант тяжело дышит и потрясает кулаком.
+
+      '
+    stats:
+      hp: 360
+      damage_dice: 5d6+13
+      armor_class: 28
+      hitroll: 9
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 20
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_003
+      - room_009
+      max_count: 1
+  - id: mob_018
+    vnum: 20104
+    name:
+      nominative: Призрачный лучник
+      genitive: Призрачного лучника
+      dative: Призрачному лучнику
+      accusative: Призрачного лучника
+      instrumental: Призрачным лучником
+      prepositional: Призрачном лучнике
+    level: 16
+    role: ARCHER
+    race: SPIRIT
+    description: 'Призрачная фигура с луком и невидимыми стрелами.
+
+      '
+    examine: 'Вокруг него вьются тонкие прозрачные нити, как будто он состоит из дыма.
+
+      '
+    action: 'Призрачный лучник выпускает невидимые стрелы.
+
+      '
+    stats:
+      hp: 290
+      damage_dice: 9d8+14
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_015
+        chance: 35
+      exp: 3072
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_006
+      - room_010
+      max_count: 2
+  - id: mob_019
+    vnum: 20105
+    name:
+      nominative: Великий стражник Иван
+      genitive: Великого стражника Ивана
+      dative: Великому стражнику Ивану
+      accusative: Великого стражника Ивана
+      instrumental: Великим стражником Иваном
+      prepositional: Великом стражнике Иване
+    level: 18
+    role: BOSS
+    race: HUMAN
+    description: 'Старый воин с мечом в руке и гордым взглядом.
+
+      '
+    examine: 'На его лице отчетливо видны следы многих битв, а на груди - медальон
+      защитника города.
+
+      '
+    action: 'Великий стражник Иван кричит призывом к бою.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 26
+      hitroll: 12
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_016
+        chance: 50
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_002
+      - room_004
+      max_count: 1
+  - id: mob_020
+    vnum: 20106
+    name:
+      nominative: Огненный маг
+      genitive: Огненного мага
+      dative: Огненному магу
+      accusative: Огненного мага
+      instrumental: Огненным магом
+      prepositional: Огненном маге
+    level: 15
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Молодой человек с горящими глазами и книгой заклинаний.
+
+      '
+    examine: 'Его одежда покрыта следами пламени, словно он только что использовал
+      магию.
+
+      '
+    action: 'Огненный маг склоняет голову, собираясь произнести заклинание.
+
+      '
+    stats:
+      hp: 270
+      damage_dice: 8d12+28
+      armor_class: 36
+      hitroll: 8
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 70
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_017
+        chance: 30
+      exp: 4050
+      gold:
+        min: 125
+        max: 234
+    spawn:
+      rooms:
+      - room_006
+      - room_008
+      max_count: 2
+  - id: mob_021
+    vnum: 20102
+    name:
+      nominative: Стрелок из степи
+      genitive: Стрелка из степи
+      dative: Стрелку из степи
+      accusative: Стрелка из степи
+      instrumental: Стрелком из степи
+      prepositional: Стрелке из степи
+    level: 15
+    role: TRASH
+    race: HUMAN
+    description: 'Стремительный воин в лёгкой броне с луком наперевес.
+
+      '
+    examine: 'Его кожаные доспехи украшены символами степного народа.
+
+      '
+    action: 'Стрелок из степи стреляет из лука, целясь в сердце противника.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d8+13
+      armor_class: 40
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 25
+      cold: -10
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 2
+  - id: mob_022
+    vnum: 20103
+    name:
+      nominative: Бронированный гигант
+      genitive: Бронированного гиганта
+      dative: Бронированному гиганту
+      accusative: Бронированного гиганта
+      instrumental: Бронированным гигантом
+      prepositional: Бронированном гиганте
+    level: 18
+    role: TANK
+    race: GIANT
+    description: 'Массивный воин в тяжёлой броне, покрытый шрамами от прошлых сражений.
+
+      '
+    examine: 'Его доспехи украшены рунами защиты и силы.
+
+      '
+    action: 'Бронированный гигант рубит клинком врага.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 5d6+14
+      armor_class: 20
+      hitroll: 9
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -5
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 20
+      exp: 3240
+      gold:
+        min: 62
+        max: 117
+    spawn:
+      rooms:
+      - room_001
+      - room_008
+      max_count: 1
+  - id: mob_023
+    vnum: 20104
+    name:
+      nominative: Леший-хранитель леса
+      genitive: Лешего-хранителя леса
+      dative: Лешему-хранителю леса
+      accusative: Лешего-хранителя леса
+      instrumental: Лешемом-хранителем леса
+      prepositional: Лешеме-хранителе леса
+    level: 16
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Странная фигура, наполовину человек, наполовину дерево.
+
+      '
+    examine: 'Его кожа покрыта корой и листьями, а глаза светятся магией.
+
+      '
+    action: 'Леший-хранитель творит заклинание природной силы.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 8d12+32
+      armor_class: 50
+      hitroll: 8
+    abilities:
+    - cast
+    - summon
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 35
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_010
+      - room_011
+      max_count: 1
+  - id: mob_024
+    vnum: 20105
+    name:
+      nominative: Великий стражник Иван
+      genitive: Великого стражника Ивана
+      dative: Великому стражнику Ивану
+      accusative: Великого стражника Ивана
+      instrumental: Великим стражником Иваном
+      prepositional: Великом стражнике Иване
+    level: 17
+    role: BOSS
+    race: HUMAN
+    description: 'Старый воин в богатых доспехах с мечом, украшенным рунами.
+
+      '
+    examine: 'Его глаза полны опыта и решимости победить.
+
+      '
+    action: 'Великий стражник Иван кричит боевой клич перед атакой.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+22
+      armor_class: 35
+      hitroll: 12
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 100
+      exp: 8670
+      gold:
+        min: 297
+        max: 552
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 1
+  - id: mob_025
+    vnum: 20106
+    name:
+      nominative: Кровавый разбойник
+      genitive: Кровавого разбойника
+      dative: Кровавому разбойнику
+      accusative: Кровавого разбойника
+      instrumental: Кровавым разбойником
+      prepositional: Кровавом разбойнике
+    level: 14
+    role: ROGUE
+    race: HUMAN
+    description: 'Босой воин с кровью на руках и яростным взглядом.
+
+      '
+    examine: 'Его тело покрыто ранами от ближнего боя.
+
+      '
+    action: 'Кровавый разбойник атакует противника клинком.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 9d8+16
+      armor_class: 60
+      hitroll: 8
+    abilities:
+    - stab
+    - backstab
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 25
+      cold: -15
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 40
+      exp: 2940
+      gold:
+        min: 98
+        max: 182
+    spawn:
+      rooms:
+      - room_006
+      - room_008
+      max_count: 3
+  - id: mob_026
+    vnum: 20102
+    name:
+      nominative: Стрелок-бродяга
+      genitive: Стрелка-бродяги
+      dative: Стрелку-бродяге
+      accusative: Стрелка-бродягу
+      instrumental: Стрелком-бродягой
+      prepositional: Стрелке-бродяге
+    level: 14
+    role: ARCHER
+    race: HUMAN
+    description: 'Странствующий лучник с луком из дуба.
+
+      '
+    examine: 'Его кожаный пояс украшен множеством мелких карманов и ножен для стрел.
+
+      '
+    action: 'Лучник быстро натягивает тетиву, готовясь к битве.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d8+13
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 45
+      - item_id: obj_003
+        chance: 15
+      exp: 2352
+      gold:
+        min: 68
+        max: 127
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 2
+  - id: mob_027
+    vnum: 20103
+    name:
+      nominative: Каменный гигант
+      genitive: Каменного гиганта
+      dative: Каменному гиганту
+      accusative: Каменного гиганта
+      instrumental: Каменным гигантом
+      prepositional: Каменном гиганте
+    level: 16
+    role: TANK
+    race: GIANT
+    description: 'Массивная фигура из камня и железа.
+
+      '
+    examine: 'Его тело покрыто мозолями от постоянного сражения.
+
+      '
+    action: 'Каменный гигант медленно, но мощно атакует своим огромным молотом.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 4d6+15
+      armor_class: 25
+      hitroll: 8
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      - item_id: obj_005
+        chance: 20
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_006
+      - room_012
+      max_count: 1
+  - id: mob_028
+    vnum: 20104
+    name:
+      nominative: Темный маг
+      genitive: Темного мага
+      dative: Темному магу
+      accusative: Темного мага
+      instrumental: Темным магом
+      prepositional: Темном маге
+    level: 17
+    role: MAGE_DMG
+    race: UNDEAD
+    description: 'Печальный дух с пепельными волосами и сверкающими глазами.
+
+      '
+    examine: 'Его одежда из чёрного бархата украшена магическими символами.
+
+      '
+    action: 'Темный маг начинает творить заклинание, выпуская поток энергии.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 8d12+36
+      armor_class: 45
+      hitroll: 6
+    abilities:
+    - fireball
+    - lightning
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+      cold: -10
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 35
+      - item_id: obj_007
+        chance: 10
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_005
+      - room_009
+      max_count: 2
+  - id: mob_029
+    vnum: 20105
+    name:
+      nominative: Вечный стражник
+      genitive: Вечного стражника
+      dative: Вечному стражнику
+      accusative: Вечного стражника
+      instrumental: Вечным стражником
+      prepositional: Вечном стражнике
+    level: 18
+    role: BOSS
+    race: SPIRIT
+    description: 'Старый воин с мечом, покрытым рунами.
+
+      '
+    examine: 'Его доспехи из серебра и золота сверкают в темноте.
+
+      '
+    action: 'Вечный стражник наносит удар своим магическим мечом.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 20
+      hitroll: 9
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 35
+      cold: 15
+    loot:
+      items:
+      - item_id: obj_008
+        chance: 60
+      - item_id: obj_009
+        chance: 20
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_030
+    vnum: 20106
+    name:
+      nominative: Теневой разбойник
+      genitive: Теневого разбойника
+      dative: Теневому разбойнику
+      accusative: Теневого разбойника
+      instrumental: Теневым разбойником
+      prepositional: Теневом разбойнике
+    level: 15
+    role: ROGUE
+    race: HUMAN
+    description: 'Скрывающийся в тени боец с кинжалами.
+
+      '
+    examine: 'Его кожаные перчатки украшены серебряными накладками.
+
+      '
+    action: 'Теневой разбойник прячется и готовится к следующему удару.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 10d8+15
+      armor_class: 40
+      hitroll: 7
+    abilities:
+    - stealth
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 25
+      cold: 10
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 40
+      - item_id: obj_011
+        chance: 20
+      exp: 3375
+      gold:
+        min: 105
+        max: 195
+    spawn:
+      rooms:
+      - room_003
+      - room_007
+      max_count: 3
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: соляному кристаллу
+      accusative: соляной кристалл
+      prepositional: в соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: TREASURE
+    name:
+      nominative: Камень огня
+      genitive: камня огня
+      dative: камню огня
+      accusative: камень огня
+      prepositional: в камне огня
+    description: 'Камень, источающий жар и свет. Его тепло может согреть даже в самой
+      холодной пещере.
+
+      '
+    examine: 'Значительное количество тепла исходит от этого камня.
+
+      '
+    value: 100
+    weight: 2
+    material: CRYSTAL
+    affects:
+      strength: 2
+      armor: -3
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_003
+    vnum: 20203
+    type: POTION
+    name:
+      nominative: Пotion of Healing
+      genitive: potiona of healing
+      dative: potione of healing
+      accusative: potionem of healing
+      prepositional: in potione of healing
+    description: 'Бутылка с зеленой жидкостью, которая может восстановить здоровье.
+
+      '
+    examine: 'Жидкость в бутылке выглядит чистой и безопасной для употребления.
+
+      '
+    value: 20
+    weight: 0.5
+    material: GLASS
+    affects:
+      health: 10
+    flags:
+    - HEALING
+  - id: obj_004
+    vnum: 20204
+    type: SCROLL
+    name:
+      nominative: Scroll of Fireball
+      genitive: scrolla of fireball
+      dative: scrolli of fireball
+      accusative: scrollum of fireball
+      prepositional: in scrollu of fireball
+    description: 'Свиток, содержащий заклинание огненной шаровой молнии.
+
+      '
+    examine: 'Заклинание на свитке кажется мощным и опасным.
+
+      '
+    value: 50
+    weight: 0.1
+    material: PAPER
+    affects:
+      spell: fireball
+      damage: 20
+    flags:
+    - SPELL
+  - id: obj_005
+    vnum: 20205
+    type: KEY
+    name:
+      nominative: Ключ от тайника
+      genitive: ключа от тайника
+      dative: ключу от тайника
+      accusative: ключ от тайника
+      prepositional: в ключе от тайника
+    description: 'Металлический ключ, обшарпанный и покрытый пылью.
+
+      '
+    examine: 'Ключ выглядит старым и надежным.
+
+      '
+    value: 15
+    weight: 0.2
+    material: METAL
+    affects: null
+    flags:
+    - UNIQUE
+  - id: obj_006
+    vnum: 20206
+    type: WEAPON
+    name:
+      nominative: Каменный меч
+      genitive: каменного меча
+      dative: каменному мечу
+      accusative: каменным мечом
+      prepositional: в каменном мече
+    description: 'Каменный меч, покрытый ржавчиной. Металлическая обуховая часть выглядит
+      старой и потрепанной.
+
+      '
+    examine: 'Оружие ощущается тяжелым и мощным.
+
+      '
+    value: 30
+    weight: 4
+    material: STONE
+    affects:
+      damage: 12
+      strength: 2
+    flags:
+    - MAGIC
+    - UNIQUE
+  - id: obj_007
+    vnum: 20207
+    type: ARMOR
+    name:
+      nominative: Каменная броня
+      genitive: каменной брони
+      dative: каменной броне
+      accusative: каменной броней
+      prepositional: в каменной броне
+    description: 'Броня из обломков кристалла, скрепленная магической силой.
+
+      '
+    examine: 'Каменная броня кажется прочной и защитной.
+
+      '
+    value: 40
+    weight: 6
+    material: CRYSTAL
+    affects:
+      armor: 5
+      strength: 1
+    flags:
+    - MAGIC
+    - UNIQUE
+  - id: obj_008
+    vnum: 20208
+    type: FOOD
+    name:
+      nominative: Кусок мяса
+      genitive: куска мяса
+      dative: кушку мясу
+      accusative: кусок мяса
+      prepositional: в куске мяса
+    description: 'Сухой и засохший кусок мяса.
+
+      '
+    examine: 'Мясо выглядит старым, но все еще съедобным.
+
+      '
+    value: 10
+    weight: 2
+    material: MEAT
+    affects:
+      health: 5
+    flags:
+    - FOOD
+  quests:
+  - id: quest_001
+    name: Вечный Стражник и Запретная Комнатка
+    type: KILL
+    description: 'Великий стражник Иван, последний защитник Суздаля, попросил о помощи.
+      Недавно в подземельях города появился злобный Вечный Стражник, который угрожает
+      его жизни и безопасности всего города. Вам необходимо спуститься в подземелья,
+      найти и убить Вечного стражника.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_029
+      count: 1
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_reward_weapon
+      - obj_reward_armor
+    giver_npc: npc_veteran_steward
+    completion_npc: npc_veteran_steward
+  - id: quest_002
+    name: Сокровища Лешия
+    type: COLLECT
+    description: 'Суздальский леший, хранитель местных лесов и подземелий, попросил
+      о помощи. Он утверждает, что в недрах города спрятаны древние сокровища его
+      предков. Вам необходимо собрать три артефакта: Осколок Луны, Звезда Дня и Сердце
+      Земли.
+
+      '
+    objectives:
+    - type: COLLECT
+      item: obj_lunar_fragment
+      count: 1
+    - type: COLLECT
+      item: obj_sun_star
+      count: 1
+    - type: COLLECT
+      item: obj_heart_of_the_earth
+      count: 1
+    rewards:
+      exp: 2500
+      gold: 100
+      items:
+      - obj_reward_gem
+    giver_npc: npc_leshy_suzdalsky
+    completion_npc: npc_leshy_suzdalsky
+  - id: quest_003
+    name: Запретная Комнатка
+    type: EXPLORE
+    description: 'В подземельях Суздаля есть легенда о запретной комнатке, которую
+      никто не осмелился исследовать. Говорят, что там спрятаны древние тайны и редкие
+      артефакты. Вам нужно найти эту комнату и изучить её.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room_id: room_secret_room
+    rewards:
+      exp: 1500
+      gold: 75
+      items:
+      - obj_reward_rare
+    giver_npc: ''
+    completion_npc: ''

@@ -3,7 +3,7 @@ Objects Agent - генерация объектов (лут, экипировк�
 """
 
 from typing import Dict
-from ..llm import OllamaClient, ContextManager
+from ..llm import create_llm_client, ContextManager
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml
 
@@ -26,7 +26,8 @@ def objects_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Di
         raise ValueError("Отсутствует 'idea' в state")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
     context_mgr = ContextManager()
 
     lore = state['lore']
@@ -46,14 +47,14 @@ def objects_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Di
 
     try:
         # Вызов LLM
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='objects',
             system=prompts.SYSTEM_DESIGNER
         )
 
         # Парсинг ответа
-        parsed = safe_parse_yaml(response['content'])
+        parsed = safe_parse_yaml(response['content'], stage='objects')
 
         # Извлекаем объекты
         if isinstance(parsed, dict) and 'objects' in parsed:

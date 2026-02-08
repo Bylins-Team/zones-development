@@ -1,0 +1,1521 @@
+zone:
+  meta:
+    id: zone_russian_winter_forest
+    name: Зимний лес Велеса
+    author: Zone Generator
+    version: '1.0'
+    description: Среди снежных бурь и туманов скрывается древний лес, покровительствуемый
+      славянским богом Велесом. Здесь обитают духи природы, а в глубине ждет испытание
+      для тех, кто готов рискнуть.
+    recommended_level:
+    - 8
+    - 12
+  lore:
+    history: В давние времена, в глубинах леса, где встречались тропы древних путников,
+      стояла деревня Ярильск, посвященная богу Яриле. В те времена зимний ритуал Ярилы
+      был важнейшим событием года, приносящим тепло и плодородие после суровой зимы.
+      Однако вскоре после одного из таких празднеств деревня исчезла в снежной буре,
+      а ее место занял лес Велеса.
+    folklore_basis: Славянский ритуал Ярилы, посвященный богу зимы и весны. Согласно
+      поверьям, после праздника Ярилы люди должны были соблюдать особые правила, чтобы
+      избежать злых духов и нечисти. Велес считается покровителем путников и путешествий,
+      его помощь нужна тем, кто отправляется в опасное предприятие.
+    current_state: Теперь лес Велеса притягивает к себе путников со всех сторон. Здесь
+      обитают духи-привидения и зимние сущности, которые появляются после праздника
+      Ярилы. Местные жители боятся заходить в этот лес и рассказывают истории о том,
+      как там можно встретить заблудшие души.
+    conflict: Среди этих опасностей находится древнее ритуальное снаряжение, необходимое
+      для проведения праздника Ярилы. Без него зима может стать бесконечной и суровой,
+      а весна никогда не наступит. Игрокам предстоит найти это снаряжение, чтобы вернуть
+      равновесие в лесу.
+    key_characters:
+    - name: Князь Святослав
+      role: Призыватель к празднику Ярилы
+      description: Видимый лишь избранным, князь призывает путешественников помочь
+        в ритуале. Он дает ключевые указания и задания.
+    - name: Святогор
+      role: Охотник на зимних дух-привидений
+      description: Бывший воин, который теперь охотится за духами из леса Велеса.
+        Предоставляет советы и помощь тем, кто готов к битве.
+    atmosphere:
+      sounds:
+      - Шорох снега под ногами
+      - Ветер шепчет сквозь ветви
+      smells:
+      - Холодный воздух лесной зимы
+      - Запах древнего пламени из заброшенных очагов
+      visuals:
+      - Свечение магических источников, освещающих тропинки
+      - Туман, скрывающий дальнюю перспективу
+      feeling: Ощущение опасности и одиночества в суровой зимней тишине
+    secrets:
+    - Скрытая пещера с древним озером, где духи-привидения проявляются особенно сильно.
+    - Заброшенный храм Ярилы, в котором можно найти ритуальное снаряжение.
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Темная пещера с холодными каменными стенами. Шорох снега под ногами,
+      ветер шепчет сквозь ветви.
+
+      Холодный воздух лесной зимы, запах древнего пламени из заброшенных очагов. Ощущение
+      опасности и одиночества.
+
+      '
+    examine: 'Вход тонкой трещиной прорезает стену пещеры. Стены покрыты снежными
+      наслоениями, а в глубине виднеется свет магических источников.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+    - direction: down
+      to_room: room_003
+    - direction: south
+      to_room: world_forest_01
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: 'Высокая башня с тусклыми окнами и старыми доспехами. Шорох ветра,
+      который проходит сквозь щели.
+
+      Холодный воздух лесной зимы, запах древнего пламени из заброшенных очагов. Ощущение
+      опасности и одиночества.
+
+      '
+    examine: 'Башня выглядит заброшенной, но в одном углу виден старый фонарь с тлеющим
+      факелом.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+    - direction: up
+      to_room: room_007
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: 'Узкий подземный коридор с мокрыми каменными стенами. Шорох воды
+      по камням, эхо шагов.
+
+      Холодный воздух лесной зимы, запах сырости и плесени. Ощущение опасности и одиночества.
+
+      '
+    examine: 'На стенах видны следы древних наскальных рисунков и надписей на старославянском
+      языке.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: up
+      to_room: room_001
+    - direction: north
+      to_room: room_004
+    - direction: east
+      to_room: room_005
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Зал темный и холодный, пол покрыт толстым слоем пыли. Стены украшены
+      древними рунами и узорами, но видно, что они повреждены временем. Воздух наполнен
+      металлическим запахом старого железа и гниющей древесины. Шорох снега слышится
+      издалека, словно кто-то бродит по лесу за пределами зала.
+
+      '
+    examine: 'В углу заметна ржавая ловушка на цепях, готовая к действию при малейшем
+      движении. Узоры на стенах кажутся знакомыми, возможно, это древние символы защиты
+      от нечисти. Здесь можно увидеть следы битвы: поврежденные щиты и мечи.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Зал наполнен свечами и факелами, отражающими мягкий свет с монетами
+      и драгоценностями на полу. Стены украшены старыми портретами богатых людей прошлого
+      времени. Воздух здесь пропитан ароматом благовоний и сладким запахом меда. Шепот
+      ветра доносится издалека, словно кто-то наблюдает за каждым шагом.
+
+      '
+    examine: 'На стенах видны тайники с древними монетами и драгоценностями. Среди
+      них можно найти редкие артефакты, которые могут быть полезными в битве против
+      нечисти. Здесь также заметен запечатанный сундук с надписью на древнем языке.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'Зал огромен и наполнен мрачной атмосферой. Пол покрыт костями и
+      старыми доспехами, стены украшены рунами и таинственными символами. Воздух здесь
+      пропитан запахом крови и смерти. Шум битвы доносится издалека, словно кто-то
+      уже вступил в бой.
+
+      '
+    examine: 'Здесь можно увидеть огромные камни со старыми рунами, которые кажутся
+      знаками защиты от нечисти. В углу заметен заброшенный алтарь с остатками зажженных
+      свечей и дымящихся благовоний. Среди костей можно найти древние артефакты.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_004
+    - direction: west
+      to_room: room_005
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+  - id: room_007
+    vnum: 20014
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине древней башни, где воздух холоден и пронизан ветром.
+      Вокруг лишь бескрайние леса и снежные холмы.
+
+      Слышны далекие шепоты ветра, а запах древнего камня смешивается со свежим снегом.
+
+      '
+    examine: 'Здесь виднеются следы недавней битвы. На полу лежат обломки магических
+      артефактов и оружие старых времен.
+
+      В центре комнаты укреплена ступенька, ведущая к более глубоким уровням.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: down
+      to_room: room_002
+  - id: room_008
+    vnum: 20015
+    name: Подземный туннель
+    description: 'Вы находитесь в узком подземном туннеле, освещенном лишь слабым
+      светом издалека. Путь идет к югу и северу.
+
+      Воздух здесь холодный и сыроватый, а звуки эхом отдаются от каменных стен.
+
+      '
+    examine: 'Стены туннеля покрыты древними рисунками и надписями. Кое-где видны
+      следы магии в виде светящихся узоров.
+
+      Запах сырости смешивается с ароматом земли.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_009
+  - id: room_009
+    vnum: 20016
+    name: Зал с ритуалами
+    description: 'Вы попали в большой подземный зал, где когда-то проводились магические
+      ритуалы. Воздух здесь пропитан древней энергией.
+
+      Шепот ветра и эхо шагов заполняют пространство, а запахи прошлого смешиваются
+      с теплым светом от близлежащего источника.
+
+      '
+    examine: 'В центре зала виднеется старый алтарь с остатками ритуальных предметов.
+      На стенах заметны древние символы и заклинания.
+
+      Стены покрыты мхом, а пол скользкий от влаги.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_008
+    - direction: east
+      to_room: room_010
+  - id: room_010
+    vnum: 20001
+    name: Подземный лабиринт
+    description: 'Темные коридоры уходят вглубь, скрывающиеся за каждым поворотом.
+      Шорох снега под ногами и эхо шагов наполняют воздух. Холодный зимний запах проникает
+      издалека. Стены покрыты мхом и плесенью, ткань времени ощущается на каждом камне.
+
+      '
+    examine: 'На стенах видны древние наскальные рисунки и символы Ярилы. Вдоль коридоров
+      разбросаны обломки старых ловушек. Несколько тайников с пустыми ящиками указывают
+      на то, что здесь когда-то хранились ценные предметы.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_009
+    - direction: north
+      to_room: room_011
+  - id: room_011
+    vnum: 20002
+    name: Подземное хранилище
+    description: 'Помещение с высокими сводами, облицованными камнем. В центре — старый
+      деревянный стол и несколько пустых ящиков. Шорох снега доносится издалека, ветер
+      шепчет сквозь щели в стенах. Запах древнего пламени напоминает о былых временах.
+
+      '
+    examine: 'На столе лежит старая книга с рисунками ритуальных предметов Ярилы.
+      В углу заметно следы от ловушки, которая когда-то здесь стояла.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_010
+    - direction: east
+      to_room: room_012
+  - id: room_012
+    vnum: 20003
+    name: Подземный лабиринт
+    description: 'Коридоры извилиста и узки, ведут к неизвестным глубинам. Шорох снега
+      под ногами и тихий шепот ветра наполняют воздух. Запах древнего пламени и мха
+      проникает во все углы. Стены покрыты мхом, камни скользкие от сырости.
+
+      '
+    examine: 'Вдоль стен видны следы от древних ловушек и тайники с пустыми ящиками.
+      Каменные стены украшены наскальными рисунками Ярилы и Велеса.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_011
+    - direction: north
+      to_room: room_013
+  - id: room_013
+    vnum: 20051
+    name: Подземный хранилище
+    description: 'Темные стены подземного хранилища отражают слабый свет факела. Здесь
+      хранятся древние сокровища и ритуальные предметы. Шорох снега доносится издалека,
+      хотя в этой глубине леса он не должен быть слышен. Воздух холодный и сырой,
+      пахнет древним пламенем и магией.
+
+      '
+    examine: 'На стенах видны следы бывших владельцев, а также старые надписи на древнерусском
+      языке. Здесь можно найти ритуальное снаряжение для праздника Ярилы.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_012
+    - direction: east
+      to_room: room_014
+  - id: room_014
+    vnum: 20052
+    name: Подземный лабиринт
+    description: 'Лабиринтные коридоры тянутся во все стороны, создавая ощущение бесконечности.
+      Шорох снега под ногами усиливается в этой глубине. Воздух холодный и сыроватый,
+      пахнет древним пламенем из заброшенных очагов. Туман скрывает дальнюю перспективу.
+
+      '
+    examine: 'В некоторых местах видны следы борьбы с зимними духами-привидениями.
+      Здесь можно найти ритуальное снаряжение для праздника Ярилы, но также стоит
+      быть осторожным - ловушки и секретные проходы встречаются часто.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_013
+    - direction: north
+      to_room: room_006
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 10
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+7
+      armor_class: 70
+      hitroll: 5
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Ледяной дух
+      genitive: Ледяного духа
+      dative: Ледяному духу
+      accusative: Ледяного духа
+      instrumental: Ледяным духом
+      prepositional: Ледяном духе
+    level: 12
+    role: TRASH
+    race: SPIRIT
+    description: 'Маленький снежный комок, который двигается как живой.
+
+      '
+    examine: 'Он оставляет за собой следы льда на земле.
+
+      '
+    action: 'Ледяной дух тает и снова возникает рядом с врагом.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 5d8+11
+      armor_class: 64
+      hitroll: 6
+    abilities:
+    - freeze
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_003
+      - room_008
+      max_count: 2
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Зимний леший
+      genitive: Зимнего лешего
+      dative: Зимнему лешему
+      accusative: Зимного лешего
+      instrumental: Зимным лешемом
+      prepositional: Зимном лешеме
+    level: 10
+    role: TANK
+    race: BEASTMAN
+    description: 'Уродливый человек с деревянными частями тела.
+
+      '
+    examine: 'Его глаза горят холодным огнем, а руки покрыты корой дерева.
+
+      '
+    action: 'Зимний леший бьет по врагам своей деревянной дубиной.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 3d6+10
+      armor_class: 85
+      hitroll: 4
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_008
+      - room_010
+      max_count: 2
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Снежная ведьма
+      genitive: Снежной ведьмы
+      dative: Снежной ведьме
+      accusative: Снежную ведьму
+      instrumental: Снежной ведьмой
+      prepositional: Снежной ведьме
+    level: 12
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Старая женщина с белыми волосами и морщинистым лицом.
+
+      '
+    examine: 'Она держит в руках старинную книгу заклинаний.
+
+      '
+    action: 'Снежная ведьма кричит на своем древнем языке, вызывая метель.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d12+29
+      armor_class: 65
+      hitroll: 7
+    abilities:
+    - ice_blast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -40
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      exp: 2592
+      gold:
+        min: 100
+        max: 187
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 2
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Зимний волк-оборотень
+      genitive: Зимнего волка-оборотня
+      dative: Зимнему волку-оборотню
+      accusative: Зимного волка-оборотня
+      instrumental: Зимным волком-оборотнем
+      prepositional: Зимном волке-оборотне
+    level: 13
+    role: BOSS
+    race: BEASTMAN
+    description: 'Устрашающий волк с человеческой головой, покрытый льдом.
+
+      '
+    examine: 'Его глаза сверкают холодным огнем, а зубы блестят на солнце.
+
+      '
+    action: 'Зимний волк-оборотень рычит и бросается на противников.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+21
+      armor_class: 75
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -40
+      cold: 120
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 70
+      exp: 5070
+      gold:
+        min: 227
+        max: 422
+    spawn:
+      rooms:
+      - room_008
+      - room_010
+      max_count: 1
+  - id: mob_006
+    vnum: 20102
+    name:
+      nominative: Ледяной дух
+      genitive: Ледяного духа
+      dative: Ледяному духу
+      accusative: Ледяного духа
+      instrumental: Леденным духом
+      prepositional: Леденном духе
+    level: 10
+    role: TRASH
+    race: SPIRIT
+    description: 'Одинокий призрак, покрытый льдом и снежными хлопьями.
+
+      '
+    examine: 'Его присутствие окутано холодным туманом.
+
+      '
+    action: 'Ледяной дух дует на путников, замораживая их на месте.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 5d8+7
+      armor_class: 70
+      hitroll: 8
+    abilities:
+    - chill
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_001
+      - room_008
+      max_count: 2
+  - id: mob_007
+    vnum: 20103
+    name:
+      nominative: Зимний охотник Святогор
+      genitive: Зимнего охотника Святогора
+      dative: Зимнему охотнику Святогору
+      accusative: Зимнего охотника Святогора
+      instrumental: Зимненным охотником Святогора
+      prepositional: Зимненном охотнике Святогора
+    level: 12
+    role: TANK
+    race: HUMAN
+    description: 'Бывший воин, облаченный в старые доспехи и с мечом в руках.
+
+      '
+    examine: 'Его глаза горят холодным огнем решимости.
+
+      '
+    action: 'Святогор бросает вызов каждому, кто осмелится нарушить покой леса Велеса.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d6+10
+      armor_class: 50
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 50
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 60
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_009
+      - room_010
+      max_count: 1
+  - id: mob_008
+    vnum: 20104
+    name:
+      nominative: Зимняя ведьма
+      genitive: Зимной ведьмы
+      dative: Зимней ведьме
+      accusative: Зимную ведьму
+      instrumental: Зимной ведьмой
+      prepositional: Зимной ведьме
+    level: 11
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Старая женщина с белыми волосами и магическими амулетами.
+
+      '
+    examine: 'Ее присутствие наполнено мощной магической энергией.
+
+      '
+    action: 'Зимняя ведьма бросает заклинания льда на своих противников.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 6d12+25
+      armor_class: 60
+      hitroll: 9
+    abilities:
+    - ice_blast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 60
+      fire: -40
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      exp: 2178
+      gold:
+        min: 92
+        max: 171
+    spawn:
+      rooms:
+      - room_011
+      - room_012
+      max_count: 2
+  - id: mob_009
+    vnum: 20105
+    name:
+      nominative: Снежный волк
+      genitive: Снежного волка
+      dative: Снежному волку
+      accusative: Снежного волка
+      instrumental: Снежным волком
+      prepositional: Снежном волке
+    level: 10
+    role: MELLEE_DMG
+    race: SPIRIT
+    description: 'Белый волк с острыми зубами и когтями.
+
+      '
+    examine: 'Его глаза сверкают холодным блеском.
+
+      '
+    action: 'Снежный волк бросается на противников, разрывая их плоть.
+
+      '
+    stats:
+      hp: 230
+      damage_dice: 7d8+10
+      armor_class: 75
+      hitroll: 9
+    abilities:
+    - bite
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 50
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 40
+      exp: 1500
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_013
+      - room_014
+      max_count: 2
+  - id: mob_010
+    vnum: 20106
+    name:
+      nominative: Призрак рудокопа
+      genitive: Призрака рудокопа
+      dative: Призраку рудокопа
+      accusative: Призрака рудокопа
+      instrumental: Призраком рудокопа
+      prepositional: Призраке рудокопа
+    level: 13
+    role: BOSS
+    race: GHOST
+    description: 'Полупрозрачный дух в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрак рудокопа бьет своих противников дубинкой, нанося урон.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 2d10+20
+      armor_class: 40
+      hitroll: 15
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 80
+      exp: 5070
+      gold:
+        min: 227
+        max: 422
+    spawn:
+      rooms:
+      - room_015
+      max_count: 1
+  - id: mob_011
+    vnum: 20101
+    name:
+      nominative: Зимний дух Ярилы
+      genitive: Зимнего духа Ярилы
+      dative: Зимнему духу Ярилы
+      accusative: Зимного духа Ярилы
+      instrumental: Зимным духом Ярилы
+      prepositional: Зимном духе Ярилы
+    level: 10
+    role: TRASH
+    race: SPIRIT
+    description: 'Снежный призрак с холодными глазами и острыми когтями.
+
+      '
+    examine: 'Вокруг него вьются слабые магические огоньки зимнего пламени.
+
+      '
+    action: 'Зимний дух Ярилы издает жуткий вой, замораживая воздух вокруг.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 5d8+7
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - freeze
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 3
+  - id: mob_012
+    vnum: 20102
+    name:
+      nominative: Леший-охранитель
+      genitive: Лешего-охранителя
+      dative: Лешему-охранителю
+      accusative: Лешего-охранителя
+      instrumental: Лешим охранителем
+      prepositional: Лешем охранителе
+    level: 12
+    role: TANK
+    race: SPIRIT
+    description: 'Огромный леший с древними рунами на коже.
+
+      '
+    examine: 'Его глаза светятся магическим светом, а вокруг него вьются тени.
+
+      '
+    action: 'Леший-охранитель громко рычит, заставляя землю дрожать под ногами.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d4+10
+      armor_class: 25
+      hitroll: 12
+    abilities:
+    - earthquake
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      earth: 70
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 45
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_009
+      - room_010
+      max_count: 2
+  - id: mob_013
+    vnum: 20103
+    name:
+      nominative: Зимняя ведьма Ярилы
+      genitive: Зимной ведьмы Ярилы
+      dative: Зимной ведьме Ярилы
+      accusative: Зимную ведьму Ярилы
+      instrumental: Зимной ведьмой Ярилы
+      prepositional: Зимной ведьме Ярилы
+    level: 11
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Старая ведьма с белыми волосами и морщинистым лицом.
+
+      '
+    examine: 'Ее глаза светятся холодным огнем, а вокруг нее вьются туманы зимнего
+      леса.
+
+      '
+    action: 'Зимняя ведьма Ярилы начинает читать заклинания, вызывая метели и морозы.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d12+25
+      armor_class: 30
+      hitroll: 9
+    abilities:
+    - blizzard
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 65
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 2178
+      gold:
+        min: 92
+        max: 171
+    spawn:
+      rooms:
+      - room_011
+      - room_012
+      max_count: 2
+  - id: mob_014
+    vnum: 20104
+    name:
+      nominative: Снежный босс Ярилы
+      genitive: Снежного босса Ярилы
+      dative: Снежному боссу Ярилы
+      accusative: Снежного босса Ярилы
+      instrumental: Снежным боссом Ярилы
+      prepositional: Снежном боссе Ярилы
+    level: 13
+    role: BOSS
+    race: SPIRIT
+    description: 'Колдун в сияющем белом одеянии, окруженный магическими огоньками.
+
+      '
+    examine: 'Его глаза светятся холодным огнем, а вокруг него вьются туманы зимнего
+      леса.
+
+      '
+    action: 'Снежный босс Ярилы начинает читать заклинания, вызывая метели и морозы.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 6d10+21
+      armor_class: 25
+      hitroll: 14
+    abilities:
+    - blizzard
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 70
+      fire: -25
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 60
+      exp: 5070
+      gold:
+        min: 227
+        max: 422
+    spawn:
+      rooms:
+      - room_013
+      max_count: 1
+  - id: mob_015
+    vnum: 20105
+    name:
+      nominative: Призрачный волк Ярилы
+      genitive: Призрачного волка Ярилы
+      dative: Призрачному волку Ярилы
+      accusative: Призрачного волка Ярилы
+      instrumental: Призрачным волком Ярилы
+      prepositional: Призрачном волке Ярилы
+    level: 10
+    role: MELLEE_DMG
+    race: GHOST
+    description: 'Призрачная фигура волка с холодными глазами и острыми когтями.
+
+      '
+    examine: 'Его тело пронизывают магические огоньки зимнего пламени.
+
+      '
+    action: 'Призрачный волк Ярилы издает жуткий вой, замораживая воздух вокруг.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d8+10
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - freeze
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 70
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 35
+      exp: 1500
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_014
+      - room_015
+      max_count: 3
+  - id: mob_016
+    vnum: 20105
+    name:
+      nominative: Зимний дух
+      genitive: Зимнего духа
+      dative: Зимнему духу
+      accusative: Зимного духа
+      instrumental: Зимным духом
+      prepositional: Зимном духе
+    level: 10
+    role: TRASH
+    race: SPIRIT
+    description: 'Полупрозрачный силуэт в зимней одежде, покрытый инеем.
+
+      '
+    examine: 'Вокруг него вьется холодный туман и слышны звуки ледяного дыхания.
+
+      '
+    action: 'Зимний дух поднимает снежную бурю вокруг своих противников.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 5d8+7
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 30
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_008
+      - room_009
+      max_count: 4
+  - id: mob_017
+    vnum: 20106
+    name:
+      nominative: Леший-страж
+      genitive: Лешего-стража
+      dative: Лешему-стражу
+      accusative: Лешего-стража
+      instrumental: Лешим-стражом
+      prepositional: Лешем страже
+    level: 12
+    role: TANK
+    race: BOGGART
+    description: 'Статуя лесного духа, покрытая мхом и лишайниками.
+
+      '
+    examine: 'В его глазницах горят неестественно красные огоньки.
+
+      '
+    action: 'Леший-страж защищает вход в подземелье от посягательств.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d6+15
+      armor_class: 40
+      hitroll: 12
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_011
+        chance: 40
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 2
+  - id: mob_018
+    vnum: 20107
+    name:
+      nominative: Зимняя волшебница
+      genitive: Зимной волшебницы
+      dative: Зимней волшебнице
+      accusative: Зимную волшебницу
+      instrumental: Зимной волшебницей
+      prepositional: Зимной волшебнице
+    level: 10
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Тонкая фигура в белой мантии с вышивкой из снежинок.
+
+      '
+    examine: 'Её глаза светятся холодным светом, и она держит кристалл льда.
+
+      '
+    action: 'Зимняя волшебница вызывает метелицу вокруг противников.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 6d12+21
+      armor_class: 38
+      hitroll: 7
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 35
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_004
+      - room_009
+      max_count: 3
+  - id: mob_019
+    vnum: 20108
+    name:
+      nominative: Старый путник
+      genitive: Старого путника
+      dative: Старому путнику
+      accusative: Старого путника
+      instrumental: Старым путником
+      prepositional: Старом путнике
+    level: 13
+    role: BOSS
+    race: SPIRIT
+    description: 'Старик в потрепанной одежде, с мешком за спиной.
+
+      '
+    examine: 'Его глаза полны печали и мудрости веков.
+
+      '
+    action: 'Старый путник рассказывает древние истории, ослабляя противников.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 3d6+25
+      armor_class: 45
+      hitroll: 15
+    abilities:
+    - bash
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 45
+      exp: 5070
+      gold:
+        min: 227
+        max: 422
+    spawn:
+      rooms:
+      - room_006
+      - room_009
+      max_count: 1
+  - id: mob_020
+    vnum: 20109
+    name:
+      nominative: Снежный вор
+      genitive: Снежного вора
+      dative: Снежному вору
+      accusative: Снежного вора
+      instrumental: Снежным вором
+      prepositional: Снежном воре
+    level: 10
+    role: ROGUE
+    race: SPIRIT
+    description: 'Тонкая фигура с ледяными клинками и маской.
+
+      '
+    examine: 'Его движения неслышны, как тень в ночи.
+
+      '
+    action: 'Снежный вор наносит быстрые удары противников.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d8+13
+      armor_class: 34
+      hitroll: 9
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 30
+      exp: 1500
+      gold:
+        min: 70
+        max: 130
+    spawn:
+      rooms:
+      - room_008
+      - room_009
+      max_count: 4
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристала
+      dative: Соляному кристалу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристале
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура, словно отпечаток
+      душевного страдания.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: TREASURE
+    name:
+      nominative: Заклинание Ярилы
+      genitive: Заклинания Ярилы
+      dative: Заклинанию Ярилы
+      accusative: Заклинание Ярилы
+      instrumental: Заклинанием Ярилы
+      prepositional: Заклинании Ярилы
+    description: 'Старинный свиток с рунами, написанными на тонкой бумаге. Заклинание
+      призывает силу бога зимы и весны.
+
+      '
+    examine: 'Рунные символы светятся слабым светом, словно оживают под ветром леса
+      Велеса.
+
+      '
+    value: 100
+    weight: 2
+    material: PAPER
+    affects:
+      mana: 5
+      resistance: FROST
+    flags:
+    - MAGIC
+  - id: obj_003
+    vnum: 20203
+    type: TREASURE
+    name:
+      nominative: Замерзшая артефактная булава
+      genitive: Замерзшей артефактной булавы
+      dative: Замерзшей артефактной булаве
+      accusative: Замерзшая артефактная булава
+      instrumental: Замерзшей артефактной булавой
+      prepositional: Замерзшей артефактной булаве
+    description: 'Булава, покрытая солью и замороженная временем. Её тяжесть необычайна.
+
+      '
+    examine: 'На булаве видны следы древних рун, словно она олицетворяет силу зимнего
+      ветра.
+
+      '
+    value: 200
+    weight: 5
+    material: METAL
+    wear_slots:
+    - WEAPON
+    affects:
+      strength: 3
+      damage: FROST
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_004
+    vnum: 20204
+    type: TREASURE
+    name:
+      nominative: Замерзшая артефактная кольчуга
+      genitive: Замерзшей артефактной кольчуги
+      dative: Замерзшей артефактной кольчуге
+      accusative: Замерзшая артефактная кольчуга
+      instrumental: Замерзшей артефактной кольчугой
+      prepositional: Замерзшей артефактной кольчуге
+    description: 'Кольчуга, покрытая солью и замороженная временем. Она словно придает
+      носителю силу зимней стихии.
+
+      '
+    examine: 'На кольчуге видны следы древних рун, словно она олицетворяет защиту
+      от зимнего ветра.
+
+      '
+    value: 300
+    weight: 15
+    material: METAL
+    wear_slots:
+    - BODY
+    affects:
+      armor: 10
+      resistance: FROST
+    flags:
+    - MAGIC
+    - GLOW
+  quests:
+  - id: quest_001
+    name: Вернуть равновесие лесу Велеса
+    type: KILL|COLLECT
+    description: 'После исчезновения деревни Ярильск и зимнего ритуала, лес Велеса
+      превратился в опасное место. Князь Святослав призывает бравых путников помочь
+      ему вернуть равновесие зимы и весны. Вам нужно найти заброшенный храм Ярилы
+      и собрать ритуальное снаряжение, а затем уничтожить Зимнего волка-оборотня,
+      осквернившего святыню.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room: room_009
+    - type: COLLECT
+      item: obj_ritual_item1
+      count: 3
+    - type: KILL
+      target: mob_005
+      count: 1
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_reward
+    giver_npc: npc_knyaz_svyatoslav
+    completion_npc: npc_knyaz_svyatoslav
+  - id: quest_002
+    name: Святогор и зимние духи-привидения
+    type: KILL|COLLECT
+    description: 'Святогор, бывший воин, ныне охотится за зимними духами-привидениями.
+      Он просит вас помочь уничтожить их и собрать редкую магическую пыль, которую
+      они несут с собой.
+
+      '
+    objectives:
+    - type: KILL
+      target:
+      - mob_012
+      - mob_014
+      count: 5
+    - type: COLLECT
+      item: obj_magic_dust
+      count: 3
+    rewards:
+      exp: 3000
+      gold: 100
+      items:
+      - obj_rare_item
+    giver_npc: npc_svyatogor
+    completion_npc: npc_svyatogor
+  - id: quest_003
+    name: Секреты храма Ярилы
+    type: EXPLORE|COLLECT
+    description: 'Среди местных жителей распространяется легенда о скрытой комнате
+      в заброшенном храме Ярилы. Туда попадают лишь избранные, но вам помогут старый
+      путник и его собака.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room:
+      - room_012
+      - room_013
+    - type: COLLECT
+      item: obj_secret_item
+      count: 1
+    rewards:
+      exp: 4000
+      gold: 150
+      items:
+      - obj_rare_reward
+    giver_npc: npc_old_traveller
+    completion_npc: npc_knyaz_svyatoslav

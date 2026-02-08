@@ -1,0 +1,1625 @@
+zone:
+  meta:
+    id: zone_peshchera_zabvushennaja
+    name: Пещера забвения
+    author: Zone Generator
+    version: '1.0'
+    description: Глубоко под землёй, в недрах камня, лежит Пещера Забвения, где души
+      умерших скитаются, пытаясь найти покой. Здесь они сталкиваются с духами забвения
+      и прочими нечистыми силами.
+    recommended_level:
+    - 10
+    - 12
+  lore:
+    history: Недалеко от древнего русского города Славин, в глубинах земли, существовала
+      священная пещера, известная местным жителям как Пещера Забвения. Когда-то здесь
+      проводили ритуалы и молитвы древние славяне для помощи душам умерших найти покой
+      в загробном мире. Однако с течением времени, из-за забвения и нарушения этих
+      обычаев, пещера стала местом, где скитаются заблудшие души, призывая к себе
+      всё больше нечисти.
+    folklore_basis: Поверья связаны с загробным миром славян, а также былинами о богатырях,
+      которые иногда вступали в битву со силами тьмы. В частности, упоминается жрец-хранитель
+      пещеры Забвения, который защищал её от нечисти и помогал душам умерших.
+    current_state: В наши дни Пещера Забвения полна опасностей и тайн. Здесь обитают
+      духи забвения, которые пытаются затеряться в темноте и омрачить свет загробного
+      мира. Неподготовленный путник может оказаться пленником этих духов.
+    conflict: Игрокам предстоит спасти заблудшие души от вечных мучений, освободив
+      их от власти духов забвения и возвращая к свету загробного мира. Только сильные
+      и смелые могут противостоять этим тёмным силам.
+    key_characters:
+    - name: Старый Жрец
+      role: Хранитель Пещеры Забвения
+      description: Жрец старого закала, который знает все секреты пещеры и способен
+        помочь игрокам в их миссии. Однако его силы ослабли из-за длительного противостояния
+        с нечистью.
+    - name: Проклятый Дух Забвения
+      role: Главный враг
+      description: Сильный дух, который захватил пещеру и теперь держит там заблудшие
+        души. Имеет способность становиться невидимым и заманивать путников глубже
+        в темноту.
+    - name: Упавшая Княжна
+      role: Пленник Духа Забвения
+      description: Княжна, которая погибла в молодом возрасте и не смогла найти покой.
+        Она может помочь игрокам с местными секретами, если они помогут ей освободиться.
+    atmosphere:
+      sounds:
+      - Шёпот невидимых теней
+      - Тихий плеск подземных потоков
+      smells:
+      - Влажная сырость и запах гниющей древесины
+      - Кислый аромат старого мха
+      visuals:
+      - Светящиеся глаза невидимых духов в темноте
+      - Стены украшенные странными рунами, словно оставленными там вековыми жрецами
+      feeling: Тяжёлое и мрачное место, полное опасности и тайн. Каждый шаг может
+        быть последним.
+    secrets:
+    - Секретный проход к загробному миру
+    - Забытые артефакты древних магов для борьбы с нечистью
+  rooms:
+  - vnum: 20001
+    name: Темный вход
+    description: 'Темный проход ведет глубоко под землю. Стены покрыты мхом и лишайниками,
+      из-за которых пахнет сырость. Вдали слышится шепот невидимых теней.
+
+      '
+    examine: 'На стенах видны древние руны, вырезанные когда-то жрецами. Местные говорят,
+      что это вход в Пещеру Забвения.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_001
+    exits:
+    - direction: north
+      to_room: room_002
+    - direction: down
+      to_room: room_003
+    - direction: south
+      to_room: world_forest_01
+  - vnum: 20002
+    name: Башня стража
+    description: 'Высокая башня, украшенная древними рунами и символами. Внутри темно
+      и холодно, слышится тихое дыхание сторожа.
+
+      '
+    examine: 'На стене висит старый меч с потемневшим клинком. Возможно, это оружие
+      жреца-хранителя Пещеры Забвения.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_002
+    exits:
+    - direction: south
+      to_room: room_001
+    - direction: up
+      to_room: room_007
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+  - vnum: 20003
+    name: Подземный коридор
+    description: 'Узкий коридор изрытый временем, стены покрыты мхом и заплеваны.
+      Вдалеке слышится тихий плеск подземных потоков.
+
+      '
+    examine: 'На стене виден забытый проход, ведущий к загробному миру. Слева от него
+      древние руны предупреждают о близости опасности.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    id: room_003
+    exits:
+    - direction: up
+      to_room: room_001
+    - direction: north
+      to_room: room_004
+    - direction: east
+      to_room: room_005
+  - vnum: 20001
+    name: Зал с ловушками
+    description: 'Зал усеян древними механизмами и ловушками. Стены украшены рунами,
+      из которых порой веет холодом.
+
+      Шёпот невидимых теней заполняет пространство, а под ногами скрипят старые доски.
+
+      '
+    examine: 'Ловушки кажутся древними и сложными. Здесь можно найти забытые ключи
+      или инструменты для их обезвреживания.
+
+      На стенах видны следы битвы с нечистью, свидетельствующие о прошлых посещениях.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    id: room_004
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+  - vnum: 20002
+    name: Сокровищница
+    description: 'Зал наполнен старыми сундуками и мешками со снаряжением. На стенах
+      висят раритеты древних воинов.
+
+      Тихий плеск подземных потоков доносится издалека, а запах гниющей древесины
+      наполняет воздух.
+
+      '
+    examine: 'Среди сундуков можно найти полезные предметы и артефакты. Здесь также
+      заметны следы недавнего присутствия.
+
+      В углу лежит старая кость, возможно, принадлежащая некогда могучему богатырю.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    id: room_005
+    exits:
+    - direction: west
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+  - vnum: 20003
+    name: Логово босса
+    description: 'Зал наполнен темной силой и угрозой. Светящиеся глаза невидимых
+      духов наблюдаются в тени.
+
+      Тихий плеск подземных потоков усиливается, а запах гниющей древесины становится
+      более резким.
+
+      '
+    examine: 'Здесь можно найти мощные магические предметы и оружие для борьбы с нечистью.
+      В углу виден проход к загробному миру.
+
+      Неподготовленный путник может оказаться пленником этих духов без надежды на
+      спасение.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_006
+    exits:
+    - direction: south
+      to_room: room_004
+    - direction: west
+      to_room: room_005
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+  - vnum: 20001
+    name: Вершина башни (секрет)
+    description: 'Вершина древней башни, скрытая от посторонних глаз. Стены украшены
+      рунами и символами забытых богов. Здесь тихий шёпот ветра, который кажется голосом
+      прошлого.
+
+      '
+    examine: 'В углу лежит старый свиток с древними заклинаниями. На стене видна потайная
+      дверь, скрытая под слоем пыли и паутины.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_007
+    exits:
+    - direction: down
+      to_room: room_002
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 12
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+11
+      armor_class: 34
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Страж пещеры
+      genitive: Стража пещеры
+      dative: Стражу пещеры
+      accusative: Стража пещеры
+      instrumental: Стражем пещеры
+      prepositional: Страже пещеры
+    level: 10
+    role: TANK
+    race: BOGGART
+    description: 'Толстый и неповоротливый бугай с топором в руках.
+
+      '
+    examine: 'Его кожа покрыта шерстью, а глаза горят яростью.
+
+      '
+    action: 'Страж пещеры громко рычит и замахивается на вас топором.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+10
+      armor_class: 45
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 25
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 2
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Плесень-убийца
+      genitive: Плесени-убийцы
+      dative: Плесени-убийце
+      accusative: Плесени-убийцу
+      instrumental: Плесенью-убийцей
+      prepositional: Плесени-убийце
+    level: 12
+    role: MELLEE_DMG
+    race: PLANT
+    description: 'Маленький, но опасный куст с острыми листьями.
+
+      '
+    examine: 'Его листья покрыты ядовитыми каплями.
+
+      '
+    action: 'Плесень-убийца вдруг начинает расти и обвивает вас своими листьями.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 7d8+16
+      armor_class: 38
+      hitroll: 7
+    abilities:
+    - bash
+    - poison
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 10
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 25
+      exp: 2160
+      gold:
+        min: 67
+        max: 124
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 3
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Призрачная княжна
+      genitive: Призрачной княжны
+      dative: Призрачной княжне
+      accusative: Призрачную княжну
+      instrumental: Призрачной княжной
+      prepositional: Призрачной княжне
+    level: 12
+    role: HEALER
+    race: SPIRIT
+    description: 'Молодая женщина в богатой одежде, с бледным лицом и светящимися
+      глазами.
+
+      '
+    examine: 'Она плачет, но слезы не капают на землю.
+
+      '
+    action: 'Призрачная княжна просит вас помочь ей найти покой.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 2d6+10
+      armor_class: 36
+      hitroll: 5
+    abilities:
+    - heal
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 30
+      exp: 864
+      gold:
+        min: 50
+        max: 93
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Призрачный стражник
+      genitive: Призрачного стражника
+      dative: Призрачному стражнику
+      accusative: Призрачного стражника
+      instrumental: Призрачным стражником
+      prepositional: Призрачном стражнике
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Высокий призрак в доспехах с мечом.
+
+      '
+    examine: 'Его глаза горят холодным огнем, а тело прозрачно.
+
+      '
+    action: 'Призрачный стражник замахивается на вас своим огромным мечом.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 6d10+18
+      armor_class: 40
+      hitroll: 9
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 40
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 1
+  - id: mob_006
+    vnum: 20102
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 10
+    role: TRASH
+    race: GHOST
+    description: 'Призрак в изодранной рубахе, держащий тяжёлый молот.
+
+      '
+    examine: 'Его глазницы пусты и полны мрака.
+
+      '
+    action: 'Призрачный рудокоп бьётся об стену, не замечая живых.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 5d8+7
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_007
+    vnum: 20103
+    name:
+      nominative: Заблудшая душа
+      genitive: Заблудшей души
+      dative: Заблудшей душе
+      accusative: Заблудшую душу
+      instrumental: Заблудшей душой
+      prepositional: Заблудшей душе
+    level: 12
+    role: TRASH
+    race: SPIRIT
+    description: 'Пламя свечи, пляшущее в темноте.
+
+      '
+    examine: 'Её глаза светятся тусклым огоньком.
+
+      '
+    action: 'Заблудшая душа шепчет молитвы на древнем языке.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 5d8+11
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 3
+  - id: mob_008
+    vnum: 20104
+    name:
+      nominative: Страж забвения
+      genitive: Стража забвения
+      dative: Стражу забвения
+      accusative: Стража забвения
+      instrumental: Стражем забвения
+      prepositional: Страже забвения
+    level: 12
+    role: TANK
+    race: BOGGART
+    description: 'Крепкий дух, облаченный в древние доспехи.
+
+      '
+    examine: 'Его глаза излучают холодную решимость.
+
+      '
+    action: 'Страж забвения тяжело вздыхает и бьётся об стену.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+13
+      armor_class: 25
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 50
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_009
+    vnum: 20105
+    name:
+      nominative: Призрачный стрелок
+      genitive: Призрачного стрелка
+      dative: Призрачному стрелку
+      accusative: Призрачного стрелка
+      instrumental: Призрачным стрелком
+      prepositional: Призрачном стрелке
+    level: 10
+    role: ARCHER
+    race: SPIRIT
+    description: 'Призрак, держащий лук и колчан стрел.
+
+      '
+    examine: 'Его тело прозрачно, но глаза светятся холодным огоньком.
+
+      '
+    action: 'Призрачный стрелок выпускает стрелу в темноту.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 6d8+12
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1200
+      gold:
+        min: 49
+        max: 91
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 3
+  - id: mob_010
+    vnum: 20106
+    name:
+      nominative: Стражник забвения
+      genitive: Стражника забвения
+      dative: Стражнику забвения
+      accusative: Стражника забвения
+      instrumental: Стражником забвения
+      prepositional: Стражнике забвения
+    level: 12
+    role: BOSS
+    race: GHOST
+    description: 'Огромный призрак в древних доспехах, с мечом и щитом.
+
+      '
+    examine: 'Его глаза светятся холодным огнём.
+
+      '
+    action: 'Стражник забвения размахивает огромным мечом.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 6d10+18
+      armor_class: 30
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 70
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 80
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_011
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 12
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+11
+      armor_class: 34
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_012
+    vnum: 20102
+    name:
+      nominative: Туманный дух забвения
+      genitive: Туманного духа забвения
+      dative: Туманному духу забвения
+      accusative: Туманного духа забвения
+      instrumental: Туманным духом забвения
+      prepositional: Туманном духе забвения
+    level: 10
+    role: TRASH
+    race: SPIRIT
+    description: 'Тускло светящаяся фигура, словно покрытая туманом.
+
+      '
+    examine: 'Его присутствие окутывает комнату мглой и холодом.
+
+      '
+    action: 'Дух забвения исчезает в темноте, чтобы снова появиться рядом с игроком.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 5d8+7
+      armor_class: 40
+      hitroll: 5
+    abilities:
+    - invis
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 15
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 2
+  - id: mob_013
+    vnum: 20103
+    name:
+      nominative: Теневой страж пещеры
+      genitive: Теневого стража пещеры
+      dative: Теневому стражу пещеры
+      accusative: Теневого стража пещеры
+      instrumental: Теневым стражем пещеры
+      prepositional: Теневом страже пещеры
+    level: 12
+    role: TANK
+    race: BOGGART
+    description: 'Скрывшийся в тени, но явно опасный существенный фигурик.
+
+      '
+    examine: 'Его кожа блестит от капель воды и его глаза светятся холодным огнем.
+
+      '
+    action: 'Теневой страж издаёт угрожающий рык, призывая других духов к себе.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+13
+      armor_class: 26
+      hitroll: 7
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 50
+      fire: -15
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_014
+    vnum: 20104
+    name:
+      nominative: Огненная ведьма забвения
+      genitive: Огненной ведьмы забвения
+      dative: Огненной ведьме забвения
+      accusative: Огненной ведьмы забвения
+      instrumental: Огненной ведьмой забвения
+      prepositional: Огненной ведьме забвения
+    level: 12
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Фигура с огненно-красными волосами и глазами, источающая жар.
+
+      '
+    examine: 'Она окружена пламенем, которое не причиняет ей вреда.
+
+      '
+    action: 'Огненная ведьма бросает на вас клубы дыма и огонь.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 6d12+29
+      armor_class: 50
+      hitroll: 7
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: -20
+      fire: 100
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 15
+      exp: 2592
+      gold:
+        min: 100
+        max: 187
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 2
+  - id: mob_015
+    vnum: 20105
+    name:
+      nominative: Теневой вор забвения
+      genitive: Теневого вора забвения
+      dative: Теневому вору забвения
+      accusative: Теневого вора забвения
+      instrumental: Теневым вором забвения
+      prepositional: Теневом воре забвения
+    level: 10
+    role: ROGUE
+    race: SPIRIT
+    description: 'Ловкий и быстрый дух, исчезающий в тени.
+
+      '
+    examine: 'Он мелькает мимо вас, оставляя лишь след холодного дуновения.
+
+      '
+    action: 'Теневой вор бросает на вас кинжалы из темноты.
+
+      '
+    stats:
+      hp: 180
+      damage_dice: 7d8+13
+      armor_class: 60
+      hitroll: 5
+    abilities:
+    - invis
+    - stealth
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -20
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 10
+      exp: 1500
+      gold:
+        min: 70
+        max: 130
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 3
+  - id: mob_016
+    vnum: 20101
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 12
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе и с киркой.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачный рудокоп стонет, протягивая к тебе свои холодные пальцы.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+11
+      armor_class: 30
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_017
+    vnum: 20102
+    name:
+      nominative: Призрачный стражник
+      genitive: Призрачного стражника
+      dative: Призрачному стражнику
+      accusative: Призрачного стражника
+      instrumental: Призрачным стражником
+      prepositional: Призрачном стражнике
+    level: 12
+    role: TANK
+    race: GHOST
+    description: 'Полупрозрачная фигура в древнем доспехе и с мечом.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачный стражник выкрикивает предупреждение, прежде чем атаковать.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+13
+      armor_class: 28
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      max_count: 2
+  - id: mob_018
+    vnum: 20103
+    name:
+      nominative: Призрачная княжна
+      genitive: Призрачной княжны
+      dative: Призрачной княжне
+      accusative: Призрачную княжну
+      instrumental: Призрачной княжной
+      prepositional: Призрачной княжне
+    level: 12
+    role: HEALER
+    race: GHOST
+    description: 'Призрачная фигура в богатой одежде, с печальным взглядом.
+
+      '
+    examine: 'Через её тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачная княжна просит помощи для освобождения души.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 2d6+10
+      armor_class: 32
+      hitroll: 6
+    abilities:
+    - heal
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 864
+      gold:
+        min: 50
+        max: 93
+    spawn:
+      rooms:
+      - room_004
+      max_count: 2
+  - id: mob_019
+    vnum: 20104
+    name:
+      nominative: Призрачный жрец
+      genitive: Призрачного жреца
+      dative: Призрачному жрецу
+      accusative: Призрачного жреца
+      instrumental: Призрачным жрецом
+      prepositional: Призрачном жреце
+    level: 12
+    role: MAGE_DMG
+    race: GHOST
+    description: 'Полупрозрачная фигура в древнем одеянии, с книгой молитв.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачный жрец начинает читать заклинание из книги молитв.
+
+      '
+    stats:
+      hp: 270
+      damage_dice: 6d12+29
+      armor_class: 34
+      hitroll: 6
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 2592
+      gold:
+        min: 100
+        max: 187
+    spawn:
+      rooms:
+      - room_004
+      max_count: 2
+  - id: mob_020
+    vnum: 20105
+    name:
+      nominative: Призрачный вор
+      genitive: Призрачного вора
+      dative: Призрачному вору
+      accusative: Призрачного вора
+      instrumental: Призрачным вором
+      prepositional: Призрачном воре
+    level: 12
+    role: ROGUE
+    race: GHOST
+    description: 'Полупрозрачная фигура в шляпе и с мешком.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачный вор выхватывает нож из-за пояса.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d8+15
+      armor_class: 36
+      hitroll: 7
+    abilities:
+    - backstab
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 2160
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_004
+      max_count: 2
+  - id: mob_021
+    vnum: 20105
+    name:
+      nominative: Заблудшая душа
+      genitive: Заблудшей души
+      dative: Заблудшей душе
+      accusative: Заблудшую душу
+      instrumental: Заблудшей душой
+      prepositional: Заблудшей душе
+    level: 12
+    role: TRASH
+    race: SPIRIT
+    description: 'Печальная фигура в изношенной одежде, которая тускло светится.
+
+      '
+    examine: 'Душа плывет сквозь воздух, не касаясь земли.
+
+      '
+    action: 'Заблудшая душа плачет и умоляет о помощи.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 5d8+11
+      armor_class: 34
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      max_count: 3
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+  - id: mob_022
+    vnum: 20106
+    name:
+      nominative: Каменный стражник
+      genitive: Каменного стражника
+      dative: Каменному стражнику
+      accusative: Каменного стражника
+      instrumental: Каменным стражником
+      prepositional: Каменном стражнике
+    level: 12
+    role: TANK
+    race: CONSTRUCT
+    description: 'Статуя каменного воина с мечом в руках.
+
+      '
+    examine: 'Каменный стражник выглядит как древний воин, готовый к бою.
+
+      '
+    action: 'Он тяжело шагает по коридору, размахивая огромным мечом.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d6+15
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      max_count: 1
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+  - id: mob_023
+    vnum: 20107
+    name:
+      nominative: Стрелок-призрак
+      genitive: Стрелка-призрака
+      dative: Стрелку-призраку
+      accusative: Стрелка-призрака
+      instrumental: Стрелком-призраком
+      prepositional: Стрелке-призраке
+    level: 12
+    role: ARCHER
+    race: SPIRIT
+    description: 'Призрачный стрелок с луком и колчаном.
+
+      '
+    examine: 'Стрелки-призраки кажутся невесомыми, их одежда разрежена на ветру.
+
+      '
+    action: 'Он выпускает серию быстрых стрел из своего лука.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 7d8+12
+      armor_class: 36
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 30
+      max_count: 2
+      exp: 1728
+      gold:
+        min: 58
+        max: 109
+  - id: mob_024
+    vnum: 20108
+    name:
+      nominative: Серый дух забвения
+      genitive: Серого духа забвения
+      dative: Серому духу забвения
+      accusative: Серого духа забвения
+      instrumental: Серым духом забвения
+      prepositional: Сером духе забвения
+    level: 12
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Серый призрак с холодным взглядом, покрытый туманом.
+
+      '
+    examine: 'Дух забвения излучает мрачную энергию и холодный свет.
+
+      '
+    action: 'Он выпускает потоки ледяной энергии на врагов.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 6d12+29
+      armor_class: 34
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 20
+      max_count: 1
+      exp: 2592
+      gold:
+        min: 100
+        max: 187
+  - id: mob_025
+    vnum: 20109
+    name:
+      nominative: Кровавый дух забвения
+      genitive: Кровавого духа забвения
+      dative: Кровавому духу забвения
+      accusative: Кровавого духа забвения
+      instrumental: Кровавым духом забвения
+      prepositional: Кровавом духе забвения
+    level: 12
+    role: BOSS
+    race: SPIRIT
+    description: 'Призрачный воин с кровавыми глазами и мечом.
+
+      '
+    examine: 'Кровавый дух забвения излучает холодное свечение.
+
+      '
+    action: 'Он выпускает потоки крови на врагов, нанося урон и снижая видимость.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 6d10+18
+      armor_class: 40
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 30
+      max_count: 1
+      exp: 4320
+      gold:
+        min: 210
+        max: 390
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: POTION
+    name:
+      nominative: Зелье очистки души
+      genitive: Зелья очистки души
+      dative: Зелью очистки души
+      accusative: Зелье очистки души
+      instrumental: Зельем очистки души
+      prepositional: Зельем очистки души
+    description: 'Зеленоватая жидкость, которая может излечить душевные раны.
+
+      '
+    examine: 'Жидкость источает слабый свет и кажется почти живой.
+
+      '
+    value: 25
+    weight: 0.1
+    material: WATER
+    flags:
+    - MAGIC
+  - id: obj_003
+    vnum: 20203
+    type: WEAPON
+    name:
+      nominative: Кровавая сабля забвения
+      genitive: Кровавой сабли забвения
+      dative: Кровавой сабле забвения
+      accusative: Кровавую саблю забвения
+      instrumental: Кровавой саблей забвения
+      prepositional: Кровавой сабле забвения
+    description: 'Сабля, покрытая кровью заблудших душ. Она кажется живым существом.
+
+      '
+    examine: 'Клинок сабли кажется холодным и пугающим.
+
+      '
+    value: 100
+    weight: 3
+    material: STEEL
+    affects:
+      strength: 2
+      damage: 5
+    flags:
+    - MAGIC
+  - id: obj_004
+    vnum: 20204
+    type: ARMOR
+    name:
+      nominative: Каменная броня забвения
+      genitive: Каменной брони забвения
+      dative: Каменной броне забвения
+      accusative: Каменную броню забвения
+      instrumental: Каменной броней забвения
+      prepositional: Каменной броне забвения
+    description: 'Броня, сделанная из камня заблудших душ. Она кажется живой.
+
+      '
+    examine: 'Каменная броня источает холодный свет и пугает.
+
+      '
+    value: 150
+    weight: 4
+    material: STONE
+    affects:
+      armor: -10
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_005
+    vnum: 20205
+    type: SCROLL
+    name:
+      nominative: Свиток исцеления забвения
+      genitive: Свитка исцеления забвения
+      dative: Свитку исцеления забвения
+      accusative: Свиток исцеления забвения
+      instrumental: Свитком исцеления забвения
+      prepositional: Свитке исцеления забвения
+    description: 'Свиток, который может исцелить раны души.
+
+      '
+    examine: 'На свитке видны древние символы, источающие слабый свет.
+
+      '
+    value: 75
+    weight: 0.2
+    material: PAPER
+    affects:
+      health_regen: 5
+    flags:
+    - MAGIC
+  - id: obj_006
+    vnum: 20206
+    type: KEY
+    name:
+      nominative: Ключ от забвения
+      genitive: Ключа от забвения
+      dative: Ключу от забвения
+      accusative: Ключ от забвения
+      instrumental: Ключом от забвения
+      prepositional: Ключе от забвения
+    description: 'Магический ключ, который открывает двери забвения.
+
+      '
+    examine: 'Ключ источает холодный свет и кажется живым.
+
+      '
+    value: 125
+    weight: 0.3
+    material: METAL
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_007
+    vnum: 20207
+    type: LIGHT
+    name:
+      nominative: Свечи забвения
+      genitive: Свечей забвения
+      dative: Свечам забвения
+      accusative: Свечу забвения
+      instrumental: Свечами забвения
+      prepositional: Свечах забвения
+    description: 'Свечи, источающие свет в темном лабиринте забвения.
+
+      '
+    examine: 'Свечи источают мягкий свет и кажутся живыми.
+
+      '
+    value: 50
+    weight: 1
+    material: WAX
+    flags:
+    - MAGIC
+    - GLOW
+  quests:
+  - id: quest_001
+    name: Возвращение заблудших душ
+    type: KILL
+    description: 'Старый Жрец просит вас освободить заблудшие души из власти Проклятого
+      Духа Забвения. Вам нужно уничтожить его и освободить Упавшую Княжну.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_010
+      count: 1
+    - type: COLLECT
+      item: obj_key_to_heaven
+      count: 1
+      description: 'Вам нужно найти секретный проход к загробному миру, чтобы освободить
+        Упавшую Княжну.
+
+        '
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_key_to_heaven
+      - item_rare_weapon
+    giver_npc: npc_old_priest
+    completion_npc: npc_old_priest
+  - id: quest_002
+    name: Сбор ритуальных предметов
+    type: COLLECT
+    description: 'Старый Жрец просит вас найти определенные предметы для проведения
+      ритуала, который поможет усилить защиту против Проклятого Духа Забвения.
+
+      '
+    objectives:
+    - type: COLLECT
+      item: obj_sacred_flower
+      count: 5
+      description: 'Соберите 5 сакральных цветов, растущих в заброшенных пещерах.
+        Они помогут очистить духи от зла.
+
+        '
+    - type: COLLECT
+      item: obj_blood_stone
+      count: 3
+      description: 'Найдите три камня крови на поляне, где когда-то проходили ритуалы
+        жрецов. Они помогут усилить защиту.
+
+        '
+    rewards:
+      exp: 1500
+      gold: 75
+      items:
+      - obj_sacred_flower
+      - obj_blood_stone
+    giver_npc: npc_old_priest
+    completion_npc: npc_old_priest
+  - id: quest_003
+    name: Секретная локация
+    type: EXPLORE
+    description: 'Старый Жрец подозревает, что есть секретное место в глубинах пещеры.
+      Он просит вас найти его и исследовать.
+
+      '
+    objectives:
+    - type: EXPLORE
+      location: room_secret_cave
+      description: 'Найдите вход в тайную пещеру и исследуйте ее. Там находится редкий
+        артефакт, который может помочь вам против Проклятого Духа Забвения.
+
+        '
+    rewards:
+      exp: 2000
+      gold: 150
+      items:
+      - item_secret_artifact
+    giver_npc: npc_old_priest
+    completion_npc: npc_old_priest

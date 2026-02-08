@@ -3,9 +3,10 @@ Mobs Agent - генерация мобов с автоматическим ба�
 """
 
 from typing import Dict
-from ..llm import OllamaClient, ContextManager
+from ..llm import create_llm_client, ContextManager
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml, print_section
+from ..config import GENERATION_CONFIG
 from ..balance import (
     calc_mob_exp,
     calc_mob_gold,
@@ -33,7 +34,8 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
         raise ValueError("Отсутствует 'idea' в state")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
     context_mgr = ContextManager()
 
     lore = state['lore']
@@ -75,12 +77,13 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
             # Получаем tools для этапа mobs
             tools = get_tools_for_stage('mobs')
 
-            # Вызов LLM с function calling
-            response = ollama.generate(
+            # Вызов LLM с function calling (увеличенный timeout для батча мобов)
+            response = llm.generate(
                 prompt=prompt,
                 stage='mobs',
                 system=prompts.SYSTEM_DESIGNER,
-                tools=tools if tools else None
+                tools=tools if tools else None,
+                timeout=GENERATION_CONFIG['timeout_mobs']  # 300s = 5 минут
             )
 
             # Обработка tool calls если есть
@@ -88,7 +91,7 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
                 print(f"      🔧 LLM вызвал {len(response['tool_calls'])} функций")
 
             # Парсинг ответа
-            parsed = safe_parse_yaml(response['content'])
+            parsed = safe_parse_yaml(response['content'], stage='mobs')
 
             # Извлекаем мобов
             if isinstance(parsed, dict) and 'mobiles' in parsed:

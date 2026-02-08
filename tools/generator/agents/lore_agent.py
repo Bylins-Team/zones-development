@@ -3,7 +3,7 @@ Lore Agent - генерация детального лора зоны
 """
 
 from typing import Dict
-from ..llm import OllamaClient
+from ..llm import create_llm_client
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_json
 
@@ -22,7 +22,8 @@ def lore_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
         raise ValueError("Отсутствует 'idea' в state. Запустите idea_agent сначала.")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
 
     idea = state['idea']
 
@@ -34,7 +35,7 @@ def lore_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
 
     try:
         # Вызов LLM
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='lore',
             system=prompts.SYSTEM_DESIGNER

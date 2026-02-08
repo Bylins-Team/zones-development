@@ -1,0 +1,2250 @@
+zone:
+  meta:
+    id: zone_suzdal
+    name: 'Осада Суздаля: Булгары у стен древнего града'
+    author: Zone Generator
+    version: '1.0'
+    description: Великая осада на город-град Суздаль. Волжские булгары, привлеченны
+      красотой местной девы, штурмуют город, защищенный храбрыми русичами.
+    recommended_level:
+    - 13
+    - 18
+  lore:
+    history: Древний город Суздаль, построенный на высоком берегу реки Нерль, был
+      известен своей неприступной крепостью и красотой местных дев. В старинных былинах
+      говорится о том, что одна из таких красавиц, дочь великанши, привлекла внимание
+      враждебного народа Булгаров, стремящихся захватить город ради ее руки и богатства
+      Суздаля.
+    folklore_basis: В былинах рассказывается о храбрых русичах, верных своему слову,
+      которые отчаянно сражались против врагов на стенах города. Сказания повествуют
+      также о том, как великанши и их дочери помогали защитникам Суздаля своими магическими
+      силами.
+    current_state: 'Сегодня укрепленные стены града наполнены боевыми приготовлениями:
+      русичи готовятся к обороне, а булгарские воины собираются для штурма. В воздухе
+      витает напряженность и ожидание близкой битвы.'
+    conflict: Булгары осадили Суздаль из-за красоты местной девы, которая является
+      дочерью великана. Русичи же готовятся отстоять свой город до последнего вздоха,
+      верные своему слову и родному граду.
+    key_characters:
+    - name: Князь Владимир
+      role: Главный защитник Суздаля
+      description: Великий князь, храбрый воин и мудрый правитель, который несет ответственность
+        за оборону города.
+    - name: Русалка Нерльская
+      role: Помощница защитников Суздаля
+      description: Дочь великана, она живет в реке и помогает русичам своими магическими
+        силами.
+    - name: Хан Баир
+      role: Лидер осаждающих булгаров
+      description: Властный военачальник, чьи воины стремятся захватить Суздаль ради
+        его богатств и славы.
+    atmosphere:
+      sounds:
+      - Звуки суетливых приготовлений к обороне
+      - Шепот предсказаний волхвов
+      smells:
+      - Пахнет дымом от разведчикских сигнальных костров
+      - Воздух наполнен запахами русской печенки и свежего хлеба
+      visuals:
+      - Неприступные стены города с бойницами и турелями
+      - Булгарские воины в ярких шлемах и доспехах, готовые к бою
+      feeling: Воздух наполнен напряженностью и ожиданием, каждый шаг может стать
+        решающим. Вокруг тишина, лишь иногда прерываемая звуками подготовки к битве.
+    secrets:
+    - Существует древнее заклятие, способное усилить защитников Суздаля
+    - В подземельях города спрятана сокровищница древних русичей
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Темный коридор, ведущий внутрь города. Входы на север и под землю.
+
+      Звуки шагов эхом отдаются в туннеле. Пахнет сыростью и древесиной.
+
+      '
+    examine: 'На стенах видны следы старых выжженных огнем рисунков, возможно,
+
+      использовавшихся для защиты города.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+      description: Дверь в башню стража.
+    - direction: down
+      to_room: room_003
+      description: Лестница в подземный коридор.
+    - direction: south
+      to_room: world_forest_01
+      description: Вход наружу, в лес.
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: 'Высокая башня с видом на город и окрестности. Слышны голоса стражников.
+
+      Пахнет свежим деревом от новых стрел.
+
+      '
+    examine: 'На стене висит старый меч, покрытый ржавчиной. Возможно,
+
+      это оружие когда-то принадлежало храброму воину.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+      description: Лестница вниз.
+    - direction: up
+      to_room: room_007
+      description: Верхний уровень башни.
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+      description: Скрытая дверь на восток.
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: 'Темный и узкий туннель с сырыми стенами. Звуки капающей воды.
+
+      Пахнет плесенью и мокрой землей.
+
+      '
+    examine: 'В стене видны следы древних надписей, возможно,
+
+      здесь когда-то проходили важные персоны города.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: up
+      to_room: room_001
+      description: Лестница вверх.
+    - direction: north
+      to_room: room_004
+      description: Туннель на север, к боссу.
+    - direction: east
+      to_room: room_005
+      description: Коридор на восток, к сокровищам.
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Зал тесно заполнен камнями и гнилыми деревянными балками. В воздухе
+      висит запах сырости и плесени, а стены покрыты мхом и лишайником. Периодически
+      слышится скрип древних механизмов и шепот предупреждающих голосов.
+
+      '
+    examine: 'Стены украшены старыми рунами и символами, возможно, заклинаниями от
+      ловушек. В углу виднеется раскрытая книга с изображениями древних богатырей
+      и их битв.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_003
+      description: Небольшой проход ведет к подземному коридору.
+    - direction: north
+      to_room: room_006
+      description: Темный туннель с виднеющимся светом в конце, возможно, логово босса.
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+      description: Скрытый проход к башне стража, возможно, опасный или запертый.
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Зал наполнен старыми доспехами и оружием, среди которых виднеются
+      золотые монеты и драгоценные камни. Воздух здесь тяжелый от запаха древних металлов
+      и кожи. Изредка доносится шорох крыс или эхо шагов в глубине.
+
+      '
+    examine: 'На стенах видны рисунки, изображающие богатырей и их подвиги. В углу
+      лежит старый меч с вырезанными на ней символами могущественных богов.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: west
+      to_room: room_003
+      description: Узкий проход ведет к подземному коридору.
+    - direction: north
+      to_room: room_006
+      description: Закрытая железная дверь, возможно, ведущая к логову босса.
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'Зал наполнен тяжелой атмосферой, здесь чувствуется присутствие могущественного
+      существа. Стены украшены кровавыми рунами и старыми осколками доспехов. Воздух
+      холодный и влажный, пахнет гнилью и смертью.
+
+      '
+    examine: 'На полу лежит древний артефакт — камень с силой богатырей. Камень излучает
+      слабое свечение, возможно, обладает магическими свойствами.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Темный проход ведет к залу с ловушками.
+    - direction: west
+      to_room: room_005
+      description: Закрытая железная дверь, возможно, ведущая из сокровищницы.
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+      description: Короткий лестничный проход ведет наверх к темному входу.
+  - id: room_007
+    vnum: 20001
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине высокой башни, где воздух свеж и прохладен. Вокруг
+      виднеются стены города Суздаля с их бойницами и турелями. Вдалеке слышны звуки
+      приготовления к обороне.
+
+      Запахи дыма от сигнальных костров смешиваются с ароматом свежего хлеба, витающим
+      из городских пекарен.
+
+      '
+    examine: 'На вершине башни вы замечаете древнее заклятие, о котором говорили местные
+      предания. Оно усиливает защитников города и защищает его от внешних угроз.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: down
+      to_room: room_002
+      description: Лестница ведет вниз, к комнате стражи.
+  - id: room_008
+    vnum: 20002
+    name: Пещера босса (север)
+    description: 'Вы находитесь в темной пещере с высокими сводами. Стены покрыты
+      мхом и лишайником, а воздух наполнен сыростью и запахом грибов.
+
+      Из глубин пещеры доносятся тихие звуки - шорохи и дыхание.
+
+      '
+    examine: 'В центре пещеры виднеется вход в узкий коридор, который ведет к логову
+      босса. Здесь можно заметить следы недавних боев.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_006
+      description: Узкий коридор ведет к логову босса.
+  - id: room_009
+    vnum: 20003
+    name: Пещера босса (юг)
+    description: 'Вы оказались в глубине пещеры, где воздух становится еще более сырым
+      и холодным. Стены покрыты грибами и лишайником, а своды высоки и темны.
+
+      Из глубины доносится легкий шум - дыхание или шаги.
+
+      '
+    examine: 'В центре пещеры виднеется вход в узкий коридор, который также ведет
+      к логову босса. Здесь можно заметить следы недавних боев.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_006
+      description: Узкий коридор ведет к логову босса.
+  - id: room_010
+    vnum: 20010
+    name: Подземный ход (запад)
+    description: 'Темные каменные стены тесного подземного хода. Влажный воздух и
+      холод проникают до костей.
+
+      Стук сердца отражается эхом в узком проходе.
+
+      '
+    examine: "На стенах видны следы давних выбоин, возможно сделанные древними каменотёсами.\
+      \ \nВдалеке слышится тихое журчание подземного ручья.\n"
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: east
+      to_room: room_005
+      description: Узкий проход ведёт на восток.
+  - id: room_011
+    vnum: 20011
+    name: Подземный ход (восток)
+    description: 'Низкие сводчатые потолки и каменные стены подземного хода. Звуки
+      приготовлений к обороне доносятся издали.
+
+      Воздух здесь влажен и холоден.
+
+      '
+    examine: "На стене заметны следы древних резьбы - возможно, символы силы или защитных\
+      \ заклятий. \nВдалеке виднеется свет от костра разведчиков.\n"
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: west
+      to_room: room_004
+      description: Узкий проход ведёт на запад.
+  - id: room_012
+    vnum: 20012
+    name: Подземный коридор (запад)
+    description: 'Темные каменные стены и ровный пол подземного коридора. Воздух здесь
+      прохладен и влажен.
+
+      Издали слышатся тихие разговоры.
+
+      '
+    examine: "На стене виднеются следы древних посещений - выбоины от мечей и доспехов\
+      \ русичей. \nВдалеке можно увидеть свет от костра в дальнем конце коридора.\n"
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: east
+      to_room: room_003
+      description: Узкий проход ведёт на восток.
+  - id: room_013
+    vnum: 20051
+    name: Подземный коридор (восток)
+    description: 'Коридор узкий и низкий, стены покрыты мхом и плесенью. Глухие каменные
+      стены под ногами холодны и влажны.
+
+      Звуки капающей воды эхом разносятся по коридору. Воздух наполнен запахом сырости
+      и гнили.
+
+      '
+    examine: 'На стене виднеется древняя надпись, изъеденная мхом. Под ногами заметны
+      следы от старых ловушек.
+
+      Возможно, здесь когда-то проходили русичи в поисках сокровищ и безопасности.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: west
+      to_room: room_004
+      description: Узкий проход ведет на запад.
+  - id: room_014
+    vnum: 20052
+    name: Подземный ход (север)
+    description: 'Холодный и темный туннель с низким потолком. Стены покрыты трещинами,
+      сквозь которые пробирается холод.
+
+      Издали слышны приглушенные голоса и звуки подготовки к обороне. Воздух наполнен
+      запахом плесени.
+
+      '
+    examine: 'На стене виднеются следы от древних ловушек, теперь уже бездействующих.
+      Местами можно заметить старые надписи.
+
+      Возможно, этот ход был использован русичами для скрытного передвижения во время
+      осады.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_005
+      description: Туннель идет на юг.
+  - id: room_015
+    vnum: 20053
+    name: Подземный ход (юг)
+    description: 'Темный туннель с каменными стенами, покрытыми мхом и плесенью. Воздух
+      холодный и сыроватый.
+
+      Слышны приглушенные голоса и звуки подготовки к бою. Запах сырости и гнили висит
+      в воздухе.
+
+      '
+    examine: 'На стенах виднеются следы от древних ловушек, теперь уже бездействующих.
+      Местами можно заметить старые надписи.
+
+      Возможно, этот ход был использован русичами для скрытного передвижения во время
+      осады.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_003
+      description: Туннель идет на север.
+  - id: room_016
+    vnum: 20001
+    name: Подземный коридор (север)
+    description: 'Узкий туннель с мокрыми каменными стенами. Пахнет сыростью и грибами.
+
+      Звуки капающей воды и слабый свет от факела в конце коридора.
+
+      '
+    examine: 'На стенах видны следы древних рисунков и надписей. Возможно, это часть
+
+      секретного хода к сокровищнице.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Выход в зал с ловушками.
+  - id: room_017
+    vnum: 20002
+    name: Подземный коридор (юг)
+    description: 'Темный и узкий туннель, освещенный слабым светом от факела. Пахнет
+      плесенью.
+
+      Слышны звуки капающей воды и ветра снаружи.
+
+      '
+    examine: 'На стенах видны следы древних ловушек и трещины, из которых вытекает
+      вода.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: north
+      to_room: room_003
+      description: Выход к подземному коридору.
+  - id: room_018
+    vnum: 20003
+    name: Подземный ход (запад)
+    description: 'Узкий проход с мокрыми каменными стенами. Пахнет сыростью и плесенью.
+
+      Слышны звуки капающей воды и ветра.
+
+      '
+    examine: 'На стенах видны следы древних надписей и рисунков, указывающих на секретные
+
+      пути города.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: east
+      to_room: room_005
+      description: Выход к сокровищнице.
+  - id: room_019
+    vnum: 20019
+    name: Подземный ход (восток)
+    description: 'Узкий туннель с мшистыми стенами и сырым воздухом. Свет от факелов
+      слабо освещает путь.
+
+      '
+    examine: 'На стенах видны следы древних рисунков и надписей, а также затекшие
+      свечные воски.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: west
+      to_room: room_004
+      description: Узкий проход ведет на запад.
+  - id: room_020
+    vnum: 20020
+    name: Подземный коридор (запад)
+    description: 'Темный коридор с каменными стенами и мокрыми от подземных источников.
+      Звуки капающей воды.
+
+      '
+    examine: 'На стенах заметны следы древних ловушек, а в глубине туннеля слышно
+      шепот предсказаний волхвов.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - TUNNEL
+    exits:
+    - direction: east
+      to_room: room_003
+      description: Узкий проход ведет на восток.
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Булгарский разведчик
+      genitive: Булгарского разведчика
+      dative: Булгарскому разведчику
+      accusative: Булгарского разведчика
+      instrumental: Булгарским разведчиком
+      prepositional: Булгарском разведчике
+    level: 13
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин в ярком шлеме и легкой броне.
+
+      '
+    examine: 'На его поясе висит амулет с символом Булгарского хана Баира.
+
+      '
+    action: 'Разведчик внимательно осматривает окрестности, готовый к бою.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+9
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_002
+      - room_004
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Булгарский воин
+      genitive: Булгарского воина
+      dative: Булгарскому воину
+      accusative: Булгарского воина
+      instrumental: Булгарским воином
+      prepositional: Булгарском воине
+    level: 15
+    role: MELLEE_DMG
+    race: HUMAN
+    description: 'Сильный воин в тяжелой броне и длинном мече.
+
+      '
+    examine: 'На его шлеме изображена грозная голова льва.
+
+      '
+    action: 'Воин готовится к бою, держа меч наготове.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 9d8+15
+      armor_class: 25
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 50
+      exp: 3375
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 2
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Булгарский лучник
+      genitive: Булгарского лучника
+      dative: Булгарскому лучнику
+      accusative: Булгарского лучника
+      instrumental: Булгарским лучником
+      prepositional: Булгарском лучнике
+    level: 16
+    role: ARCHER
+    race: HUMAN
+    description: 'Лучник в лёгкой броне с длинным луком.
+
+      '
+    examine: 'В его руках крепкий лук, украшенный перьями.
+
+      '
+    action: 'Лучник внимательно наблюдает за окрестностями и готовится стрелять.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 9d8+14
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 3072
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_004
+      - room_010
+      max_count: 2
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Булгарский маг-разбойник
+      genitive: Булгарского мага-разбойника
+      dative: Булгарскому магу-разбойнику
+      accusative: Булгарского мага-разбойника
+      instrumental: Булгарским магом-разбойником
+      prepositional: Булгарском маге-разбойнике
+    level: 17
+    role: ROGUE
+    race: HUMAN
+    description: 'Молодой человек в черной одежде с посохом.
+
+      '
+    examine: 'На его поясе висит небольшой мешочек со зельями.
+
+      '
+    action: 'Разбойник внимательно осматривает окрестности и готовится к бою.
+
+      '
+    stats:
+      hp: 290
+      damage_dice: 11d8+16
+      armor_class: 30
+      hitroll: 8
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      exp: 4335
+      gold:
+        min: 118
+        max: 221
+    spawn:
+      rooms:
+      - room_006
+      - room_013
+      max_count: 2
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Булгарский танк
+      genitive: Булгарского танка
+      dative: Булгарскому танку
+      accusative: Булгарского танка
+      instrumental: Булгарским танком
+      prepositional: Булгарском танке
+    level: 18
+    role: TANK
+    race: HUMAN
+    description: 'Сильный воин в тяжелой броне и щитом.
+
+      '
+    examine: 'На его шлеме изображена грозная голова льва.
+
+      '
+    action: 'Танк готовится к бою, держа щит наготове.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 5d6+14
+      armor_class: 20
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 60
+      exp: 3240
+      gold:
+        min: 62
+        max: 117
+    spawn:
+      rooms:
+      - room_002
+      - room_013
+      max_count: 2
+  - id: mob_006
+    vnum: 20106
+    name:
+      nominative: Булгарский маг-урон
+      genitive: Булгарского мага-урона
+      dative: Булгарскому магу-урону
+      accusative: Булгарского мага-урона
+      instrumental: Булгарским магом-уроном
+      prepositional: Булгарском маге-уроне
+    level: 19
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Молодой человек в черной одежде с посохом.
+
+      '
+    examine: 'На его поясе висит небольшой мешочек со зельями.
+
+      '
+    action: 'Разбойник внимательно осматривает окрестности и готовится к бою.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 9d12+37
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 40
+      exp: 6498
+      gold:
+        min: 159
+        max: 296
+    spawn:
+      rooms:
+      - room_013
+      - room_014
+      max_count: 2
+  - id: mob_007
+    vnum: 20107
+    name:
+      nominative: Булгарский хан Баир
+      genitive: Булгарского хана Баира
+      dative: Булгарскому хану Баиру
+      accusative: Булгарского хана Баира
+      instrumental: Булгарским ханом Баиром
+      prepositional: Булгарском хане Баире
+    level: 20
+    role: BOSS
+    race: HUMAN
+    description: 'Сильный воин в тяжелой броне и длинном мече.
+
+      '
+    examine: 'На его шлеме изображена грозная голова льва.
+
+      '
+    action: 'Хан Баир готовится к бою, держа меч наготове.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 9d10+25
+      armor_class: 30
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 80
+      exp: 12000
+      gold:
+        min: 350
+        max: 650
+    spawn:
+      rooms:
+      - room_013
+      - room_015
+      max_count: 1
+  - id: mob_008
+    vnum: 20102
+    name:
+      nominative: Булгарский разведчик
+      genitive: Булгарского разведчика
+      dative: Булгарскому разведчику
+      accusative: Булгарского разведчика
+      instrumental: Булгарским разведчиком
+      prepositional: Булгарском разведчике
+    level: 13
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин в зеленых доспехах с небольшим луком за спиной.
+
+      '
+    examine: 'На его шлеме красуется яркий бархатный плюмаж.
+
+      '
+    action: 'Разведчик осторожно осматривает окрестности, готовый к бою.
+
+      '
+    stats:
+      hp: 270
+      damage_dice: 6d8+9
+      armor_class: 34
+      hitroll: 8
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 40
+      - item_id: obj_002
+        chance: 10
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 5
+  - id: mob_009
+    vnum: 20103
+    name:
+      nominative: Булгарский воин
+      genitive: Булгарского воина
+      dative: Булгарскому воину
+      accusative: Булгарского воина
+      instrumental: Булгарским воином
+      prepositional: Булгарском воине
+    level: 15
+    role: TANK
+    race: HUMAN
+    description: 'Сильный воин в тяжелых доспехах с мечом и щитом.
+
+      '
+    examine: 'На его шлеме красуется яркий бархатный плюмаж, а на груди - медальон.
+
+      '
+    action: 'Воин уверенно стоит перед врагами, готовый к бою.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 4d6+14
+      armor_class: 40
+      hitroll: 9
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 25
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 40
+      - item_id: obj_003
+        chance: 10
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_002
+      - room_005
+      max_count: 3
+  - id: mob_010
+    vnum: 20104
+    name:
+      nominative: Булгарский лучник
+      genitive: Булгарского лучника
+      dative: Булгарскому лучнику
+      accusative: Булгарского лучника
+      instrumental: Булгарским лучником
+      prepositional: Булгарском лучнике
+    level: 16
+    role: ARCHER
+    race: HUMAN
+    description: 'Лучник в легких доспехах с луком и колчаном.
+
+      '
+    examine: 'На его спине крепится тюк со стрелами, а на поясе - мешок с порошками.
+
+      '
+    action: 'Лучник берет из колчана новую стрелу и натягивает лук.
+
+      '
+    stats:
+      hp: 290
+      damage_dice: 9d8+14
+      armor_class: 38
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 40
+      - item_id: obj_004
+        chance: 10
+      exp: 3072
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 5
+  - id: mob_011
+    vnum: 20105
+    name:
+      nominative: Булгарский маг
+      genitive: Булгарского мага
+      dative: Булгарскому магу
+      accusative: Булгарского мага
+      instrumental: Булгарским магом
+      prepositional: Булгарском маге
+    level: 17
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Молодой маг в длинной белой одежде с книгами и посохом.
+
+      '
+    examine: 'На его поясе висит мешок со зельями, а на шее - медальон.
+
+      '
+    action: 'Маг начинает читать заклинание, собираясь нанести удар.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+36
+      armor_class: 36
+      hitroll: 7
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 40
+      - item_id: obj_005
+        chance: 10
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_007
+      - room_008
+      max_count: 3
+  - id: mob_012
+    vnum: 20106
+    name:
+      nominative: Булгарский капитан
+      genitive: Булгарского капитана
+      dative: Булгарскому капитану
+      accusative: Булгарского капитана
+      instrumental: Булгарским капитаном
+      prepositional: Булгарском капитане
+    level: 18
+    role: BOSS
+    race: HUMAN
+    description: 'Высокий воин в богатых доспехах с мечом и щитом.
+
+      '
+    examine: 'На его шлеме красуется яркий бархатный плюмаж, а на груди - медальон.
+
+      '
+    action: 'Капитан уверенно стоит перед врагами, готовый к бою.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 45
+      hitroll: 12
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 30
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 50
+      - item_id: obj_006
+        chance: 20
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_009
+      - room_010
+      max_count: 1
+  - id: mob_013
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 13
+    role: TRASH
+    race: UNDEAD
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+9
+      armor_class: 74
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_014
+    vnum: 20102
+    name:
+      nominative: Булгарский лучник
+      genitive: Булгарского лучника
+      dative: Булгарскому лучнику
+      accusative: Булгарского лучника
+      instrumental: Булгарским лучником
+      prepositional: Булгарском лучнике
+    level: 15
+    role: ARCHER
+    race: HUMAN
+    description: 'Лучник в броне и с луком, готовый к бою.
+
+      '
+    examine: 'Его доспехи покрыты следами крови и пыли от недавних битв.
+
+      '
+    action: 'Булгарский лучник стреляет из лука по приближающимся врагам.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 8d8+16
+      armor_class: 70
+      hitroll: 8
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 25
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 2700
+      gold:
+        min: 73
+        max: 136
+    spawn:
+      rooms:
+      - room_010
+      - room_011
+      max_count: 2
+  - id: mob_015
+    vnum: 20103
+    name:
+      nominative: Булгарский воин
+      genitive: Булгарского воина
+      dative: Булгарскому воину
+      accusative: Булгарского воина
+      instrumental: Булгарским воином
+      prepositional: Булгарском воине
+    level: 17
+    role: TANK
+    race: HUMAN
+    description: 'Вооруженный тяжелой броней и боевым топором.
+
+      '
+    examine: 'Его доспехи украшены символами своего племени.
+
+      '
+    action: 'Булгарский воин сражается, защищая своих товарищей.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 5d6+13
+      armor_class: 68
+      hitroll: 9
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 30
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 50
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 1
+  - id: mob_016
+    vnum: 20104
+    name:
+      nominative: Булгарский маг
+      genitive: Булгарского мага
+      dative: Булгарскому магу
+      accusative: Булгарского мага
+      instrumental: Булгарским магом
+      prepositional: Булгарском маге
+    level: 16
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Молодой человек в простых одеждах, держит книгу заклинаний.
+
+      '
+    examine: 'Его глаза светятся внутренним огнем магии.
+
+      '
+    action: 'Булгарский маг вызывает пламя из воздуха.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 8d12+32
+      armor_class: 72
+      hitroll: 8
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 50
+      cold: 10
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 35
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 2
+  - id: mob_017
+    vnum: 20105
+    name:
+      nominative: Булгарский шаман
+      genitive: Булгарского шамана
+      dative: Булгарскому шаману
+      accusative: Булгарского шамана
+      instrumental: Булгарским шаманом
+      prepositional: Булгарском шамане
+    level: 18
+    role: BOSS
+    race: SPIRIT
+    description: 'Старец с длинной бородой и магическими амулетами.
+
+      '
+    examine: 'Его глаза светятся древней мудростью и силой.
+
+      '
+    action: 'Булгарский шаман творит заклинания, вызывая духов предков.
+
+      '
+    stats:
+      hp: 500
+      damage_dice: 8d10+25
+      armor_class: 64
+      hitroll: 9
+    abilities:
+    - cast
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 70
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 45
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_001
+      max_count: 1
+  - id: mob_018
+    vnum: 20102
+    name:
+      nominative: Булгарский разведчик
+      genitive: Булгарского разведчика
+      dative: Булгарскому разведчику
+      accusative: Булгарского разведчика
+      instrumental: Булгарским разведчиком
+      prepositional: Булгарском разведчике
+    level: 14
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин в легком доспехе и с луком за спиной.
+
+      '
+    examine: 'На его поясе висит кожаный кошелек, наполненный монетами.
+
+      '
+    action: 'Разведчик внимательно осматривает окрестности, готовясь к бою.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d8+11
+      armor_class: 40
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 45
+      exp: 1960
+      gold:
+        min: 49
+        max: 91
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_019
+    vnum: 20103
+    name:
+      nominative: Булгарский воин
+      genitive: Булгарского воина
+      dative: Булгарскому воину
+      accusative: Булгарского воина
+      instrumental: Булгарским воином
+      prepositional: Булгарском воине
+    level: 15
+    role: TANK
+    race: HUMAN
+    description: 'Огромный воин в тяжелых доспехах с мечом и щитом.
+
+      '
+    examine: 'Его доспехи покрыты рунами, оберегающими от опасностей.
+
+      '
+    action: 'Воин медленно шагает по коридору, внимательный к каждому звуку.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 4d6+14
+      armor_class: 50
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 2
+  - id: mob_020
+    vnum: 20104
+    name:
+      nominative: Леший-хранитель
+      genitive: Лешего-хранителя
+      dative: Лешему-хранителю
+      accusative: Лешего-хранителя
+      instrumental: Лешим-хранителем
+      prepositional: Лешем-хранителе
+    level: 17
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Огромный леший в зеленых одеждах, с древком и котлом.
+
+      '
+    examine: 'Его глаза светятся магической силой, а руки держат мощные заклинания.
+
+      '
+    action: 'Леший начинает танцевать вокруг вас, вызывая вихри листьев и камней.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 8d12+36
+      armor_class: 25
+      hitroll: 8
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -15
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 20
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_005
+      - room_006
+      max_count: 3
+  - id: mob_021
+    vnum: 20105
+    name:
+      nominative: Булгарский капитан
+      genitive: Булгарского капитана
+      dative: Булгарскому капитану
+      accusative: Булгарского капитана
+      instrumental: Булгарским капитаном
+      prepositional: Булгарском капитане
+    level: 16
+    role: BOSS
+    race: HUMAN
+    description: 'Старший офицер в богатых доспехах, с мечом и щитом.
+
+      '
+    examine: 'Его одежда украшена медалями за боевые подвиги.
+
+      '
+    action: 'Капитан выкрикивает приказы своим людям, готовясь к атаке.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 7d10+24
+      armor_class: 60
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -5
+      cold: 10
+    loot:
+      items:
+      - item_id: obj_015
+        chance: 60
+      exp: 7680
+      gold:
+        min: 280
+        max: 520
+    spawn:
+      rooms:
+      - room_007
+      max_count: 1
+  - id: mob_022
+    vnum: 20102
+    name:
+      nominative: Булгарский стрелок
+      genitive: Булгарского стрелка
+      dative: Булгарскому стрелку
+      accusative: Булгарского стрелка
+      instrumental: Булгарским стрелком
+      prepositional: Булгарском стрелке
+    level: 15
+    role: ARCHER
+    race: HUMAN
+    description: 'Молодой воин с луком и колчаном за спиной.
+
+      '
+    examine: 'На его шлеме гордо красуется символ булгарского хана Баира.
+
+      '
+    action: 'Булгарский стрелок быстро натягивает тетиву, готовый метнуть стрелу.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 8d8+16
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 50
+      - item_id: obj_003
+        chance: 30
+      exp: 2700
+      gold:
+        min: 73
+        max: 136
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_023
+    vnum: 20103
+    name:
+      nominative: Булгарский топорник
+      genitive: Булгарского топорника
+      dative: Булгарскому топорнику
+      accusative: Булгарского топорника
+      instrumental: Булгарским топорником
+      prepositional: Булгарском топорнике
+    level: 16
+    role: MELLEE_DMG
+    race: HUMAN
+    description: 'Воин с массивным топором и доспехами из кожи.
+
+      '
+    examine: 'Его глаза горят яростью, готовые к ближнему бою.
+
+      '
+    action: 'Булгарский топорник размахивает своим оружием перед лицом врагов.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 9d8+18
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 50
+      - item_id: obj_005
+        chance: 30
+      exp: 3840
+      gold:
+        min: 89
+        max: 166
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_024
+    vnum: 20104
+    name:
+      nominative: Булгарский маг
+      genitive: Булгарского мага
+      dative: Булгарскому магу
+      accusative: Булгарского мага
+      instrumental: Булгарским магом
+      prepositional: Булгарском маге
+    level: 17
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Молодой человек в черной мантии с книжкой заклинаний.
+
+      '
+    examine: 'Его глаза светятся магической силой, готовые к бою.
+
+      '
+    action: 'Булгарский маг начинает читать древние заклинания.
+
+      '
+    stats:
+      hp: 230
+      damage_dice: 8d12+36
+      armor_class: 40
+      hitroll: 6
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 50
+      - item_id: obj_007
+        chance: 30
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_025
+    vnum: 20105
+    name:
+      nominative: Булгарский танк
+      genitive: Булгарского танка
+      dative: Булгарскому танку
+      accusative: Булгарского танка
+      instrumental: Булгарским танком
+      prepositional: Булгарском танке
+    level: 18
+    role: TANK
+    race: HUMAN
+    description: 'Воин в массивных доспехах с щитом.
+
+      '
+    examine: 'Его шлем закрывает лицо, но видны следы битв на доспехах.
+
+      '
+    action: 'Булгарский танк готовится к обороне.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 5d6+14
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_008
+        chance: 50
+      - item_id: obj_009
+        chance: 30
+      exp: 3240
+      gold:
+        min: 62
+        max: 117
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_026
+    vnum: 20106
+    name:
+      nominative: Булгарский разбойник
+      genitive: Булгарского разбойника
+      dative: Булгарскому разбойнику
+      accusative: Булгарского разбойника
+      instrumental: Булгарским разбойником
+      prepositional: Булгарском разбойнике
+    level: 19
+    role: ROGUE
+    race: HUMAN
+    description: 'Молодой человек в кожаных доспехах с ножами на поясе.
+
+      '
+    examine: 'Его глаза светятся ловкостью и хитростью.
+
+      '
+    action: 'Булгарский разбойник прячется за углом, готовый к нападению.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 12d8+18
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - stealth
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 50
+      - item_id: obj_011
+        chance: 30
+      exp: 5415
+      gold:
+        min: 133
+        max: 247
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_027
+    vnum: 20101
+    name:
+      nominative: Булгарский разведчик
+      genitive: Булгарского разведчика
+      dative: Булгарскому разведчику
+      accusative: Булгарского разведчика
+      instrumental: Булгарским разведчиком
+      prepositional: Булгарском разведчике
+    level: 13
+    role: TRASH
+    race: HUMAN
+    description: 'Молодой воин в кожаных доспехах с мечом на боку.
+
+      '
+    examine: 'На его лице вырезана татуировка льва, символа храбрости.
+
+      '
+    action: 'Разведчик внимательно осматривает окрестности и готовится к бою.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+9
+      armor_class: 48
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_028
+    vnum: 20102
+    name:
+      nominative: Булгарский воин
+      genitive: Булгарского воина
+      dative: Булгарскому воину
+      accusative: Булгарского воина
+      instrumental: Булгарским воином
+      prepositional: Булгарском воине
+    level: 15
+    role: MELLEE_DMG
+    race: HUMAN
+    description: 'Воин в броневых доспехах с тяжелым мечом.
+
+      '
+    examine: 'На его шлеме красуется рогатый символ силы и власти.
+
+      '
+    action: 'Воин готовится к бою, поднимая свой огромный меч.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 9d8+15
+      armor_class: 42
+      hitroll: 8
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 35
+      exp: 3375
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 2
+  - id: mob_029
+    vnum: 20103
+    name:
+      nominative: Булгарский лучник
+      genitive: Булгарского лучника
+      dative: Булгарскому лучнику
+      accusative: Булгарского лучника
+      instrumental: Булгарским лучником
+      prepositional: Булгарском лучнике
+    level: 16
+    role: ARCHER
+    race: HUMAN
+    description: 'Лучник в лёгкой броне с арбалетом на спине.
+
+      '
+    examine: 'Его стрелы украшены символами охоты и победы.
+
+      '
+    action: 'Лучник поднимает свой арбалет, готовый к бою.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 9d8+14
+      armor_class: 45
+      hitroll: 7
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 25
+      exp: 3072
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_006
+      - room_007
+      max_count: 2
+  - id: mob_030
+    vnum: 20104
+    name:
+      nominative: Булгарский маг
+      genitive: Булгарского мага
+      dative: Булгарскому магу
+      accusative: Булгарского мага
+      instrumental: Булгарским магом
+      prepositional: Булгарском маге
+    level: 17
+    role: MAGE_DMG
+    race: HUMAN
+    description: 'Мрачный маг в длинном плаще с черными волосами.
+
+      '
+    examine: 'Его глаза светятся тусклым оранжевым светом, символизируя силу магии.
+
+      '
+    action: 'Маг готовит заклинание, собираясь нанести удар по своим врагам.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d12+36
+      armor_class: 48
+      hitroll: 6
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 25
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_008
+      - room_009
+      max_count: 1
+  - id: mob_031
+    vnum: 20105
+    name:
+      nominative: Булгарский капитан
+      genitive: Булгарского капитана
+      dative: Булгарскому капитану
+      accusative: Булгарского капитана
+      instrumental: Булгарским капитаном
+      prepositional: Булгарском капитане
+    level: 18
+    role: BOSS
+    race: HUMAN
+    description: 'Величественный военачальник в золочёных доспехах с мечом и щитом.
+
+      '
+    examine: 'Его шлем украшен рогами, символизирующими его власть и силу.
+
+      '
+    action: 'Капитан поднимает свой огромный меч и готовится к бою.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 36
+      hitroll: 9
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 0
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 50
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_010
+      - room_011
+      max_count: 1
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристала
+      accusative: соляной кристалл
+      dative: соляному кристаллу
+      ablative: соляном кристалле
+      vocative: Соляной кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура, словно прикованная
+      к векам времени.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    wear_slots: []
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: POTION
+    name:
+      nominative: Серафимская эликсир
+      genitive: Серафимского эликсира
+      accusative: серифимский эликсир
+      dative: серафимскому эликсиру
+      ablative: серафимском эликсире
+      vocative: Серафимском эликсире
+    description: 'Темно-синее зелье, наполненное энергией света и добра.
+
+      '
+    examine: 'Эликсир источает теплый свет, словно маленькая звезда в бутылке.
+
+      '
+    value: 100
+    weight: 0.5
+    material: CRYSTAL
+    flags:
+    - HEAL
+  - id: obj_003
+    vnum: 20203
+    type: WEAPON
+    name:
+      nominative: Меч света
+      genitive: меча света
+      accusative: меч света
+      dative: мечу света
+      ablative: мече света
+      vocative: Мече света
+    description: 'Металлический меч, обитый сияющим золотом и пронизанный энергией
+      света.
+
+      '
+    examine: 'Острый клинок блестит от внутреннего света, как будто сам светится.
+
+      '
+    value: 200
+    weight: 4
+    material: STEEL
+    wear_slots:
+    - WEAPON
+    affects:
+      strength: 3
+      damage: 20
+    flags:
+    - MAGIC
+    - SHINE
+  - id: obj_004
+    vnum: 20204
+    type: ARMOR
+    name:
+      nominative: Кольчуга из сияющих металлов
+      genitive: кольчуги из сияющих металлов
+      accusative: колчугу из сияющих металлов
+      dative: кольчуге из сияющих металлов
+      ablative: кольчуге из сияющих металлов
+      vocative: Кольчуге из сияющих металлов
+    description: 'Кольчуга, обитая блестящими металлами и наполненная энергией света.
+
+      '
+    examine: 'Кольчуга отражает свет, оставляя на коже мягкий блеск.
+
+      '
+    value: 150
+    weight: 7
+    material: METAL
+    wear_slots:
+    - BODY
+    affects:
+      armor: 10
+      strength: 2
+    flags:
+    - MAGIC
+    - SHINE
+  - id: obj_005
+    vnum: 20205
+    type: SCROLL
+    name:
+      nominative: Книга измерений
+      genitive: книги измерений
+      accusative: книгу измерений
+      dative: книге измерений
+      ablative: книге измерений
+      vocative: Книге измерений
+    description: 'Книга с древними магическими символами, которую можно использовать
+      для перемещения между измерениями.
+
+      '
+    examine: 'На страницах книги вспыхивают таинственные искры, как будто она живет
+      собственной жизнью.
+
+      '
+    value: 300
+    weight: 1
+    material: PAPER
+    flags:
+    - MAGIC
+  - id: obj_006
+    vnum: 20206
+    type: KEY
+    name:
+      nominative: Ключ от архива тайн
+      genitive: ключа от архива тайн
+      accusative: ключ от архива тайн
+      dative: ключу от архива тайн
+      ablative: ключе от архива тайн
+      vocative: Ключе от архива тайн
+    description: 'Ключ, обитый золотом и украшенный таинственными символами.
+
+      '
+    examine: 'Ключ светится мягким сиянием, как будто сам источает магическую энергию.
+
+      '
+    value: 75
+    weight: 0.2
+    material: METAL
+    flags:
+    - MAGIC
+  - id: obj_007
+    vnum: 20207
+    type: FOOD
+    name:
+      nominative: Эликсир жизни
+      genitive: эликсира жизни
+      accusative: эликсир жизни
+      dative: эликсиру жизни
+      ablative: эликсире жизни
+      vocative: Эликсире жизни
+    description: 'Белый кристалл, источающий сияние и наполняющий энергией.
+
+      '
+    examine: 'Кристалл светится мягким голубым светом, как будто сам является источником
+      жизни.
+
+      '
+    value: 25
+    weight: 0.1
+    material: CRYSTAL
+    flags:
+    - HEAL
+  quests:
+  - id: quest_001
+    name: Защита Святыни
+    type: KILL
+    description: 'В священной пещере Истоков находится артефакт, который защищает
+      город от внешних угроз. Однако бандиты и орда Булгар приближаются к пещере с
+      целью его похищения. Вам нужно защитить пещеру и убить всех вторгшихся.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_017
+      count: 3
+    - type: KILL
+      target: mob_026
+      count: 5
+    rewards:
+      exp: 4000
+      gold: 150
+      items:
+      - obj_pendant
+    giver_npc: npc_saint_priest
+    completion_npc: npc_saint_priest
+  - id: quest_002
+    name: Спасение Лешиха
+    type: ESCORT
+    description: 'В пещере появился леший-хранитель, который помогает защищать святыню.
+      Однако орда Булгар попыталась его убить и он ранен. Вам нужно проводить Лешиха
+      до безопасного места.
+
+      '
+    objectives:
+    - type: ESCORT
+      npc: npc_leshy_guard
+    rewards:
+      exp: 1000
+      gold: 50
+      items:
+      - obj_berry
+    giver_npc: npc_saint_priest
+    completion_npc: npc_healer
+  - id: quest_003
+    name: Тайный Активатор
+    type: EXPLORE
+    description: 'У местных жителей есть легенда о тайной комнате, которая активируется
+      только после убийства определенного количества мобов. Вам нужно найти эту комнату
+      и исследовать ее.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_029
+      count: 3
+    - type: EXPLORE
+      room_id: room_secret
+    rewards:
+      exp: 2500
+      gold: 100
+      items:
+      - obj_secrets
+    giver_npc: npc_elder
+    completion_npc: npc_saint_priest

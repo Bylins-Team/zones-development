@@ -1,13 +1,22 @@
 # Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
+.venv/
 venv/
-env/
-ENV/
+__pycache__/
+*.pyc
+*.pyo
 *.egg-info/
+.pytest_cache/
+
+# Environment
+.env
+
+# LangGraph checkpoints
+.checkpoints/
+
+# Temporary files
+*.tmp
+*.log
+/tmp/
 
 # IDE
 .vscode/
@@ -19,16 +28,3 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
-
-# Temporary files
-*.tmp
-*.bak
-*.backup
-*~
-
-# Logs
-*.log
-
-# Development
-.scratch/
-.test/

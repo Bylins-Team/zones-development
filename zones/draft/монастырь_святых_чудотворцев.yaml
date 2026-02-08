@@ -1,0 +1,1176 @@
+zone:
+  meta:
+    id: zone_m_15-18
+    name: Монастырь Святых Чудотворцев
+    author: Zone Generator
+    version: '1.0'
+    description: Среди вековых сосен и унылой пустоши расположился заброшенный монастырь,
+      который славится древними чудесами. Согласно местным преданиям, здесь обитают
+      духи монахов-богословов, которые охраняют святые мощи и тайны божественного
+      знания.
+    recommended_level:
+    - 15
+    - 18
+  lore:
+    history: Монастырь Святых Чудотворцев был основан более тысячи лет назад на высоком
+      берегу реки, где по легенде явился пророк и указал место для священного сооружения.
+      В древние времена монастырь славился своим знанием тайных писаний и чудодейственными
+      мощами усопших праведников. Однако с приходом темных времен, когда русские земли
+      были объяты войной и разрухой, монастырь был оставлен последними братией старцев,
+      которые поплатились жизнью за защиту святынь.
+    folklore_basis: Согласно местным поверьям, духи монахов-богословов не покинули
+      монастырь после смерти и теперь оберегают его от посягательств врагов. Считается,
+      что те, кто приходит в это заброшенное место ночью, могут услышать их славословия
+      и видеть свет свечей, мерцающих в главном соборе.
+    current_state: Сейчас монастырь обитает духами и тенями прошлого. Его стены изъедены
+      временем, а внутренние помещения заполнены древними писаниями и святынями, которые
+      поджидают тех, кто сможет их отыскать среди руин.
+    conflict: Основной конфликт связан с появлением сил тьмы, стремящихся захватить
+      мощи монастыря для своих темных целей. Игрокам предстоит помочь духам защитить
+      святыню и спасти чудодейственные реликвии.
+    key_characters:
+    - name: Брат Иоанн
+      role: Последний настоятель монастыря, превратившийся в духа-защитника.
+      description: Иоанн был священником и богословом, чьи знания о православии помогли
+        ему оберегать святыни монастыря даже после смерти.
+    - name: Святой Никита
+      role: Усопший защитник мощей.
+      description: Никита, убитый во время набега викингов, теперь охраняет монастырь
+        от посягательств.
+    atmosphere:
+      sounds:
+      - Шепот молитв
+      - Вздыхание древних стен
+      smells:
+      - Запах старого дерева и свечного воска
+      - Мятый лист лаванды
+      visuals:
+      - Призрачные фигуры в тусклом свете звезд
+      - Старые книги, разбросанные среди руин
+      feeling: Монастырь дышит древностью и сакральностью. Воздух наполнен сладковатым
+        запахом благовоний и волокнами прошлого.
+    secrets:
+    - В монастырском саду растет трава, способная исцелять любую рану при определенной
+      священной формуле.
+    - Коренные узлы древней сосны в овраге хранят тайны первых богослужений.
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Темная арка ведет внутрь монастыря, освещенная лишь тусклым светом
+      свечей. Стены изъедены временем и трещинами, сквозь которые проглядывает холод
+      ночного воздуха.
+
+      Шепот древних молитв и вздохи старых стен нарушают寂静的文本似乎被意外中断了，我将继续生成剩余部分，并确保符合您的要求。'
+    exits:
+    - direction: north
+      to_room: room_002
+    - direction: down
+      to_room: room_003
+    - direction: south
+      to_room: world_forest_01
+  - id: room_002
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Зал глубоко под монастырём, где стены изъедены временем и тьмой.
+      На полу видны следы битвы — ржавые осколки железа, разбросанные древние книги.
+      Воздух наполнен металлическим запахом крови и старого дерева. Слышатся едва
+      уловимые звуки щелчков ловушек.
+
+      '
+    examine: 'Узкие проходы между камнями ведут к тайным ловушкам, готовым сработать
+      при малейшем движении. На стенах видны древние рисунки — символы защиты и предостережения.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: south
+      to_room: room_001
+    - direction: up
+      to_room: room_007
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+  - id: room_003
+    vnum: 20002
+    name: Сокровищница
+    description: 'Зал заполнен древними реликвиями и золотыми дарами. Стены украшены
+      позолоченной мозаикой, на полу разбросаны старые книги и священные артефакты.
+      Воздух наполнен сладковатым запахом благовоний. Звуки тихого шепота ветра и
+      древних молитв.
+
+      '
+    examine: 'Узкие проходы между камнями ведут к тайным сокровищам, готовым защитить
+      святыни от посягательств. На стенах видны древние рисунки — символы защиты и
+      предостережения.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: up
+      to_room: room_001
+    - direction: north
+      to_room: room_004
+    - direction: east
+      to_room: room_005
+  - id: room_004
+    vnum: 20003
+    name: Логово босса
+    description: 'Зал глубоко под монастырём, где стены изъедены временем и тьмой.
+      На полу видны следы битвы — ржавые осколки железа, разбросанные древние книги.
+      Воздух наполнен металлическим запахом крови и старого дерева. Слышатся едва
+      уловимые звуки щелчков ловушек.
+
+      '
+    examine: 'Узкие проходы между камнями ведут к тайным ловушкам, готовым сработать
+      при малейшем движении. На стенах видны древние рисунки — символы защиты и предостережения.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+  - id: room_005
+    vnum: 20001
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине высокой каменной башни, где древние книги и свитки
+      лежат среди пыли. Воздух здесь наполнен сладковатым ароматом благовоний, витающих
+      из-под старых страниц. Стены покрыты мозаиками с изображениями святых, отражающими
+      бледный свет луны.
+
+      '
+    examine: 'В углу заметно место для секретного механизма, возможно, здесь скрывается
+      что-то ценное.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+  - id: room_006
+    vnum: 20002
+    name: Зал зеркал
+    description: 'Зал наполнен множеством старинных зеркал, отражающих ваши шаги и
+      тени. Шепот молитв разносится по стенам, а запах свечного воска смешивается
+      с ароматом древнего дерева. Стены покрыты серебристыми узорами, создавая ощущение
+      бесконечности.
+
+      '
+    examine: 'Некоторые зеркала кажутся искаженными, возможно, здесь есть ловушки
+      или секреты.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_004
+    - direction: west
+      to_room: room_005
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+  - id: room_007
+    vnum: 20003
+    name: Подвал с артефактами
+    description: 'Подвал заполнен древними артефактами и святынями, среди которых
+      мерцают тусклые огоньки. Запах старого дерева смешивается со сладковатыми оттенками
+      благовоний. Стены покрыты мхом и плесенью, создавая впечатление времени.
+
+      '
+    examine: 'В углу заметно место для скрытой двери или ловушки, возможно, здесь
+      есть что-то ценное.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: down
+      to_room: room_002
+  - id: room_008
+    vnum: 20010
+    name: Камера пыток
+    description: 'Камера заполнена грубым камнем и ржавыми цепями. В углу лежит старая
+      железная сковорода, покрытая пятнами застывшей крови. Тусклый свет из щели под
+      дверью освещает лишь малую часть помещения.
+
+      Звуки: Скрип ржавых цепей и тихий стон старого дерева.
+
+      Запахи: Кровь и затхлость запертыми комнатами.
+
+      Текстуры: Камень холодный, цепи острые на ощупь.
+
+      '
+    examine: 'Под сковородой обнаруживаются старые бумаги с записями пыток. Цепи ведут
+      к потолку, где виднеется ржавый механизм для подвешивания.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    - NO_MAGIC
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_009
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Призрачный монах
+      genitive: Призрачного монаха
+      dative: Призрачному монаху
+      accusative: Призрачного монаха
+      instrumental: Призрачным монахом
+      prepositional: Призрачном монахе
+    level: 15
+    role: TRASH
+    race: SPIRIT
+    description: 'Призрачная фигура в древнем рясе, сгорбленная и медлительная.
+
+      '
+    examine: 'Его глаза пусты, будто не видят этого мира.
+
+      '
+    action: 'Призрачный монах шепчет молитвы на незнакомом языке.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 6d8+13
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 4
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Бесноватый дух
+      genitive: Бесноватого духа
+      dative: Бесноватому духу
+      accusative: Бесноватого духа
+      instrumental: Бесноватым духом
+      prepositional: Бесноватом духе
+    level: 16
+    role: TRASH
+    race: BOGGART
+    description: 'Бешеная фигура с расцарапанным лицом, бегущая по стенам.
+
+      '
+    examine: 'Его глаза полны безумия и ненависти к живым.
+
+      '
+    action: 'Бесноватый дух издаёт дикие вопли и пытается ухватить прохожих.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d8+10
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 10
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_002
+      - room_007
+      max_count: 3
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Брат Иоанн
+      genitive: Брата Иоанна
+      dative: Брату Иоанну
+      accusative: Брата Иоанна
+      instrumental: Братом Иоанном
+      prepositional: Брате Иоанне
+    level: 18
+    role: TANK
+    race: SPIRIT
+    description: 'Статная фигура в древнем облачении, с мудрым выражением лица.
+
+      '
+    examine: 'Его глаза светятся благородством и силой духа.
+
+      '
+    action: 'Брат Иоанн тихо читает молитвы, защищая святыню.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 5d6+14
+      armor_class: 25
+      hitroll: 9
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -5
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      exp: 3240
+      gold:
+        min: 62
+        max: 117
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 1
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Святой Никита
+      genitive: Святого Никиты
+      dative: Святому Никите
+      accusative: Святого Никиту
+      instrumental: Святым Никитой
+      prepositional: Святом Никите
+    level: 17
+    role: BOSS
+    race: SPIRIT
+    description: 'Мощная фигура в броне, с мечом в руке.
+
+      '
+    examine: 'Его глаза горят огнем праведного гнева и ненависти к темным силам.
+
+      '
+    action: 'Святой Никита издаёт боевой клич и атакует нарушителей покоя монастыря.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 8d10+22
+      armor_class: 20
+      hitroll: 12
+    abilities:
+    - bash
+    - kick
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+      cold: 45
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 10
+      exp: 8670
+      gold:
+        min: 297
+        max: 552
+    spawn:
+      rooms:
+      - room_004
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Призрачная сестра
+      genitive: Призрачной сестры
+      dative: Призрачной сестре
+      accusative: Призрачную сестру
+      instrumental: Призрачной сестрой
+      prepositional: Призрачной сестре
+    level: 16
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Призрачная фигура в белом облачении, держащая светящуюся книгу.
+
+      '
+    examine: 'Её глаза горят магической силой и знанием древних заклинаний.
+
+      '
+    action: 'Призрачная сестра начинает читать древние руны, вызывая огонь из воздуха.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+32
+      armor_class: 40
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 30
+      cold: -20
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 35
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_006
+      - room_008
+      max_count: 2
+  - id: mob_006
+    vnum: 20102
+    name:
+      nominative: Призрачный монах
+      genitive: Призрачного монаха
+      dative: Призрачному монаху
+      accusative: Призрачного монаха
+      instrumental: Призрачным монахом
+      prepositional: Призрачном монахе
+    level: 16
+    role: TRASH
+    race: SPIRIT
+    description: 'Призрачная фигура в старой рясе, держащая свечу.
+
+      '
+    examine: 'Свечка мерцает слабым светом, освещая путь.
+
+      '
+    action: 'Призрачный монах вздыхает и продолжает свой вечный путь.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 7d8+10
+      armor_class: 34
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_007
+    vnum: 20103
+    name:
+      nominative: Теневое существо
+      genitive: Теневого существа
+      dative: Теневому существу
+      accusative: Теневого существа
+      instrumental: Теневым существом
+      prepositional: Теневом существе
+    level: 17
+    role: TANK
+    race: GHOST
+    description: 'Темная тень, скользящая по полу.
+
+      '
+    examine: 'Существо оставляет за собой следы холодного воздуха.
+
+      '
+    action: 'Теневое существо втягивает в себя окружающую темноту.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 5d6+13
+      armor_class: 26
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 35
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 2
+  - id: mob_008
+    vnum: 20104
+    name:
+      nominative: Призрачный монах-богослов
+      genitive: Призрачного монаха-богослова
+      dative: Призрачному монаху-богослову
+      accusative: Призрачного монаха-богослова
+      instrumental: Призрачным монахом-богословом
+      prepositional: Призрачном монахе-богослове
+    level: 18
+    role: BOSS
+    race: SPIRIT
+    description: 'Светлая фигура в старой рясе, держащая древний том.
+
+      '
+    examine: 'Том написан на древнерусском языке и излучает слабое свечение.
+
+      '
+    action: 'Призрачный монах-богослов читает древние тексты вслух, защищая себя заклинаниями.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 36
+      hitroll: 10
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -15
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 60
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_008
+      max_count: 1
+  - id: mob_009
+    vnum: 20105
+    name:
+      nominative: Призрачный лучник
+      genitive: Призрачного лучника
+      dative: Призрачному лучнику
+      accusative: Призрачного лучника
+      instrumental: Призрачным лучником
+      prepositional: Призрачном лучнике
+    level: 17
+    role: ARCHER
+    race: SPIRIT
+    description: 'Призрачная фигура с луком и колчаном.
+
+      '
+    examine: 'Лучник держит стрелы, которые светятся слабым светом.
+
+      '
+    action: 'Призрачный лучник выпускает серию огненных стрел в цель.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 9d8+16
+      armor_class: 28
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -5
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 45
+      exp: 3468
+      gold:
+        min: 83
+        max: 154
+    spawn:
+      rooms:
+      - room_002
+      - room_006
+      max_count: 3
+  - id: mob_010
+    vnum: 20106
+    name:
+      nominative: Призрачный целитель
+      genitive: Призрачного целителя
+      dative: Призрачному целителю
+      accusative: Призрачного целителя
+      instrumental: Призрачным целителем
+      prepositional: Призрачном целителе
+    level: 16
+    role: HEALER
+    race: SPIRIT
+    description: 'Призрачная фигура в белой рясе, держащая свечу.
+
+      '
+    examine: 'Свечка излучает слабое светлое тепло.
+
+      '
+    action: 'Призрачный целитель исцеляет раны у призраков вокруг себя.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 3d6+10
+      armor_class: 32
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 30
+      exp: 1536
+      gold:
+        min: 67
+        max: 124
+    spawn:
+      rooms:
+      - room_008
+      max_count: 2
+  - id: mob_011
+    vnum: 20101
+    name:
+      nominative: Призрачный монах
+      genitive: Призрачного монаха
+      dative: Призрачному монаху
+      accusative: Призрачного монаха
+      instrumental: Призрачным монахом
+      prepositional: Призрачном монахе
+    level: 15
+    role: TRASH
+    race: SPIRIT
+    description: 'Призрачная фигура в древнем облачении, с книгой в руке.
+
+      '
+    examine: 'Его глаза пусты и полупрозрачные книги мерцают слабым светом.
+
+      '
+    action: 'Призрачный монах начинает читать древние тексты над телами живых.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 6d8+13
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_012
+    vnum: 20102
+    name:
+      nominative: Кровавый паук
+      genitive: Кровавого паука
+      dative: Кровавому пауку
+      accusative: Кровавого паука
+      instrumental: Кровавым пауком
+      prepositional: Кровавом пауке
+    level: 16
+    role: TRASH
+    race: INSECT
+    description: 'Крупный паук с кровавыми пятнами на телах и ядовитыми клешнями.
+
+      '
+    examine: 'Паучьи глаза следят за каждым движением, готовые к нападению.
+
+      '
+    action: 'Кровавый паук выпускает ядовитую паутину в направлении ближайшей цели.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d8+10
+      armor_class: 34
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 30
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_007
+      max_count: 3
+  - id: mob_013
+    vnum: 20103
+    name:
+      nominative: Брат Иоанн
+      genitive: Брата Иоанна
+      dative: Брату Иоанну
+      accusative: Брата Иоанна
+      instrumental: Братом Иоанном
+      prepositional: Брате Иоанне
+    level: 17
+    role: TANK
+    race: SPIRIT
+    description: 'Призрачный священник с книгой в руках, охраняющий монастырь.
+
+      '
+    examine: 'Его глаза светятся тихим светом, а книги мерцают древними писаниями.
+
+      '
+    action: 'Брат Иоанн начинает читать защитные заклинания над собой и союзниками.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 5d6+13
+      armor_class: 26
+      hitroll: 9
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 30
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 2
+  - id: mob_014
+    vnum: 20104
+    name:
+      nominative: Святой Никита
+      genitive: Святого Никиты
+      dative: Святому Никите
+      accusative: Святого Никиту
+      instrumental: Святым Никитой
+      prepositional: Святом Никите
+    level: 18
+    role: BOSS
+    race: SPIRIT
+    description: 'Призрачный воин с мечем в руках, охраняющий мощи монастыря.
+
+      '
+    examine: 'Его глаза светятся тихим светом, а меч мерцает древними заклинаниями.
+
+      '
+    action: 'Святой Никита начинает читать защитные заклинания над собой и союзниками.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 8d10+25
+      armor_class: 24
+      hitroll: 10
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 30
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 1
+  - id: mob_015
+    vnum: 20105
+    name:
+      nominative: Призрачный монахиня
+      genitive: Призрачной монахини
+      dative: Призрачной монахине
+      accusative: Призрачную монахиню
+      instrumental: Призрачной монахиней
+      prepositional: Призрачной монахине
+    level: 17
+    role: HEALER
+    race: SPIRIT
+    description: 'Призрачная фигура в древнем облачении, с книгой и ампулами.
+
+      '
+    examine: 'Её глаза светятся тихим светом, а книги мерцают древними писаниями.
+
+      '
+    action: 'Призрачный монахиня начинает читать исцеляющие заклинания над собой и
+      союзниками.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 3d6+11
+      armor_class: 34
+      hitroll: 9
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 30
+      exp: 1734
+      gold:
+        min: 71
+        max: 132
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 2
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристалле
+    description: 'Прозрачный кристалл соли, внутри которого застыла тень призрачного
+      монаха.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура, словно замороженная
+      в вечном молитвенном позе.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    wear_slots:
+    - HOLD
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: TREASURE
+    name:
+      nominative: Книга древних мистерий
+      genitive: Книги древних мистерий
+      dative: Книге древних мистерий
+      accusative: Книгу древних мистерий
+      instrumental: Книгой древних мистерий
+      prepositional: В книге древних мистерий
+    description: 'Старинная книга с золотыми страницами, написанная на древнем языке.
+      Внутри содержатся заклинания и тайны.
+
+      '
+    examine: 'Книга излучает слабый свет, словно она сама источает магическую энергию.
+
+      '
+    value: 100
+    weight: 3
+    material: PARCHMENT
+    wear_slots:
+    - HOLD
+    affects:
+      intelligence: 2
+      mana: 5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_003
+    vnum: 20203
+    type: SCROLL
+    name:
+      nominative: Свиток с пророчеством
+      genitive: Свитка с пророчеством
+      dative: Свитку с пророчеством
+      accusative: Свиток с пророчеством
+      instrumental: Свитком с пророчеством
+      prepositional: В свитке с пророчеством
+    description: 'Свежий свиток, на котором написаны строки пророчества о будущем.
+      Кажется, они могут предсказать исход ближайших битв.
+
+      '
+    examine: 'Свиток светится мягким синим светом, словно его наполняют силы монахов-пророков.
+
+      '
+    value: 20
+    weight: 1
+    material: PARCHMENT
+    wear_slots:
+    - HOLD
+    affects:
+      wisdom: 1
+      luck: 2
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_004
+    vnum: 20204
+    type: KEY
+    name:
+      nominative: Ключ от главного собора
+      genitive: Ключа от главного собора
+      dative: Ключу от главного собора
+      accusative: Ключ от главного собора
+      instrumental: Ключом от главного собора
+      prepositional: В ключе от главного собора
+    description: 'Старинный ключ, покрытый зеленой ржавчиной. Он выглядит так, словно
+      был использован сотни лет назад.
+
+      '
+    examine: 'Ключ излучает тусклый свет и кажется легким в руке.
+
+      '
+    value: 30
+    weight: 0.5
+    material: IRON
+    wear_slots: []
+    affects:
+    - None
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_005
+    vnum: 20205
+    type: TREASURE
+    name:
+      nominative: Камень премудрости
+      genitive: Камня премудрости
+      dative: Камню премудрости
+      accusative: Камень премудрости
+      instrumental: Камнем премудрости
+      prepositional: В камне премудрости
+    description: 'Кристаллический камень, излучающий мягкий белый свет. Он кажется
+      полным мудрости и знаний.
+
+      '
+    examine: 'Камень наполняет душу теплом и спокойствием, словно отражая тихие монашеские
+      молитвы.
+
+      '
+    value: 150
+    weight: 2
+    material: CRYSTAL
+    wear_slots:
+    - HOLD
+    affects:
+      wisdom: 3
+      intelligence: 2
+    flags:
+    - MAGIC
+    - GLOW
+  quests:
+  - id: quest_001
+    name: Защита святынь
+    type: KILL|EXPLORE
+    description: 'Брат Иоанн, дух-защитник монастыря Святых Чудотворцев, просит вас
+      исследовать руины и уничтожить силы тьмы, пытающиеся захватить мощи. Вам предстоит
+      пройти через заброшенные залы и подвалы, чтобы отбить атаку на святыню.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_014
+      count: 1
+    - type: EXPLORE
+      rooms:
+      - room_002
+      - room_003
+      - room_004
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_sacred_relic
+    giver_npc: mob_003
+    completion_npc: mob_003
+  - id: quest_002
+    name: Сокровища монастыря
+    type: COLLECT|EXPLORE
+    description: 'Среди руин монастыря спрятаны древние святыни и артефакты. Брат
+      Иоанн попросил вас найти три ключевых предмета, которые помогут усилить защиту
+      монастыря против темных сил.
+
+      '
+    objectives:
+    - type: COLLECT
+      item: obj_sacred_scroll
+      count: 1
+    - type: COLLECT
+      item: obj_miracle_amulet
+      count: 1
+    - type: COLLECT
+      item: obj_holy_flame
+      count: 1
+    - type: EXPLORE
+      rooms:
+      - room_007
+    rewards:
+      exp: 3000
+      gold: 150
+      items:
+      - obj_blessed_item
+    giver_npc: mob_003
+    completion_npc: npc_questgiver
+  - id: quest_003
+    name: Тайна вершины башни
+    type: EXPLORE|COLLECT
+    description: 'Существует легенда, что в вершине старой башни монастыря спрятан
+      секретный артефакт, способный усилить защиту святынь. Вам предстоит подняться
+      на самую высокую точку и найти этот тайник.
+
+      '
+    objectives:
+    - type: EXPLORE
+      rooms:
+      - room_005
+    - type: COLLECT
+      item: obj_hidden_treasure
+      count: 1
+    rewards:
+      exp: 2500
+      gold: 100
+      items:
+      - obj_legendary_item
+    giver_npc: npc_questgiver
+    completion_npc: npc_questgiver

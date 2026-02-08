@@ -62,6 +62,7 @@ class ZoneGenerationState(TypedDict):
     level_range: tuple[int, int]
     ollama_url: str
     interactive: bool
+    provider: str  # LLM провайдер ('ollama', 'anthropic', 'openai', etc.)
 
     # Сгенерированные данные
     idea: dict
@@ -439,7 +440,8 @@ def run_zone_generation(
     ollama_url: str = "http://localhost:11434",
     interactive: bool = True,
     output_dir: str = "zones/draft/",
-    resume_thread_id: str = None
+    resume_thread_id: str = None,
+    provider: str = "ollama"
 ) -> Path:
     """
     Запуск генерации зоны через LangGraph
@@ -512,6 +514,7 @@ def run_zone_generation(
                 'level_range': level_range,
                 'ollama_url': ollama_url,
                 'interactive': interactive,
+                'provider': provider,
                 'validation_score': 0,
                 'refinement_iteration': 0,
                 'validation_attempts': 0,

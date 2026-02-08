@@ -3,7 +3,7 @@ Idea Agent - генерация концепции зоны
 """
 
 from typing import Dict
-from ..llm import OllamaClient
+from ..llm import create_llm_client
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_json
 
@@ -16,12 +16,14 @@ def idea_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
         state: State с ключами:
             - user_theme (опционально): Тема от пользователя
             - level_range (опционально): (min, max) уровни
+            - provider (опционально): LLM провайдер
 
     Returns:
         State с добавленным ключом 'idea' (dict)
     """
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
 
     # Получить параметры
     user_theme = state.get('user_theme')
@@ -38,7 +40,7 @@ def idea_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
 
     try:
         # Вызов LLM
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='idea',
             system=prompts.SYSTEM_DESIGNER

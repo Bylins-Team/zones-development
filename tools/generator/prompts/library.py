@@ -2,6 +2,7 @@
 Централизованная библиотека промптов для генерации зон
 """
 
+import json
 from typing import Dict, Tuple, List, Any
 
 
@@ -372,10 +373,15 @@ class PromptLibrary:
 ПРЕДЫДУЩИЕ КОМНАТЫ (summary):
 {previous_rooms}
 
-КОМНАТЫ ДЛЯ ГЕНЕРАЦИИ (из структуры):
+КОМНАТЫ ДЛЯ ГЕНЕРАЦИИ (топология из структуры):
 ```json
-{batch_info}
+{json.dumps(batch_info, ensure_ascii=False, indent=2)}
 ```
+
+⚠️ ВАЖНО:
+- Exits показаны для справки (можешь упомянуть направления в описаниях)
+- НЕ включай "id" и "exits" в ответ - они будут добавлены автоматически!
+- Генерируй ТОЛЬКО: name, description, examine, flags, sector, vnum
 
 Для КАЖДОЙ комнаты создай:
 1. description: Детальное описание (100-500 символов)
@@ -397,11 +403,10 @@ class PromptLibrary:
    - NO_MAGIC: нет магии
    - TUNNEL: узкий туннель (только 1 персонаж)
 
-Выдай YAML:
+Выдай YAML (БЕЗ id и exits - они добавятся автоматически!):
 ```yaml
 rooms:
-  - id: "room_id"
-    vnum: 20001  # Инкрементируй для каждой комнаты
+  - vnum: 20001  # Инкрементируй для каждой комнаты
     name: "Короткое название"
 
     description: |
@@ -416,11 +421,6 @@ rooms:
     flags:
       - "INDOORS"
       - "DARKED"
-
-    exits:
-      - direction: "north"
-        to_room: "room_002"
-        description: "Краткое описание выхода."
 ```
 
 ВАЖНО:

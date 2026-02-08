@@ -61,19 +61,20 @@ def extract_code_block(text: str, language: str = 'yaml') -> str:
     return result
 
 
-def safe_parse_yaml(text: str, retry_count: int = 2) -> Dict:
+def safe_parse_yaml(text: str, retry_count: int = 2, stage: str = "unknown") -> Dict:
     """
     Безопасный парсинг YAML с retry при ошибках
 
     Args:
         text: YAML текст
         retry_count: Количество попыток
+        stage: Этап генерации (для отладки)
 
     Returns:
         Распарсенные данные
 
     Raises:
-        yaml.YAMLError: Если все попытки провалились
+        yaml.YAMLError: Если все попытки провалились (с детальной информацией)
     """
     # Извлекаем YAML из markdown если есть
     yaml_text = extract_code_block(text, 'yaml')
@@ -87,7 +88,79 @@ def safe_parse_yaml(text: str, retry_count: int = 2) -> Dict:
                 # Пытаемся базово исправить
                 yaml_text = yaml_text.replace('\t', '  ')  # Табы → пробелы
             else:
-                raise yaml.YAMLError(f"Не удалось распарсить YAML после {retry_count} попыток: {e}")
+                # Сохраняем полный вывод модели для отладки
+                import tempfile
+                import datetime
+
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                debug_file = Path(tempfile.gettempdir()) / f"llm_yaml_error_{stage}_{timestamp}.yaml"
+                debug_file.write_text(text, encoding='utf-8')
+
+                # Пытаемся показать контекст ошибки
+                error_str = str(e)
+                lines = yaml_text.split('\n')
+
+                # Извлекаем номер строки из ошибки
+                import re
+                line_match = re.search(r'line (\d+)', error_str)
+                error_line = int(line_match.group(1)) - 1 if line_match else 0
+
+                # Показываем контекст (±5 строк)
+                context_start = max(0, error_line - 5)
+                context_end = min(len(lines), error_line + 5)
+                context = '\n'.join(f"{'>' if i == error_line else ' '} {i+1:3}: {lines[i]}" for i in range(context_start, context_end))
+
+                # Детальное сообщение об ошибке
+                error_message = f"""
+╔══════════════════════════════════════════════════════════════╗
+║  ❌ ОШИБКА ПАРСИНГА YAML ОТ LLM                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+Этап: {stage}
+Ошибка: {e}
+
+Контекст (строки {context_start+1}-{context_end}):
+{context}
+
+📄 Полный вывод модели сохранён в:
+   {debug_file}
+
+💡 КАК ИСПРАВИТЬ:
+
+1. RETRY С ДРУГОЙ МОДЕЛЬЮ:
+   Если используете Ollama, попробуйте более мощную модель:
+   --provider anthropic    # Claude (платно, но надёжнее)
+   --provider openai       # ChatGPT (платно)
+
+2. РУЧНАЯ ПРАВКА YAML:
+   Откройте файл: {debug_file}
+   Исправьте YAML синтаксис
+   Скопируйте исправленный контент в нужный файл
+
+3. ПРОДОЛЖИТЬ С CHECKPOINT (--resume):
+   Генерация сохранена в checkpoint. Чтобы продолжить:
+
+   a) Найдите Thread ID в выводе выше (зона_20XXXXXX_XXXXXXXX)
+   b) Запустите с теми же параметрами + --resume:
+
+      python -m tools.generator.main \\
+        --resume zone_20XXXXXX_XXXXXXXX \\
+        --provider anthropic  # Можно сменить провайдер!
+
+   ⚠️  С --resume восстанавливается:
+       - Весь прогресс (idea, lore, structure, rooms, mobs...)
+       - НО НЕ восстанавливается provider/модель!
+       - Нужно явно указать --provider если хотите другой
+
+4. ИЗМЕНИТЬ ТЕМПЕРАТУРУ/МОДЕЛЬ:
+   В config.py → TEMPERATURE_CONFIG['{stage}']
+   Уменьшите температуру для более строгого следования формату
+
+5. ПРОВЕРИТЬ ПРОМПТ:
+   prompts/library.py → get_{stage}_prompt()
+   Возможно нужно уточнить YAML схему в промпте
+"""
+                raise yaml.YAMLError(error_message) from e
 
     return {}
 

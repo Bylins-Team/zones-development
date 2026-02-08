@@ -1,0 +1,2278 @@
+zone:
+  meta:
+    id: fortress_of_zmey
+    name: Крепость Змея Горыныча
+    author: Zone Generator
+    version: '1.0'
+    description: В глубинах древнерусского леса, среди вековых дубов и туманных болот,
+      возвышается неприступная крепость. Известно лишь немногим смельчакам, что эта
+      крепость принадлежит могущественному Змею Горынычу.
+    recommended_level:
+    - 15
+    - 18
+  lore:
+    history: В давние времена, когда древнерусский лес был еще полон тайн и опасностей,
+      на берегу реки Камень появилась могучая крепость. Некогда она принадлежала славному
+      герой-князю Игорю, который укреплял границы своего державства. Однако после
+      его смерти, крепость была захвачена Змеем Горынычем, древним змейом из славянских
+      мифов.
+    folklore_basis: Большую часть истории этой крепости составляет былина о Герое
+      Соловье-Разбойнике. По легенде, он пришел сюда, чтобы разрушить гнездо Змея
+      Горыныча и освободить земли от его власти.
+    current_state: В настоящее время крепость Змея Горыныча окружена мистической аурой.
+      Древние стены пропитаны следами битв, а воздух наполнен враждебностью и страхом.
+      Кто осмелится вторгнуться сюда?
+    conflict: Соловей-Разбойник отправился на поиски крепости Змея Горыныча для того,
+      чтобы разрушить ее и вернуть покой землям. Игроки должны присоединиться к нему
+      в его опасном приключении.
+    key_characters:
+    - name: Соловей-Разбойник
+      role: Главный герой былины, борец со Змеем Горынычем.
+      description: Молодой и отважный воин с серебристым плащом.
+    - name: Змий Горынёк
+      role: Нечестивый владелец крепости, противник Соловья-Разбойника.
+      description: Триголовый змей со страшными глазами и ужасающей силой.
+    - name: Старец Василий
+      role: Мудрый житель деревни рядом с крепостью, знающий многое о ней.
+      description: Седобородый старик со светлым взглядом и мудрыми словами.
+    atmosphere:
+      sounds:
+      - Шорох крыльев пролетающих по ночному небу птиц
+      - Гул тихого пламени в очагах
+      smells:
+      - Влажность камня и древесного дыма
+      - Запах старой ржавчины с оружия
+      visuals:
+      - Туманный лес, окружающий крепость
+      - Каменные стены с надписями на славянском языке
+      feeling: Место пропитано древностью и магией. Каждый камень здесь хранит свою
+        историю.
+    secrets:
+    - Тайное место, где Соловей-Разбойник встречается с другими героями для планирования
+      нападения на крепость.
+    - Скрытая тропа ведущая в подземелье с древними реликвиями.
+  rooms:
+  - vnum: 20001
+    name: Темный вход
+    description: 'Темный коридор приветствует вас холодом и тьмой. Шорох крыльев летящих
+      птиц доносится издалека, а запах древесного дыма смешивается с влажностью камня.
+      На стенах видны следы битв - царапины от мечей и стрел.
+
+      '
+    examine: 'В стене заметно углубление для факела или свечи, рядом лежит сломанный
+      металлический крюк.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    id: room_001
+    exits:
+    - direction: north
+      to_room: room_002
+    - direction: down
+      to_room: room_003
+    - direction: south
+      to_room: world_forest_01
+  - vnum: 20002
+    name: Башня стража
+    description: 'Вы стоите в башне стражи, где воздух наполнен древним духом. Вдали
+      слышны голоса и шаги солдат. Стены покрыты надписями на старославянском языке,
+      а пол из камня холодит ноги.
+
+      '
+    examine: 'На стене висит ржавый щит со следами древних битв. В углу заметен старый
+      ларец с запертыми дверцами.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    id: room_002
+    exits:
+    - direction: south
+      to_room: room_001
+    - direction: up
+      to_room: room_007
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+    - direction: west
+      to_room: room_024
+    - direction: north
+      to_room: room_016
+    - direction: north
+      to_room: room_010
+  - vnum: 20003
+    name: Подземный коридор
+    description: 'Подземные туннели пронизаны сыростью и холодом. Запах ржавчины смешивается
+      с древесным дымом, а стены покрыты мхом. Тихий шепот ветра доносится из глубин.
+
+      '
+    examine: 'В стене видна тайная тропа, ведущая к подземному ходу. Стены украшены
+      резьбой с древними символами.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_003
+    exits:
+    - direction: up
+      to_room: room_001
+    - direction: north
+      to_room: room_004
+    - direction: east
+      to_room: room_005
+    - direction: south
+      to_room: room_019
+    - direction: north
+      to_room: room_018
+    - direction: east
+      to_room: room_008
+  - vnum: 20001
+    name: Зал с ловушками
+    description: 'Взгляд сразу же устремляется на каменные стены, покрытые мхом и
+      водяными каплями. Здесь и там в полу зияют круглые лунки, наполненные туманной
+      жидкостью — явно ловушки. Звуки бьющихся механизмов эхом отдаются в пустоте
+      зала. Воздух здесь холоден и сыроват, с запахом ржавчины.
+
+      '
+    examine: 'Каменные плиты на полу покрыты следами предшествующих неудачных попыток
+      проникновения в крепость. На стенах видны затейливые узоры и надписи — древние
+      символы, оставленные теми, кто осмелился здесь побывать.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_004
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+    - direction: north
+      to_room: room_021
+    - direction: north
+      to_room: room_012
+    - direction: south
+      to_room: room_009
+    - direction: east
+      to_room: room_023
+  - vnum: 20002
+    name: Сокровищница
+    description: 'Стены украшены золотыми монетами и драгоценными камнями, сверкающими
+      в тусклом свете факелов. Здесь можно заметить старинные сосуды с сияющими камнями
+      внутри — явно реликвии прошлого. Звуки падающих монет и дребезжания металла
+      эхом отдаются в узком пространстве.
+
+      '
+    examine: 'В углу видны кости давно умерших существ, возможно, предыдущих жертв
+      ловушек. Здесь можно найти старинные артефакты и драгоценности, которые могут
+      пригодиться для борьбы со Змеем Горынычем.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_005
+    exits:
+    - direction: west
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_011
+    - direction: south
+      to_room: room_017
+    - direction: south
+      to_room: room_022
+  - vnum: 20003
+    name: Логово босса
+    description: 'Каменные стены покрыты древними рунами и зловещими символами. В
+      центре комнаты находится огромный трон, на котором сидит Змий Горынёк — триголовый
+      змей со страшными глазами. Гул пламени в очагах и рычание змея заполняют воздух.
+
+      '
+    examine: 'В углу комнаты можно заметить старинный меч с серебристой рукоятью —
+      вероятно, это оружие Соловья-Разбойника. Здесь также есть скрытые двери и тайники,
+      где могут быть спрятаны важные предметы.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_006
+    exits:
+    - direction: south
+      to_room: room_004
+    - direction: west
+      to_room: room_005
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+    - direction: north
+      to_room: room_013
+  - vnum: 20001
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине старой крепостной башни, где ветра свистят вокруг.
+      Каменные ступени покрыты мхом и следами времени. Вдалеку слышны шорохи крыльев
+      летящих птиц.
+
+      '
+    examine: 'Тут можно заметить старые надписи на стене, а также скрытый проход вниз.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_007
+    exits:
+    - direction: down
+      to_room: room_002
+    - direction: south
+      to_room: room_014
+  - vnum: 20002
+    name: Подземный коридор (север)
+    description: 'Узкий подземный коридор ведет куда-то глубоко внутрь земли. Воздух
+      здесь холоден и сыроват, запах сырой гнили и древесного дыма проникает носом.
+
+      '
+    examine: 'На стенах видны следы бывших ловушек, а также старые рисунки неизвестных.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - TUNNEL
+    - DARKED
+    id: room_008
+    exits:
+    - direction: south
+      to_room: room_009
+    - direction: east
+      to_room: room_012
+    - direction: west
+      to_room: room_003
+  - vnum: 20003
+    name: Подземный коридор (юг)
+    description: 'Коридор узок и темен, впереди слышится шепот воды. Запах сырости
+      и древнего железа заполняет воздух.
+
+      '
+    examine: 'Здесь можно заметить следы бывших посетителей - старые угли и остатки
+      пищи.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - TUNNEL
+    - DARKED
+    id: room_009
+    exits:
+    - direction: north
+      to_room: room_008
+    - direction: west
+      to_room: room_013
+    - direction: north
+      to_room: room_004
+  - vnum: 20010
+    name: Подземный коридор (запад)
+    description: 'Темные стены подземного коридора покрыты мхом и плесенью. Звуки
+      капающей воды эхом разносятся по туннелю, а воздух пропитан сыростью и запахом
+      ржавчины.
+
+      '
+    examine: 'На стенах виднеются древние надписи на славянском языке. В глубине коридора
+      можно заметить выступающий камень, похожий на вход в тайный проход.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_010
+    exits:
+    - direction: east
+      to_room: room_014
+    - direction: south
+      to_room: room_002
+  - vnum: 20011
+    name: Подземный коридор (восток)
+    description: 'Короткий, узкий туннель с каменными стенами и грязным полом. Шорох
+      крыльев летящих птиц слышится издалека, а воздух пропитан запахом древесного
+      дыма.
+
+      '
+    examine: 'На стенах видны следы от старого оружия, покрытые ржавчиной. Небольшое
+      углубление в стене напоминает вход в секретное помещение.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_011
+    exits:
+    - direction: west
+      to_room: room_015
+    - direction: east
+      to_room: room_005
+  - vnum: 20012
+    name: Подземный коридор (восток)
+    description: 'Узкий туннель с каменными стенами, покрытыми мхом и плесенью. Звуки
+      капающей воды эхом разносятся по коридору, а воздух пропитан сыростью.
+
+      '
+    examine: 'На стенах видны следы древних битв — ржавые лезвия и куски старого доспехов.
+      В глубине туннеля заметен выступающий камень, похожий на вход в секретное помещение.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_012
+    exits:
+    - direction: west
+      to_room: room_008
+    - direction: south
+      to_room: room_004
+  - vnum: 20013
+    name: Подземный коридор (запад)
+    description: 'Темные стены покрыты мхом и плесенью. Камни скрипят под ногами,
+      эхо шагов разносится по коридору.
+
+      Воздух влажный, насыщенный запахом гнили и ржавчины.
+
+      '
+    examine: 'На стенах видны древние надписи и символы. Некоторые камни выглядят
+      странно округлыми, словно их трогали много раз.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_013
+    exits:
+    - direction: east
+      to_room: room_009
+    - direction: south
+      to_room: room_006
+  - vnum: 20014
+    name: Подземный коридор (юг)
+    description: 'Короткий темный проход с каменными стенами и потолком, пронизанный
+      тусклым светом издалека. Шорох крыльев летящих птиц доносится сверху.
+
+      Воздух здесь влажный, со слабым запахом древесного дыма.
+
+      '
+    examine: 'На стене видна старая надпись на славянском языке. Каменные плиты покрыты
+      ржавчиной и следами от оружия.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_014
+    exits:
+    - direction: north
+      to_room: room_015
+    - direction: north
+      to_room: room_007
+  - vnum: 20015
+    name: Подземный коридор (север)
+    description: 'Короткий туннель, который выходит к лесу. Воздух свежий и прохладный,
+      ветер шелестит листвой.
+
+      Камни здесь гладкие и холодные на ощупь.
+
+      '
+    examine: 'На стене виден след от древнего меча. Некоторые камни выглядят странно
+      округлыми, словно их трогали много раз.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_015
+    exits:
+    - direction: south
+      to_room: room_014
+    - direction: east
+      to_room: world_forest_01
+  - vnum: 20001
+    name: Подземный коридор (запад)
+    description: 'Темные стены покрыты мхом и плесенью. Воздух холоден, пропитан запахом
+      сырости и ржавчины. Гулкие эхо шагов разносится по узкому коридору.
+
+      '
+    examine: 'На стене виднеется старая надпись на славянском языке. Стены покрыты
+      трещинами, некоторые из которых пронизаны каплями воды.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_016
+    exits:
+    - direction: east
+      to_room: room_017
+    - direction: south
+      to_room: room_002
+  - vnum: 20002
+    name: Подземный коридор (восток)
+    description: 'Узкий проход с мрачными стенами и низким потолком. Звуки капающей
+      воды эхом разносятся по туннелю, запах сырости проникает в каждый угол.
+
+      '
+    examine: 'На стенах видны следы древних ловушек и крючья для поддержания факелов.
+      Несколько камней отколоты, обнажая твердую породу внутри.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_017
+    exits:
+    - direction: west
+      to_room: room_016
+    - direction: north
+      to_room: room_005
+  - vnum: 20003
+    name: Подземный коридор (юг)
+    description: 'Короткий туннель, освещенный лишь слабым светом издалека. Звуки
+      капающей воды и шорох крыльев летучих мышей. Воздух холоден и влажен.
+
+      '
+    examine: 'На стенах видны следы древних рун и надписей, некоторые из которых покрыты
+      плесенью. Небольшой проход ведет к более широкому залу.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_018
+    exits:
+    - direction: north
+      to_room: room_019
+    - direction: south
+      to_room: room_003
+  - vnum: 20001
+    name: Подземный коридор (север)
+    description: 'Темные каменные стены тянутся вперед, пропитанные сыростью. Земля
+      под ногами мягкая и холодная. Едкий запах сырости и плесени наполняет воздух.
+
+      '
+    examine: 'На стене видна древняя надпись на славянском языке. В углу лежат ржавые
+      осколки старого железа, возможно, от упавшей ловушки.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_019
+    exits:
+    - direction: south
+      to_room: room_020
+    - direction: north
+      to_room: room_003
+  - vnum: 20002
+    name: Подземный коридор (запад)
+    description: 'Тесные каменные стены сужают проход, ведущий к выходу наружу. Вдали
+      слышны тихие звуки леса — шорох крыльев птиц и шелест листвы.
+
+      '
+    examine: 'На полу заметно несколько старых следов от сапог, возможно, это тропа
+      для тех, кто когда-то пробирался через подземелье. В углу лежит сломанный факел.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_020
+    exits:
+    - direction: east
+      to_room: room_018
+    - direction: south
+      to_room: world_forest_01
+  - vnum: 20003
+    name: Подземный коридор (восток)
+    description: 'Короткий темный проход ведет к следующему участку подземелья. Стены
+      покрыты мхом и лишайниками, а воздух пропитан сыростью.
+
+      '
+    examine: 'На одной из стен видна старая ловушка с провисшей тканевой веревкой.
+      Возможно, она когда-то была активной и теперь служит напоминанием о бывших опасностях.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_021
+    exits:
+    - direction: west
+      to_room: room_022
+    - direction: south
+      to_room: room_004
+  - vnum: 20001
+    name: Подземный коридор (юг)
+    description: 'Подземный коридор тянется в темноте, освещенный лишь слабым светом
+      факелов. Каменные стены покрыты мхом и трещинами. Звук капающей воды эхом разносится
+      по пространству.
+
+      '
+    examine: 'В углу заметно следы битвы - старые латники, осколки стрел и обломки
+      доспехов. Стены украшены древними рунами на славянском языке.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_022
+    exits:
+    - direction: north
+      to_room: room_021
+    - direction: north
+      to_room: room_005
+  - vnum: 20002
+    name: Подземный коридор (север)
+    description: 'Короткий подземный проход, освещенный факелами. Каменные стены покрыты
+      трещинами и мхом. Вдалеке слышится легкий шепот ветра.
+
+      '
+    examine: 'На стене видна древняя надпись на славянском языке - "Ты здесь не один".
+      У входа лежит старый ключ, покрытый ржавчиной.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_023
+    exits:
+    - direction: south
+      to_room: room_024
+    - direction: west
+      to_room: room_004
+  - vnum: 20003
+    name: Подземный коридор (запад)
+    description: 'Короткий узкий проход, освещенный факелами. Каменные стены покрыты
+      трещинами и мхом. Звук капающей воды эхом разносится по пространству.
+
+      '
+    examine: 'На стене видна древняя надпись на славянском языке - "Сюда ведет путь".
+      У входа лежит старый ключ, покрытый ржавчиной.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_024
+    exits:
+    - direction: east
+      to_room: room_025
+    - direction: east
+      to_room: room_002
+  - vnum: 20001
+    name: Подземный коридор (восток)
+    description: 'Каменный коридор тянется вглубь горы, его стены покрыты мхом и лишайниками.
+      Стены украшены древними рунами славянского алфавита, которые едва различимы
+      при свете факела. Воздух здесь сыроватый, с запахом сырой глины и камня.
+
+      '
+    examine: 'На стенах виднеются следы борьбы — царапины от мечей и копий. Узкий
+      проход позволяет пройти только одному человеку разом.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    id: room_025
+    exits:
+    - direction: west
+      to_room: room_023
+    - direction: east
+      to_room: world_forest_01
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 15
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 2d8+15
+      armor_class: 30
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Каменный страж
+      genitive: Каменного стража
+      dative: Каменному стражу
+      accusative: Каменного стража
+      instrumental: Каменным стражем
+      prepositional: Каменном страже
+    level: 16
+    role: TANK
+    race: CONSTRUCT
+    description: 'Крупный каменный гигант, охраняющий вход в подземелье.
+
+      '
+    examine: 'Его тело покрыто мхом и трещинами от времени.
+
+      '
+    action: 'Каменный страж медленно поворачивает голову на звуки боя.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 4d6+15
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 2
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Громовой стрелок
+      genitive: Громового стрелка
+      dative: Громовому стрелку
+      accusative: Громового стрелка
+      instrumental: Громовым стрелком
+      prepositional: Громовом стрелке
+    level: 17
+    role: ARCHER
+    race: BIRD
+    description: 'Сокол с золотистыми перьями и острым клювом.
+
+      '
+    examine: 'Его глаза блестят, когда он следит за движением врагов.
+
+      '
+    action: 'Громовой стрелок выпускает огненные стрелы на противников.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 9d8+16
+      armor_class: 50
+      hitroll: 6
+    abilities:
+    - fire_arrow
+    flags:
+    - AGGRESSIVE
+    - FLYING
+    resistances:
+      fire: 50
+      cold: -20
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 20
+      exp: 3468
+      gold:
+        min: 83
+        max: 154
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Кровавый маг
+      genitive: Кровавого мага
+      dative: Кровавому магу
+      accusative: Кровавого мага
+      instrumental: Кровавым магом
+      prepositional: Кровавом маге
+    level: 18
+    role: MAGE_DMG
+    race: BASIC
+    description: 'Темный маг с кровавыми глазами и длинной бородой.
+
+      '
+    examine: 'Его одежда покрыта символами темных заклинаний.
+
+      '
+    action: 'Кровавый маг кричит древние ритуалы, вызывая тьму.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 9d12+33
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - CASTING
+    resistances:
+      fire: 75
+      cold: -20
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 30
+      exp: 5832
+      gold:
+        min: 151
+        max: 280
+    spawn:
+      rooms:
+      - room_006
+      - room_008
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Каменный громовик
+      genitive: Каменного громовика
+      dative: Каменному громовику
+      accusative: Каменного громовика
+      instrumental: Каменным громовиком
+      prepositional: Каменном громовике
+    level: 17
+    role: BOSS
+    race: CONSTRUCT
+    description: 'Крупный каменный гигант с молниями в глазах.
+
+      '
+    examine: 'Его тело покрыто мхом и трещинами от времени, а глаза светятся электричеством.
+
+      '
+    action: 'Каменный громовик выпускает мощные удары молний на противников.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+22
+      armor_class: 50
+      hitroll: 12
+    abilities:
+    - lightning_bolt
+    flags:
+    - AGGRESSIVE
+    - CASTING
+    resistances:
+      fire: -30
+      cold: 80
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 50
+      exp: 8670
+      gold:
+        min: 297
+        max: 552
+    spawn:
+      rooms:
+      - room_006
+      - room_007
+      max_count: 1
+  - id: mob_006
+    vnum: 20106
+    name:
+      nominative: Леший
+      genitive: Лешего
+      dative: Лешему
+      accusative: Лешего
+      instrumental: Лешим
+      prepositional: Лешем
+    level: 15
+    role: TANK
+    race: SPIRIT
+    description: 'Мрачное дерево с человеческими глазами и ртом.
+
+      '
+    examine: 'Леший издает странные звуки, напоминающие шепот леса.
+
+      '
+    action: 'Леший бросает в тебя камень с древнего поля.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 2d6+10
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      acid: 50
+      poison: -25
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_003
+      - room_008
+      max_count: 2
+  - id: mob_007
+    vnum: 20107
+    name:
+      nominative: Орёл-герой
+      genitive: Орла-героя
+      dative: Орлу-герою
+      accusative: Орла-героя
+      instrumental: Орлом-героем
+      prepositional: Орле-герое
+    level: 16
+    role: MELLEE_DMG
+    race: BIRD
+    description: 'Огромный орёл с ястребиным взглядом и блестящими перьями.
+
+      '
+    examine: 'У этого орла видны следы битв на крыльях.
+
+      '
+    action: 'Орёл-герой кричит, собирая других птиц для атаки.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 9d8+18
+      armor_class: 45
+      hitroll: 9
+    abilities:
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      cold: 75
+      fire: -30
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 60
+      exp: 3840
+      gold:
+        min: 89
+        max: 166
+    spawn:
+      rooms:
+      - room_004
+      - room_009
+      max_count: 1
+  - id: mob_008
+    vnum: 20108
+    name:
+      nominative: Стражник Змея Горыныча
+      genitive: Стражника Змея Горыныча
+      dative: Стражнику Змею Горынычу
+      accusative: Стражника Змея Горыныча
+      instrumental: Стражником Змеем Горынычем
+      prepositional: Стражнике Змее Горыныче
+    level: 17
+    role: TRASH
+    race: HUMAN
+    description: 'Человек в старой броне с тремя лицами.
+
+      '
+    examine: 'На его шлеме видны три лица, каждое из которых выглядит угрожающе.
+
+      '
+    action: 'Стражник Змея Горыныча кричит на тебя приказания.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 7d8+12
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      poison: 50
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 35
+      exp: 2890
+      gold:
+        min: 59
+        max: 110
+    spawn:
+      rooms:
+      - room_002
+      - room_008
+      max_count: 3
+  - id: mob_009
+    vnum: 20109
+    name:
+      nominative: Водяной дух
+      genitive: Водного духа
+      dative: Водному духу
+      accusative: Водного духа
+      instrumental: Водным духом
+      prepositional: Водном духе
+    level: 18
+    role: BOSS
+    race: SPIRIT
+    description: 'Прозрачное существо, напоминающее человека в водяных одеждах.
+
+      '
+    examine: 'Водяной дух издает странный звук, похожий на журчание воды.
+
+      '
+    action: 'Водяной дух бросается к тебе и пытается утопить.
+
+      '
+    stats:
+      hp: 450
+      damage_dice: 8d10+25
+      armor_class: 30
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      water: 75
+      fire: -40
+    loot:
+      items:
+      - item_id: obj_016
+        chance: 80
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_003
+      - room_009
+      max_count: 1
+  - id: mob_010
+    vnum: 20110
+    name:
+      nominative: Тень Змея Горыныча
+      genitive: Тени Змея Горыныча
+      dative: Тени Змею Горынычу
+      accusative: Тени Змея Горыныча
+      instrumental: Тенью Змеем Горынычем
+      prepositional: Тени Змее Горыныче
+    level: 16
+    role: MAGE_DMG
+    race: GHOST
+    description: 'Тёмное существо, напоминающее тень человека.
+
+      '
+    examine: 'Вокруг этого существа вьются странные искры света.
+
+      '
+    action: 'Тень Змея Горыныча издаёт зловещий смех перед тем, как атаковать.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d12+32
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 45
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 2
+  - id: mob_011
+    vnum: 20106
+    name:
+      nominative: Каменный стражник
+      genitive: Каменного стражника
+      dative: Каменному стражнику
+      accusative: Каменного стражника
+      instrumental: Каменным стражником
+      prepositional: Каменном стражнике
+    level: 15
+    role: TANK
+    race: CONSTRUCT
+    description: 'Высокий каменный воин с мечом в руках.
+
+      '
+    examine: 'Его глаза, хотя и неподвижные, кажутся проницательными.
+
+      '
+    action: 'Каменный стражник внимательно осматривает каждого входящего.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 2d6+10
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 50
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 1
+  - id: mob_012
+    vnum: 20107
+    name:
+      nominative: Леший-хранитель
+      genitive: Лешего-хранителя
+      dative: Лешему-хранителю
+      accusative: Лешего-хранителя
+      instrumental: Лешим-хранителем
+      prepositional: Лешем-хранителе
+    level: 17
+    role: MELLEE_DMG
+    race: SPIRIT
+    description: 'Странное существо из лесных теней, покрытое мхом.
+
+      '
+    examine: 'Его глаза светятся зеленым огоньком в темноте.
+
+      '
+    action: 'Леший-хранитель шепчет древние заклинания.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 10d8+16
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_011
+        chance: 50
+      exp: 4335
+      gold:
+        min: 95
+        max: 176
+    spawn:
+      rooms:
+      - room_004
+      - room_008
+      max_count: 2
+  - id: mob_013
+    vnum: 20108
+    name:
+      nominative: Огненная ведьма
+      genitive: Огненной ведьмы
+      dative: Огненной ведьме
+      accusative: Огненную ведьму
+      instrumental: Огненной ведьмой
+      prepositional: Огненной ведьме
+    level: 16
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Женщина в огненных одеждах с пылающим посохом.
+
+      '
+    examine: 'Ее глаза горят ярким пламенем.
+
+      '
+    action: 'Огненная ведьма кидает зажженные шары.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+32
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - fireball
+    - lightning
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 40
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_012
+        chance: 35
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_009
+      - room_010
+      max_count: 1
+  - id: mob_014
+    vnum: 20109
+    name:
+      nominative: Змея-хранительница
+      genitive: Змеи-хранительницы
+      dative: Змее-хранительнице
+      accusative: Змею-хранительницу
+      instrumental: Змеей-хранительницей
+      prepositional: Змеи-хранительнице
+    level: 18
+    role: BOSS
+    race: REPTILE
+    description: 'Огромная змея с ядовитыми зубами и горящими глазами.
+
+      '
+    examine: 'Ее кожа блестит, словно покрыта маслом.
+
+      '
+    action: 'Змея-хранительница извивается и готовится к нападению.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 8d10+25
+      armor_class: 50
+      hitroll: 12
+    abilities:
+    - poison
+    - venom
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 30
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_013
+        chance: 60
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_012
+      - room_015
+      max_count: 1
+  - id: mob_015
+    vnum: 20110
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 16
+    role: TRASH
+    race: GHOST
+    description: 'Призрак в изодранной одежде с лопатой.
+
+      '
+    examine: 'Его глаза пусты и безжизненны.
+
+      '
+    action: 'Призрачный рудокоп тянет руки к живым, словно хочет обнять их.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 7d8+10
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_014
+        chance: 35
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_007
+      - room_011
+      max_count: 2
+  - id: mob_016
+    vnum: 20102
+    name:
+      nominative: Каменный стражник
+      genitive: Каменного стражника
+      dative: Каменному стражнику
+      accusative: Каменного стражника
+      instrumental: Каменным стражником
+      prepositional: Каменном стражнике
+    level: 15
+    role: TANK
+    race: CONSTRUCT
+    description: 'Каменный гигант с мрачным выражением лица и тяжелым копьем.
+
+      '
+    examine: 'Стены вокруг покрыты трещинами, словно этот стражник только что вышел
+      из камня.
+
+      '
+    action: 'Каменный стражник медленно но мощно атакует любого, кто осмелится проникнуть
+      в крепость.
+
+      '
+    stats:
+      hp: 320
+      damage_dice: 4d6+14
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 50
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_010
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_001
+      - room_004
+      max_count: 2
+  - id: mob_017
+    vnum: 20103
+    name:
+      nominative: Огненная ведьма
+      genitive: Огненной ведьмы
+      dative: Огненной ведьме
+      accusative: Огненную ведьму
+      instrumental: Огненной ведьмой
+      prepositional: Огненной ведьме
+    level: 16
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Женщина в черном платье, излучающая жар и огонь.
+
+      '
+    examine: 'Вокруг неё пляшут языки пламени, словно живые существа.
+
+      '
+    action: 'Огненная ведьма бросает на вас огненный шар с громким свистом.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+32
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - fireball
+    - lightning_bolt
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 100
+      cold: -50
+    loot:
+      items:
+      - item_id: obj_020
+        chance: 40
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_003
+      - room_005
+      max_count: 1
+  - id: mob_018
+    vnum: 20104
+    name:
+      nominative: Кровавый вампир
+      genitive: Кровавого вампира
+      dative: Кровавому вампиру
+      accusative: Кровавого вампира
+      instrumental: Кровавым вампиром
+      prepositional: Кровавом вампире
+    level: 17
+    role: BOSS
+    race: SPIRIT
+    description: 'Высокий мужчина в черной одежде с кровавыми укусами на шее.
+
+      '
+    examine: 'В его глазах горит неистовая жажда крови и власти.
+
+      '
+    action: 'Кровавый вампир бросается на вас, оставляя следы кровавых укусов.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 2d10+25
+      armor_class: 30
+      hitroll: 12
+    abilities:
+    - drain_life
+    - summon_bats
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_030
+        chance: 60
+      exp: 8670
+      gold:
+        min: 297
+        max: 552
+    spawn:
+      rooms:
+      - room_002
+      - room_004
+      max_count: 1
+  - id: mob_019
+    vnum: 20105
+    name:
+      nominative: Стрелок-призрак
+      genitive: Стрелка-призрака
+      dative: Стрелку-призраку
+      accusative: Стрелка-призрака
+      instrumental: Стрелком-призраком
+      prepositional: Стрелке-призраке
+    level: 15
+    role: ARCHER
+    race: SPIRIT
+    description: 'Призрачная фигура с луком и колчаном стрел.
+
+      '
+    examine: 'Его тело прозрачно, но от него исходит холодный ветер.
+
+      '
+    action: 'Стрелок-призрак выпускает стрелы со скоростью молнии.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d8+16
+      armor_class: 40
+      hitroll: 7
+    abilities:
+    - arrow_rain
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_040
+        chance: 30
+      exp: 2700
+      gold:
+        min: 73
+        max: 136
+    spawn:
+      rooms:
+      - room_002
+      - room_005
+      max_count: 2
+  - id: mob_020
+    vnum: 20106
+    name:
+      nominative: Соляной дух
+      genitive: Соляного духа
+      dative: Соляному духу
+      accusative: Соляного духа
+      instrumental: Соляным духом
+      prepositional: Соляном духе
+    level: 16
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной дух стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d8+10
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_050
+        chance: 30
+      exp: 2560
+      gold:
+        min: 56
+        max: 104
+    spawn:
+      rooms:
+      - room_001
+      - room_004
+      max_count: 2
+  - id: mob_021
+    vnum: 20251
+    name:
+      nominative: Каменный страж
+      genitive: Каменного стража
+      dative: Каменному стражу
+      accusative: Каменного стража
+      instrumental: Каменным стражем
+      prepositional: Каменном страже
+    level: 15
+    role: TANK
+    race: CONSTRUCT
+    description: 'Громадная каменная фигура, покрытая мхом и лишайниками.
+
+      '
+    examine: 'Стены крепости украшены надписями на древнем славянском языке.
+
+      '
+    action: 'Каменный страж медленно поворачивает голову, следя за каждым шагом.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 1d6+20
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 75
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_001
+      - room_002
+      max_count: 2
+  - id: mob_022
+    vnum: 20252
+    name:
+      nominative: Горный леший
+      genitive: Горного лешего
+      dative: Горному лешему
+      accusative: Горного лешего
+      instrumental: Горным лешим
+      prepositional: Горном лешем
+    level: 16
+    role: MELLEE_DMG
+    race: SPIRIT
+    description: 'Странное существо, наполовину человек и наполовину дерево.
+
+      '
+    examine: 'Его глаза сверкают мудростью древних времен.
+
+      '
+    action: 'Горный леший тихо хохочет в ответ на ваши действия.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 9d8+18
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 50
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 35
+      exp: 3840
+      gold:
+        min: 89
+        max: 166
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 1
+  - id: mob_023
+    vnum: 20253
+    name:
+      nominative: Огненная ведьма
+      genitive: Огненной ведьмы
+      dative: Огненной ведьме
+      accusative: Огненную ведьму
+      instrumental: Огненной ведьмой
+      prepositional: Огненной ведьме
+    level: 17
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Женщина с длинными волосами, покрытыми огоньком.
+
+      '
+    examine: 'Она держит в руках свечу, источающую жаркое пламя.
+
+      '
+    action: 'Огненная ведьма посылает вам магический заряд.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 8d12+36
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 100
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 45
+      exp: 5202
+      gold:
+        min: 142
+        max: 265
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 1
+  - id: mob_024
+    vnum: 20254
+    name:
+      nominative: Каменный гном
+      genitive: Каменного гнома
+      dative: Каменному гному
+      accusative: Каменного гнома
+      instrumental: Каменным гномом
+      prepositional: Каменном гноме
+    level: 18
+    role: BOSS
+    race: CONSTRUCT
+    description: 'Громадный каменный гном, покрытый мхом и лишайниками.
+
+      '
+    examine: 'Его глаза светятся красным огнем.
+
+      '
+    action: 'Каменный гном издает глубокий рык.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 3d6+25
+      armor_class: 45
+      hitroll: 10
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 75
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 50
+      exp: 9720
+      gold:
+        min: 315
+        max: 585
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 1
+  - id: mob_025
+    vnum: 20255
+    name:
+      nominative: Лунная ведьма
+      genitive: Лунной ведьмы
+      dative: Лунной ведьме
+      accusative: Лунную ведьму
+      instrumental: Лунной ведьмой
+      prepositional: Лунной ведьме
+    level: 16
+    role: HEALER
+    race: SPIRIT
+    description: 'Женщина с длинными волосами, покрытыми лунным светом.
+
+      '
+    examine: 'Она держит в руках свечу, источающую мягкий свет.
+
+      '
+    action: 'Лунная ведьма посылает вам целебный заряд.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+10
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - heal
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 40
+      exp: 1536
+      gold:
+        min: 67
+        max: 124
+    spawn:
+      rooms:
+      - room_003
+      - room_004
+      max_count: 1
+  - id: mob_026
+    vnum: 20126
+    name:
+      nominative: Змейный страж
+      genitive: Змеиного стража
+      dative: Змеиному стражу
+      accusative: Змеиного стража
+      instrumental: Змеиным стражем
+      prepositional: Змеином страже
+    level: 15
+    role: TANK
+    race: REPTILE
+    description: 'Мощный змей с бронзовыми чешуйками и острыми когтями.
+
+      '
+    examine: 'Его глаза сверкают холодным огнем, словно он видит сквозь стены.
+
+      '
+    action: 'Змейный страж издает громкий шипящий звук, предупреждая об опасности.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 2d6+10
+      armor_class: 40
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 75
+      cold: -10
+    loot:
+      items:
+      - item_id: obj_026
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 2
+  - id: mob_027
+    vnum: 20127
+    name:
+      nominative: Стрелок-богатырь
+      genitive: Стрелка-богатыря
+      dative: Стрелку-богатырю
+      accusative: Стрелка-богатыря
+      instrumental: Стрелком-богатырем
+      prepositional: Стрелке-богатыре
+    level: 16
+    role: ARCHER
+    race: HUMAN
+    description: 'Молодой воин с луком и колчаном стрел.
+
+      '
+    examine: 'Его одежда изношена, но каждая стрела в колчане выглядит новой.
+
+      '
+    action: 'Стрелок-богатырь быстро наводит лук на цель.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 9d8+14
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - shoot
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 50
+      cold: 20
+    loot:
+      items:
+      - item_id: obj_027
+        chance: 35
+      exp: 3072
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 1
+  - id: mob_028
+    vnum: 20128
+    name:
+      nominative: Змей-хранитель
+      genitive: Змеиного хранителя
+      dative: Змеиному хранителю
+      accusative: Змеиного хранителя
+      instrumental: Змеиным хранителем
+      prepositional: Змеином хранителе
+    level: 17
+    role: BOSS
+    race: REPTILE
+    description: 'Мощный змей с бронзовыми чешуйками и острыми когтями.
+
+      '
+    examine: 'Его глаза сверкают холодным огнем, словно он видит сквозь стены.
+
+      '
+    action: 'Змей-хранитель издает громкий шипящий звук, предупреждая об опасности.
+
+      '
+    stats:
+      hp: 450
+      damage_dice: 8d10+22
+      armor_class: 50
+      hitroll: 12
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 80
+      cold: -20
+    loot:
+      items:
+      - item_id: obj_028
+        chance: 50
+      exp: 8670
+      gold:
+        min: 297
+        max: 552
+    spawn:
+      rooms:
+      - room_006
+      - room_007
+      max_count: 1
+  - id: mob_029
+    vnum: 20129
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 15
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Призрачный рудокоп стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+13
+      armor_class: 30
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_029
+        chance: 30
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_008
+      - room_009
+      max_count: 4
+  - id: mob_030
+    vnum: 20130
+    name:
+      nominative: Змеиный маг
+      genitive: Змеиного мага
+      dative: Змеиному магу
+      accusative: Змеиного мага
+      instrumental: Змеиным магом
+      prepositional: Змеином маге
+    level: 16
+    role: MAGE_DMG
+    race: REPTILE
+    description: 'Молодой змей с книжкой заклинаний и посохом.
+
+      '
+    examine: 'Его глаза сверкают магической силой, словно он видит сквозь стены.
+
+      '
+    action: 'Змеиный маг издает громкий шипящий звук, предупреждая об опасности.
+
+      '
+    stats:
+      hp: 250
+      damage_dice: 8d12+32
+      armor_class: 25
+      hitroll: 6
+    abilities:
+    - cast
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 70
+      cold: -15
+    loot:
+      items:
+      - item_id: obj_030
+        chance: 40
+      exp: 4608
+      gold:
+        min: 134
+        max: 249
+    spawn:
+      rooms:
+      - room_010
+      - room_011
+      max_count: 2
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: на соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура, словно прикованная
+      к векам времени.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: POTION
+    name:
+      nominative: Зелье озлобления
+      genitive: Зелья озлобления
+      dative: озлоблению
+      accusative: озлобление
+      instrumental: озлоблением
+      prepositional: в озлоблении
+    description: 'Темно-синее зелье с оттенком ледяного пламени.
+
+      '
+    examine: 'Зелье источает холодный, неприятный запах и кажется почти живым.
+
+      '
+    value: 20
+    weight: 0.1
+    material: CRYSTAL
+    affects:
+      strength: -2
+      mana: 10
+    flags:
+    - MAGIC
+  - id: obj_003
+    vnum: 20203
+    type: WEAPON
+    name:
+      nominative: Каменный копье
+      genitive: Каменного копья
+      dative: каменному копью
+      accusative: каменное копье
+      instrumental: каменным копьем
+      prepositional: с каменным копьем
+    description: 'Копье, сделанное из грубого скального камня, с острым концом.
+
+      '
+    examine: 'Острый конец копья выглядит опасным и готовым к нападению.
+
+      '
+    value: 30
+    weight: 4
+    material: STONE
+    wear_slots:
+    - WEAPON
+    affects:
+      damage: 2
+      accuracy: 5
+    flags:
+    - MAGIC
+  - id: obj_004
+    vnum: 20204
+    type: ARMOR
+    name:
+      nominative: Каменная броня
+      genitive: Каменной брони
+      dative: каменной броне
+      accusative: каменную броню
+      instrumental: каменной броней
+      prepositional: в каменной броне
+    description: 'Тяжелая броня, покрытая грубым камнем и обработанная магией.
+
+      '
+    examine: 'Броня кажется твердой и надежной, способной защитить от ударов.
+
+      '
+    value: 100
+    weight: 8
+    material: STONE
+    wear_slots:
+    - BODY
+    affects:
+      armor: 10
+      strength: 2
+    flags:
+    - MAGIC
+  - id: obj_005
+    vnum: 20205
+    type: SCROLL
+    name:
+      nominative: Свиток заклинания огненного меча
+      genitive: свитка заклинания огненного меча
+      dative: свитку заклинания огненного меча
+      accusative: свиток заклинания огненного меча
+      instrumental: свитком заклинания огненного меча
+      prepositional: в свитке заклинания огненного меча
+    description: 'Свиток с рисунками и символами, излучающими слабое пламя.
+
+      '
+    examine: 'На свитке видны древние знаки, которые начинают мерцать при близком
+      рассмотрении.
+
+      '
+    value: 150
+    weight: 0.2
+    material: PAPER
+    affects:
+      damage: 5
+      mana: -10
+    flags:
+    - MAGIC
+  - id: obj_006
+    vnum: 20206
+    type: KEY
+    name:
+      nominative: Ключ от сокровищницы
+      genitive: ключа от сокровищницы
+      dative: ключу от сокровищницы
+      accusative: ключ от сокровищницы
+      instrumental: ключом от сокровищницы
+      prepositional: в ключе от сокровищницы
+    description: 'Ключ, сделанный из твердого железа и покрытый магическими символами.
+
+      '
+    examine: 'На ключе видны древние руны, которые светятся при контакте с металлом.
+
+      '
+    value: 75
+    weight: 0.1
+    material: IRON
+    flags:
+    - MAGIC
+  - id: obj_007
+    vnum: 20207
+    type: FOOD
+    name:
+      nominative: Кусок соляного хлеба
+      genitive: куска соляного хлеба
+      dative: куску соляного хлеба
+      accusative: кусок соляного хлеба
+      instrumental: куском соляного хлеба
+      prepositional: с куском соляного хлеба
+    description: 'Хрустящий кусок хлеба, приготовленный из соленой муки.
+
+      '
+    examine: 'Кусок хлеба выглядит аппетитным и свежим, хотя и немного солоноватым.
+
+      '
+    value: 10
+    weight: 0.5
+    material: BREAD
+    affects:
+      health: 10
+    flags:
+    - FOOD
+  quests:
+  - id: quest_001
+    name: Золото Кровавого Вампира
+    type: KILL
+    description: 'В глубинах горы обитает могущественный кровавый вампир. Он охраняет
+      древнее сокровище, спрятанное в затерянной пещере. Убейте Кровавого Вампира
+      и получите доступ к его кладу.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_018
+      count: 1
+    rewards:
+      exp: 5000
+      gold: 2000
+      items:
+      - obj_treasure_map
+      - obj_blood_vampire_key
+    giver_npc: npc_mountain_dweller
+    completion_npc: npc_mountain_dweller
+  - id: quest_002
+    name: Секреты Каменного Гнома
+    type: EXPLORE
+    description: 'Слухи о том, что в подземельях спрятана древняя статуя каменного
+      гнома. Она обладает невероятной силой и мудростью. Найдите секретное место и
+      возьмите статую.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room: room_secret_cavern
+    rewards:
+      exp: 3000
+      gold: 1500
+      items:
+      - obj_ancient_statue
+    giver_npc: npc_old_miner
+    completion_npc: npc_mountain_guardian
+  - id: quest_003
+    name: Спасение Горного Лешего
+    type: COLLECT
+    description: 'Горный леший попал в беду и нуждается в вашей помощи. Чтобы освободить
+      его, вам нужно собрать три редких минерала и принести их к пещере лесного духа.
+
+      '
+    objectives:
+    - type: COLLECT
+      item: obj_rare_mineral_1
+      count: 1
+    - type: COLLECT
+      item: obj_rare_mineral_2
+      count: 1
+    - type: COLLECT
+      item: obj_rare_mineral_3
+      count: 1
+    rewards:
+      exp: 4000
+      gold: 1000
+      items:
+      - obj_forest_spirit_key
+    giver_npc: npc_mountain_leshy
+    completion_npc: npc_forest_dweller

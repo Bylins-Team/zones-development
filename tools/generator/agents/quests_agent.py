@@ -3,7 +3,7 @@ Quests Agent - генерация квестов
 """
 
 from typing import Dict
-from ..llm import OllamaClient, ContextManager
+from ..llm import create_llm_client, ContextManager
 from ..prompts import PromptLibrary
 from ..utils import safe_parse_yaml
 
@@ -22,7 +22,8 @@ def quests_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dic
         raise ValueError("Отсутствует 'lore' в state")
 
     prompts = PromptLibrary()
-    ollama = OllamaClient(ollama_url=ollama_url)
+    provider = state.get('provider', 'ollama')
+    llm = create_llm_client(provider=provider)
     context_mgr = ContextManager()
 
     lore = state['lore']
@@ -39,14 +40,14 @@ def quests_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dic
 
     try:
         # Вызов LLM
-        response = ollama.generate(
+        response = llm.generate(
             prompt=prompt,
             stage='quests',
             system=prompts.SYSTEM_DESIGNER
         )
 
         # Парсинг ответа
-        parsed = safe_parse_yaml(response['content'])
+        parsed = safe_parse_yaml(response['content'], stage='quests')
 
         # Извлекаем квесты
         if isinstance(parsed, dict) and 'quests' in parsed:

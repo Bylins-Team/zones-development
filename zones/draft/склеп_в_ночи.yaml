@@ -1,0 +1,714 @@
+zone:
+  meta:
+    id: sklepin_nochi
+    name: Склеп в Ночи
+    author: Zone Generator
+    version: '1.0'
+    description: Маленький склеп, заброшенный веками под лесом. Его каменные стены
+      испещрены надписями и рунами, а воздух пропитан мрачным прохладным запахом нежити.
+    recommended_level:
+    - 10
+    - 12
+  lore:
+    history: 'Склеп в Ночи был когда-то построен древними жрецами для хранения тел
+      умерших воинов, чтобы их духи могли сохранить защиту над родной землей. Время
+      сменило владельцев этого места: сначала оно стало местом погребения простых
+      людей, а затем забросили и покинули его. Многие из тех, кто здесь похоронен,
+      превратились в духи, которые теперь бродят вокруг склепа.'
+    folklore_basis: Склеп связан с поверьями о домовых и нечистой силе. Считается,
+      что души умерших воинов и простых людей могут вернуться из загробного мира при
+      определенных обстоятельствах и требовать поклонения или жертвы.
+    current_state: Сегодня склеп заселен духами умерших славянских воинов и простых
+      людей. Они бродят по каменным коридорам, тихо выкрикивая древние заклинания
+      на стенах склепа. Многие из этих духов становятся враждебными к пришельцам.
+    conflict: Основной конфликт связан с тем, что духи умерших требуют жертвы и поклонения,
+      чтобы они могли оставаться в мире живых. Игроки должны помочь усмирить нежить
+      или найти способ вернуть ее в мир загробный.
+    key_characters:
+    - name: Святослав
+      role: Заклятый воин, бродящий по склепу.
+      description: Бывший воин, который был схоронен здесь и теперь призраком требует
+        жертвы.
+    - name: Вида Светлая
+      role: Дух умершей женщины, помогающая тем, кто может разгадать тайну алтаря.
+      description: Женщина по имени Вида была зарыта в этом склепе и теперь призраком
+        пытается помочь игрокам найти древние артефакты на алтаре.
+    atmosphere:
+      sounds:
+      - Тихий шепот прошлых поколений
+      - Звуки тонкого ветра, пробирающегося через щели
+      smells:
+      - Почва и древесина, пропитанная веками мокростию
+      - Свежие цветы на алтаре как символ мира
+      visuals:
+      - Каменные стены с рунами и надписями
+      - Маленький светящийся отверстие в крыше, пропускающее лунный свет
+      feeling: Склеп наполняет холодом и мраком, но также теплым чувством помощи призрачных
+        существ.
+    secrets:
+    - На алтаре спрятан древний камень силы, доступ к которому дает знание старого
+      заклинания.
+    - В глубине склепа есть тайный проход в подземелье, где обитают более могущественные
+      духи.
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Темный коридор ведет внутрь склепа. Каменные стены покрыты мхом
+      и плесенью, а воздух наполнен сыростью и запахом древности. Тихий шепот прошлых
+      поколений доносится из темноты.
+
+      '
+    examine: 'В коридоре видны следы древних рун на стенах и тусклый свет от маленького
+      отверстия в крыше, пропускающего лунный свет. Здесь можно услышать приглушенные
+      голоса умерших.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+    - direction: down
+      to_room: room_003
+    - direction: south
+      to_room: world_forest_01
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: 'Вы стоите в башне стража. Каменные стены украшены древними рунами,
+      а воздух здесь наполнен свежестью и прохладой. Вдали слышны тихие голоса призраков.
+
+      '
+    examine: 'На стене видна маленькая ниша с остатками алтаря. Здесь можно найти
+      старые заклинания и рунические символы, которые могут быть полезными в вашем
+      путешествии.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+    - direction: up
+      to_room: room_007
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: 'Вы находитесь в темном подземном коридоре. Каменные стены покрыты
+      плесенью и мхом, а воздух здесь пропитан сыростью и запахами древности. Вдали
+      слышится шепот прошлых поколений.
+
+      '
+    examine: 'Здесь можно заметить следы древних рун на стенах и тусклый свет от маленького
+      отверстия в крыше, пропускающего лунный свет. Некоторые камни кажутся странно
+      теплыми, словно здесь скрываются древние секреты.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: up
+      to_room: room_001
+    - direction: north
+      to_room: room_004
+    - direction: east
+      to_room: room_005
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Каменные стены украшены древними рунами, свет луны проникает сквозь
+      маленькие отверстия в потолке. Звуки тихого шепота и хруста камней создают атмосферу
+      опасности. Воздух наполнен запахом мокрой земли и древесины, пропитанной веками
+      времени.
+
+      '
+    examine: 'Вы заметили скрытые рычаги на стенах, которые могут активировать ловушки.
+      Здесь когда-то хранились важные артефакты, но теперь все покрыто пылью и паутиной.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Внутри зала раскиданы старинные сундуки и ящики, покрытые пылью.
+      На стенах видны следы древних ритуалов и заклинаний. Звуки тихого ветра и шороха
+      крыс создают атмосферу тревоги. Воздух наполнен запахом старых книг и монет.
+
+      '
+    examine: 'Вы заметили скрытые рычаги на стенах, которые могут активировать ловушки
+      или открыть тайные проходы. Здесь когда-то хранились сокровища, но теперь все
+      покрыто пылью и паутиной.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+    - direction: north
+      to_room: room_006
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'Зал освещен тусклым светом, идущим из маленьких отверстий в потолке.
+      Каменные стены украшены древними рунами и надписями. Воздух наполнен запахом
+      мокрой земли и древесины, пропитанной веками времени.
+
+      '
+    examine: 'Вы заметили скрытые рычаги на стенах, которые могут активировать ловушки
+      или открыть тайные проходы. Здесь когда-то хранились важные артефакты, но теперь
+      все покрыто пылью и паутиной.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_004
+    - direction: west
+      to_room: room_005
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+  - id: room_007
+    vnum: 20007
+    name: Вершина башни (секрет)
+    description: 'Вы находитесь в тесной каменной комнате на вершине башни. Круглый
+      потолок слегка светится, пропуская лунный свет через маленькое отверстие. В
+      центре комнаты установлен старинный алтарь с древними рунами и символами. Шепот
+      прошлых поколений тихо наполняет воздух.
+
+      '
+    examine: 'Алтарь выглядит как место для важных обрядов. На нем можно заметить
+      следы от неизвестного предмета, возможно, древнего артефакта. В углу лежат старые
+      свечи и остатки зажженной травы.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: down
+      to_room: room_002
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 13
+    role: TRASH
+    race: GHOST
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 6d8+9
+      armor_class: 74
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1690
+      gold:
+        min: 45
+        max: 84
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Бродячий дух воина
+      genitive: Бродящего духа воина
+      dative: Бродящему духу воина
+      accusative: Бродящего духа воина
+      instrumental: Бродящим духом воина
+      prepositional: Бродящем духе воина
+    level: 12
+    role: TANK
+    race: GHOST
+    description: 'Призрак в старой кольчуге с видимыми следами битв.
+
+      '
+    examine: 'На его руках все еще видны пятна крови и засохшая грязь.
+
+      '
+    action: 'Бродячий дух воина рычит, готовясь к бою.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 3d6+13
+      armor_class: 76
+      hitroll: 5
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      max_count: 2
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Призрачная женщина Вида
+      genitive: Призрачной женщины Виды
+      dative: Призрачной женщине Виде
+      accusative: Призрачную женщину Виду
+      instrumental: Призрачной женщиной Виде
+      prepositional: Призрачной женщине Виде
+    level: 10
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Призрачная женщина, одетая в старое платье с тонкими рукавами.
+
+      '
+    examine: 'Она светится слабым белым светом и держит маленький свечной огонек.
+
+      '
+    action: 'Вида шепчет древнее заклинание, вызывая поток холодного воздуха.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 6d12+21
+      armor_class: 80
+      hitroll: 5
+    abilities:
+    - magic_missile
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+      cold: 70
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 50
+      exp: 1800
+      gold:
+        min: 84
+        max: 156
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 2
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Босс Святослав
+      genitive: Босса Святослава
+      dative: Боссу Святославу
+      accusative: Босса Святослава
+      instrumental: Боссом Святославом
+      prepositional: Боссе Святославе
+    level: 15
+    role: BOSS
+    race: GHOST
+    description: 'Высокий призрак в боевых доспехах, с мечом и щитом.
+
+      '
+    examine: 'Святослав излучает холодное свечение и его глаза горят красным огнем.
+
+      '
+    action: 'Босс Святослав громко кричит древние заклинания, вызывая удары молний.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 7d10+21
+      armor_class: 68
+      hitroll: 7
+    abilities:
+    - bash
+    - magic_missile
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+      cold: 100
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 75
+      exp: 6750
+      gold:
+        min: 262
+        max: 487
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Холодный дух
+      genitive: Холодного духа
+      dative: Холодному духу
+      accusative: Холодного духа
+      instrumental: Холодным духом
+      prepositional: Холодном духе
+    level: 14
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Призрачный дух, покрытый ледяной коркой.
+
+      '
+    examine: 'Он излучает холодное свечение и его тело покрыто льдом.
+
+      '
+    action: 'Холодный дух вызывает потоки ледяного ветра.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 7d12+30
+      armor_class: 75
+      hitroll: 6
+    abilities:
+    - magic_missile
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -30
+      cold: 120
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 60
+      exp: 3528
+      gold:
+        min: 117
+        max: 218
+    spawn:
+      rooms:
+      - room_004
+      - room_005
+      max_count: 2
+  - id: mob_006
+    vnum: 20105
+    name:
+      nominative: Призрак Святослава
+      genitive: Призрака Святослава
+      dative: Призраку Святослава
+      accusative: Призрака Святослава
+      instrumental: Призраком Святослава
+      prepositional: Призраке Святослава
+    level: 12
+    role: TANK
+    race: GHOST
+    description: 'Белое одеяние, покрытое ржавчиной от старого железного шлема.
+
+      '
+    examine: 'В его глазах можно увидеть битву прошлых дней.
+
+      '
+    action: 'Святослав призывает ветер к себе и наносит удары своим мечом-призраком.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 2d6+18
+      armor_class: 24
+      hitroll: 15
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 75
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 20
+      - item_id: obj_006
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 1
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    wear_slots:
+    - HOLD
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: POTION
+    name:
+      nominative: Священное зелье
+      genitive: Священного зелья
+      dative: Священному зелью
+      accusative: Священное зелье
+      instrumental: Священным зелием
+      prepositional: Священном зелье
+    description: 'Зеленовато-серое зелье с лунным светом, исходящим от него.
+
+      '
+    examine: 'Зелье источает слабый свечойный свет и наполнено мощью древних заклинаний.
+
+      '
+    value: 20
+    weight: 1
+    material: WATER
+    affects:
+      health_regen: 5
+      mana_regen: 3
+    flags:
+    - MAGIC
+  - id: obj_003
+    vnum: 20203
+    type: SCROLL
+    name:
+      nominative: Заклинание смерти
+      genitive: Заклинания смерти
+      dative: Заклинанию смерти
+      accusative: Заклинание смерти
+      instrumental: Заклинанием смерти
+      prepositional: Заклинании смерти
+    description: 'Свёрнутый лист бумаги, на котором написаны древние руны.
+
+      '
+    examine: 'На листе видны древние руны и символы, которые мерцают при виде призраков.
+
+      '
+    value: 100
+    weight: 0.25
+    material: PAPER
+    affects:
+      damage: 15
+    flags:
+    - MAGIC
+  - id: obj_004
+    vnum: 20204
+    type: WEAPON
+    name:
+      nominative: Меч Святослава
+      genitive: Меча Святослава
+      dative: Мечу Святослава
+      accusative: Меч Святослава
+      instrumental: Мечем Святослава
+      prepositional: Мече Святослава
+    description: 'Металлический меч с древними рунами, нанесёнными на его рукоять.
+
+      '
+    examine: 'Руны на мече мерцают при каждом ударе и источают холодный свет.
+
+      '
+    value: 150
+    weight: 3
+    material: STEEL
+    affects:
+      damage: 10
+      strength: 2
+    flags:
+    - MAGIC
+  - id: obj_005
+    vnum: 20205
+    type: ARMOR
+    name:
+      nominative: Кольчуга Вида
+      genitive: Кольчуги Виды
+      dative: Кольчуге Виде
+      accusative: Кольчугу Виду
+      instrumental: Кольчугой Виде
+      prepositional: Кольчуге Виде
+    description: 'Кольчуга из тонко обработанной стали, украшенная рунами.
+
+      '
+    examine: 'Руны на кольчуге мерцают при движении и защищают от магии.
+
+      '
+    value: 200
+    weight: 5
+    material: STEEL
+    affects:
+      armor: 10
+      strength: 2
+    flags:
+    - MAGIC
+  - id: obj_006
+    vnum: 20206
+    type: KEY
+    name:
+      nominative: Ключ от подземелья
+      genitive: Ключа от подземелья
+      dative: Ключу от подземелья
+      accusative: Ключ от подземелья
+      instrumental: Ключем от подземелья
+      prepositional: Ключе от подземелья
+    description: 'Ключ из серебра с рунами, которые мерцают при движении.
+
+      '
+    examine: 'Руны на ключе мерцают и указывают путь к тайным проходам.
+
+      '
+    value: 50
+    weight: 0.1
+    material: SILVER
+    affects:
+      lockpick: 5
+    flags:
+    - MAGIC
+  quests:
+  - id: quest_001
+    name: Святославово проклятие
+    type: KILL
+    description: 'Бродящие по склепу духи воинов мешают покой. Среди них особо опасен
+      призрак Святослава, бывшего заклятого воина. Он требует жертвы и жаждет возвращения
+      в мир живых. Игрокам нужно уничтожить его присутствие, чтобы духи могли найти
+      покой.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_004
+      count: 1
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_sacred_amulet
+      - obj_legendary_weapon
+    giver_npc: npc_village_healer
+    completion_npc: npc_village_healer
+  - id: quest_002
+    name: Тайна алтаря Виды Светлой
+    type: COLLECT
+    description: 'Призрак женщины по имени Вида обитает в склепе и помогает тем, кто
+      способен разгадать тайну алтаря. Она говорит о древнем камне силы, спрятанном
+      под алтарем. Игрокам необходимо найти и принести алтарный светильник, чтобы
+      открыть путь к этому артефакту.
+
+      '
+    objectives:
+    - type: COLLECT
+      item: obj_altar_candle
+      count: 1
+    rewards:
+      exp: 3000
+      gold: 150
+      items:
+      - obj_crystal_of_power
+    giver_npc: npc_veda_light
+    completion_npc: npc_veda_light
+  - id: quest_003
+    name: Секретные тоннели Склепа
+    type: EXPLORE
+    description: 'Среди легенд о склепе упоминаются секретные проходы, ведущие к древним
+      подземельям. Игрокам предстоит исследовать все комнаты и коридоры, чтобы найти
+      тайный вход и раскрыть мистические тайны склепа.
+
+      '
+    objectives:
+    - type: EXPLORE
+      room_count: 7
+    rewards:
+      exp: 2500
+      gold: 100
+      items:
+      - obj_rare_artifact
+    giver_npc: npc_adventurer_tavern
+    completion_npc: npc_adventurer_tavern

@@ -380,6 +380,15 @@ def main():
         help='Целевой балл валидации для --refine (по умолчанию 75)'
     )
 
+    # LLM Provider
+    parser.add_argument(
+        '--provider',
+        type=str,
+        default='ollama',
+        choices=['ollama', 'anthropic', 'openai', 'deepseek', 'xai', 'cerebras', 'kilo', 'claude', 'chatgpt', 'gpt', 'grok'],
+        help='LLM провайдер (по умолчанию: ollama). Алиасы: claude→anthropic, chatgpt/gpt→openai, grok→xai'
+    )
+
     # Режим работы
     parser.add_argument(
         '--no-langgraph',
@@ -451,7 +460,8 @@ def main():
                 ollama_url=args.ollama_url,
                 interactive=interactive,
                 output_dir=args.output,
-                resume_thread_id=args.resume
+                resume_thread_id=args.resume,
+                provider=args.provider
             )
 
         else:

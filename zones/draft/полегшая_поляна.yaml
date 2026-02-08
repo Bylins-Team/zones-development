@@ -1,0 +1,1218 @@
+zone:
+  meta:
+    id: zone_ghostly_meadow
+    name: Полегшая поляна
+    author: Zone Generator
+    version: '1.0'
+    description: На рассвете вы оказываетесь в старом поле, покрытом буйной травой
+      и низкими кустами. Тут и там можно заметить следы недавних пожарищ – черные
+      деревья и обугленную землю. В тишине слышны странные шепоты и скребущие звуки,
+      словно здесь присутствуют невидимые существа.
+    recommended_level:
+    - 10
+    - 15
+  lore:
+    history: Недалеко от древнерусской деревни Полукров стоит заброшенное поле, когда-то
+      плодородное и зеленое. Однако после трагической битвы между местными жителями
+      и набегом варваров, все живые существа покинули это место, а поля остались пустыми
+      и забытыми. С тех пор здесь можно заметить следы сожженных деревьев и черной
+      земли, свидетельствующие о том, что здесь произошла жестокая битва.
+    folklore_basis: Согласно славянским поверьям, места, где умерло много людей без
+      должного почитания или в результате трагических событий, становятся обителью
+      нежити. Мертвецы и духи остаются там, где они пали, не находя покоя до тех пор,
+      пока их души не будут вознесены или отпущены.
+    current_state: Сейчас Полегшая поляна окутана легким туманом, придающим ей мрачный
+      и загадочный вид. Спящие мертвецы иногда пробуждаются из своих могил, когда
+      кто-то нарушает их покой или присутствует в поле ночью. Изредка можно встретить
+      бродячую ведьму, ищущую составляющие для своих зелий.
+    conflict: Основной конфликт связан с тем, что мертвецы поляны продолжают устраивать
+      проблемы местным жителям, не давая им нормально жить. Игроки могут быть отправлены
+      туда, чтобы найти способ успокоить души погибших и освободить поле от проклятия.
+    key_characters:
+    - name: Ветряная Ведьма
+      role: Бродит по поляне в поисках редких трав для своих зелий
+      description: Сухая и костлявая женщина с длинными серыми волосами, облаченная
+        в старое платье. В ее глазах можно заметить отблеск магии и печаль.
+    - name: Старый Батюшка
+      role: Житель соседней деревни, которому доверяют местные жители
+      description: Пожилой мужчина с бородой, облаченный в простую рубаху. Его глаза
+        полны мудрости и печали, он может рассказать многое о прошлом поляны.
+    atmosphere:
+      sounds:
+      - Странный шепот из-за кустов
+      - Скребущие звуки приближающегося движения
+      smells:
+      - Плесень и древесина сгоревших деревьев
+      - Земляной запах заброшенного поля
+      visuals:
+      - Легкий туман, окутывающий всю поляну
+      - Черные обугленные стволы деревьев среди зеленой травы
+      feeling: В Полегшей Поляне царит неприятное чувство опасности и печали. Место
+        кажется заброшенным, но в то же время полным тайн.
+    secrets:
+    - Спрятались магические травы, которые необходимы для создания зелий для успокоения
+      духов
+    - Под старым сгоревшим деревом спрятана ритуальная книга местного колдуна, которую
+      можно использовать в определенных квестах
+  rooms:
+  - id: room_001
+    vnum: 20001
+    name: Темный вход
+    description: 'Темный проход, ведущий внутрь заброшенного поля. Легкий туман окутывает
+      все пространство, придавая ему мрачный вид. Черные обугленные стволы деревьев
+      и зеленая трава создают контраст.
+
+      Слышны странные шепоты из-за кустов и скребущие звуки приближающегося движения.
+      Запах плесени и древесины сгоревших деревьев смешивается с земляным запахом
+      заброшенного поля.
+
+      Ощущается холодная влажность, проникающая до костей.
+
+      '
+    examine: 'Проход кажется старым и забытым. В стене видны следы пожара и разрушения.
+      Возможно, это вход в подземный коридор или башню стража.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: north
+      to_room: room_002
+      description: Ведет к башне стражи.
+    - direction: down
+      to_room: room_003
+      description: Низкий вход в подземный коридор.
+    - direction: south
+      to_room: world_forest_01
+      description: Выход на заброшенное поле.
+  - id: room_002
+    vnum: 20002
+    name: Башня стража
+    description: 'Была когда-то башней стражи, сейчас же напоминает разрушенный склеп.
+      Черные обугленные стены и руины деревянных элементов создают мрачную атмосферу.
+
+      Слышатся странные шепоты и тихие звуки шагов, будто кто-то бродит по этажам.
+      Запах гари и древесины смешивается с пылью старых времен.
+
+      Ощущается холодный ветер сквозь дыры в стенах.
+
+      '
+    examine: 'Башня напоминает место, где когда-то жил сторож. На стене можно заметить
+      следы старой каллиграфии и рисунки древних символов.
+
+      Возможно, здесь спрятаны секреты или предметы, связанные с прошлым поляны.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_001
+      description: Вход в темный вход.
+    - direction: up
+      to_room: room_007
+      description: Лестница на верхний этаж, где можно найти редкие травы для зелий.
+    - direction: east
+      to_room: room_004
+      flags:
+      - HIDDEN
+      description: Скрытый проход в башне.
+  - id: room_003
+    vnum: 20003
+    name: Подземный коридор
+    description: 'Темный и узкий подземный коридор, освещенный лишь слабым светом
+      издалека. Стены покрыты мхом и плесенью, а пол скользит от влаги.
+
+      Слышатся тихие звуки капающей воды и шорохи подземных существ. Запах сырости
+      и древесины смешивается с металлом старых механизмов.
+
+      Ощущается холод и сырость, проникающая до костей.
+
+      '
+    examine: 'Коридор напоминает древнее туннельное сооружение. На стенах можно заметить
+      следы древних рисунков и надписей. Возможно, здесь спрятано что-то ценное.
+
+      Следует быть осторожным, так как коридор может вести к опасностям.
+
+      '
+    sector: UNDERGROUND
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: up
+      to_room: room_001
+      description: Вход на поверхность.
+    - direction: north
+      to_room: room_004
+      description: Развилка, ведущая к боссу.
+    - direction: east
+      to_room: room_005
+      description: Путь к сокровищам.
+  - id: room_004
+    vnum: 20001
+    name: Зал с ловушками
+    description: 'Зал освещен лишь слабыми лучами света, пробивающимися сквозь щели
+      в камнях. Здесь можно заметить следы древних механизмов и остатки поврежденных
+      ловушек. Стены украшены черными пятнами от копоти, а воздух наполнен запахом
+      ржавчины и пыли.
+
+      '
+    examine: 'В углу виднеется старая карта с пометками о различных ловушках. Несколько
+      механизмов по-прежнему кажутся активными, требуя осторожности.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_003
+      description: Темный коридор ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Зал тянется дальше на север, где обитает босс.
+    - direction: west
+      to_room: room_002
+      flags:
+      - HIDDEN
+      description: Скрытый проход ведет к другой комнате.
+  - id: room_005
+    vnum: 20002
+    name: Сокровищница
+    description: 'Зал наполнен свечами и факелами, отражающими блеск множества сокровищ.
+      Здесь можно увидеть старинные монеты, драгоценности и оружие. Пахнет древним
+      золотом и металлом.
+
+      '
+    examine: 'На стене висит старый шлем с эмблемой давно павшего воина. В углу лежит
+      сверкающий меч с затейливым узором на рукояти.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: west
+      to_room: room_003
+      description: Темный коридор ведет к следующей комнате.
+    - direction: north
+      to_room: room_006
+      description: Зал тянется дальше на север, где обитает босс.
+  - id: room_006
+    vnum: 20003
+    name: Логово босса
+    description: 'В центре зала стоит огромный каменный трон, окружённый мрачными
+      фигурами из темного дерева. Пахнет древесиной и кровью. Звуки приближающихся
+      шагов создают атмосферу угрозы.
+
+      '
+    examine: 'На стенах висят старые ритуальные книги, покрытые пылью. В углу лежит
+      засохший мешок с остатками человеческих костей.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    exits:
+    - direction: south
+      to_room: room_004
+      description: Зал ведет обратно.
+    - direction: west
+      to_room: room_005
+      description: Сокровищница находится рядом.
+    - direction: up
+      to_room: room_001
+      flags:
+      - CLOSED
+      - QUEST_UNLOCK
+      description: Наверх ведет лестница, но она заперта.
+  - id: room_007
+    vnum: 20001
+    name: Вершина башни (секрет)
+    description: 'Вы на вершине высокой башни, окутанной туманом. Вокруг видны черные
+      обугленные стволы деревьев и зеленая трава. Звуки ветра и шепот из-за кустов
+      создают мрачную атмосферу. Пахнет плесенью и древесиной сгоревших деревьев,
+      чувствуется тяжелый запах заброшенного поля.
+
+      '
+    examine: 'Здесь можно заметить следы старых боевых ловушек и скрытые магические
+      травы. Под старым сгоревшим деревом спрятана ритуальная книга местного колдуна,
+      которую стоит изучить внимательно.
+
+      '
+    sector: INSIDE
+    flags:
+    - INDOORS
+    - DARKED
+    - PEACEFUL
+    exits:
+    - direction: down
+      to_room: room_002
+      description: Вниз ведет лестница, скрытая туманом.
+  mobiles:
+  - id: mob_001
+    vnum: 20101
+    name:
+      nominative: Соляной призрак
+      genitive: Соляного призрака
+      dative: Соляному призраку
+      accusative: Соляного призрака
+      instrumental: Соляным призраком
+      prepositional: Соляном призраке
+    level: 12
+    role: TRASH
+    race: UNDEAD
+    description: 'Полупрозрачная фигура в изодранной рубахе рудокопа.
+
+      '
+    examine: 'Через его тело видны кристаллы соли за спиной.
+
+      '
+    action: 'Соляной призрак стонет и тянет руки к живым.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+11
+      armor_class: 30
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_003
+      max_count: 3
+  - id: mob_002
+    vnum: 20102
+    name:
+      nominative: Железный страж
+      genitive: Железного стража
+      dative: Железному стражу
+      accusative: Железного стража
+      instrumental: Железным стражом
+      prepositional: Железном страже
+    level: 14
+    role: TANK
+    race: CONSTRUCT
+    description: 'Металлический громила с тяжелыми цепями на руках и ногах.
+
+      '
+    examine: 'Его корпус покрыт древними насечками и следами битв.
+
+      '
+    action: 'Железный страж медленно, но уверенно шагает вперед, готовый к бою.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 4d6+12
+      armor_class: 25
+      hitroll: 7
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 1960
+      gold:
+        min: 49
+        max: 91
+    spawn:
+      rooms:
+      - room_004
+      max_count: 1
+  - id: mob_003
+    vnum: 20103
+    name:
+      nominative: Туманный дух
+      genitive: Туманного духа
+      dative: Туманному духу
+      accusative: Туманного духа
+      instrumental: Туманным духом
+      prepositional: Туманном духе
+    level: 13
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Призрачная фигура, покрытая туманом и влажными каплями.
+
+      '
+    examine: 'Его присутствие окутано плотным туманом, скрывающим истинную форму.
+
+      '
+    action: 'Туманный дух выпускает клубы холодного пара из рук.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 7d12+26
+      armor_class: 35
+      hitroll: 6
+    abilities:
+    - fireball
+    - icebolt
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+      cold: -10
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 50
+      exp: 3042
+      gold:
+        min: 109
+        max: 202
+    spawn:
+      rooms:
+      - room_007
+      max_count: 2
+  - id: mob_004
+    vnum: 20104
+    name:
+      nominative: Старый Батюшка
+      genitive: Старого Батюшки
+      dative: Старому Батюшке
+      accusative: Старого Батюшки
+      instrumental: Старым Батюшкой
+      prepositional: Старом Батюшке
+    level: 15
+    role: BOSS
+    race: HUMAN
+    description: 'Пожилой мужчина с бородой, облаченный в простую рубаху.
+
+      '
+    examine: 'Его глаза полны мудрости и печали, он может рассказать многое о прошлом
+      поляны.
+
+      '
+    action: 'Старый Батюшка тихо молится за души погибших на Полегшей Поляне.
+
+      '
+    stats:
+      hp: 400
+      damage_dice: 7d10+21
+      armor_class: 20
+      hitroll: 8
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 0
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 60
+      exp: 6750
+      gold:
+        min: 262
+        max: 487
+    spawn:
+      rooms:
+      - room_002
+      max_count: 1
+  - id: mob_005
+    vnum: 20105
+    name:
+      nominative: Туманный призрак
+      genitive: Туманного призрака
+      dative: Туманному призраку
+      accusative: Туманного призрака
+      instrumental: Туманным призраком
+      prepositional: Туманном призраке
+    level: 12
+    role: TRASH
+    race: SPIRIT
+    description: 'Призрачная фигура, покрытая туманом и влажными каплями.
+
+      '
+    examine: 'Его присутствие окутано плотным туманом, скрывающим истинную форму.
+
+      '
+    action: 'Туманный призрак выпускает клубы холодного пара из рук.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 5d8+11
+      armor_class: 35
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: 20
+      cold: -10
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_004
+      - room_007
+      max_count: 3
+  - id: mob_006
+    vnum: 20102
+    name:
+      nominative: Призрачный рудокоп
+      genitive: Призрачного рудокопа
+      dative: Призрачному рудокопу
+      accusative: Призрачного рудокопа
+      instrumental: Призрачным рудокопом
+      prepositional: Призрачном рудокопе
+    level: 12
+    role: TRASH
+    race: UNDEAD
+    description: 'Призрачная фигура в изодранной рубахе, с киркой в руке.
+
+      '
+    examine: 'Его тело пронизано бледным светом, словно он только что вернулся из
+      подземелья.
+
+      '
+    action: 'Призрачный рудокоп тихо стонет и направляет свой взгляд на живых.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 5d8+11
+      armor_class: 38
+      hitroll: 6
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -25
+      cold: 50
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_004
+      max_count: 2
+  - id: mob_007
+    vnum: 20103
+    name:
+      nominative: Призрачная ворона
+      genitive: Призрачной вороны
+      dative: Призрачной вороне
+      accusative: Призрачную ворону
+      instrumental: Призрачной вороной
+      prepositional: Призрачной вороне
+    level: 14
+    role: TRASH
+    race: SPIRIT
+    description: 'Темная птица с бледными глазами, летающая вокруг головы.
+
+      '
+    examine: 'Её крылья оставляют следы холодного ветра, проходящего сквозь нее.
+
+      '
+    action: 'Призрачная ворона кружит над головой и издает мелодичный плач.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 6d8+11
+      armor_class: 46
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -50
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_001
+        chance: 30
+      exp: 1960
+      gold:
+        min: 49
+        max: 91
+    spawn:
+      rooms:
+      - room_004
+      - room_006
+      max_count: 3
+  - id: mob_008
+    vnum: 20104
+    name:
+      nominative: Призрачный воин
+      genitive: Призрачного воина
+      dative: Призрачному воину
+      accusative: Призрачного воина
+      instrumental: Призрачным воином
+      prepositional: Призрачном воине
+    level: 15
+    role: TANK
+    race: UNDEAD
+    description: 'Призрачная фигура в доспехах, с мечом и щитом.
+
+      '
+    examine: 'Его тело пронизано холодным светом, а доспехи покрыты ржавчиной.
+
+      '
+    action: 'Призрачный воин поднимает свой щит и готовится к бою.
+
+      '
+    stats:
+      hp: 300
+      damage_dice: 4d6+14
+      armor_class: 42
+      hitroll: 7
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -15
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_002
+        chance: 40
+      exp: 2250
+      gold:
+        min: 52
+        max: 97
+    spawn:
+      rooms:
+      - room_003
+      - room_006
+      max_count: 2
+  - id: mob_009
+    vnum: 20105
+    name:
+      nominative: Призрачный колдун
+      genitive: Призрачного колдуна
+      dative: Призрачному колдуну
+      accusative: Призрачного колдуна
+      instrumental: Призрачным колдуном
+      prepositional: Призрачном колдуне
+    level: 13
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Старый призрак с длинной белой бородой, держащий в руках книгу заклинаний.
+
+      '
+    examine: 'Книга в его руке издает слабое свечение и пахнет молитвами.
+
+      '
+    action: 'Призрачный колдун начинает читать древние заклинания, излучая холодное
+      пламя.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 7d12+26
+      armor_class: 50
+      hitroll: 8
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -75
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 3042
+      gold:
+        min: 109
+        max: 202
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_010
+    vnum: 20106
+    name:
+      nominative: Призрачный вождь
+      genitive: Призрачного вождя
+      dative: Призрачному вождю
+      accusative: Призрачного вождя
+      instrumental: Призрачным вождем
+      prepositional: Призрачем вожде
+    level: 14
+    role: BOSS
+    race: SPIRIT
+    description: 'Высокий призрак с короной на голове и мечом в руке.
+
+      '
+    examine: 'Его тело излучает холодный свет, а одежда покрыта древними символами.
+
+      '
+    action: 'Призрачный вождь поднимает свой меч и готовится к бою.
+
+      '
+    stats:
+      hp: 350
+      damage_dice: 7d10+18
+      armor_class: 48
+      hitroll: 9
+    abilities:
+    - bash
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -75
+      cold: 30
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 60
+      exp: 5880
+      gold:
+        min: 244
+        max: 455
+    spawn:
+      rooms:
+      - room_006
+      max_count: 1
+  - id: mob_011
+    vnum: 20102
+    name:
+      nominative: Страж полян
+      genitive: Стража полян
+      dative: Стражу полян
+      accusative: Стража полян
+      instrumental: Стражем полян
+      prepositional: Страже полян
+    level: 12
+    role: TANK
+    race: SPIRIT
+    description: 'Призрачная фигура в старом доспехе, покрытом ржавчиной.
+
+      '
+    examine: 'Его глаза пусты и холодны, как зимний лес.
+
+      '
+    action: 'Страж полян медленно кружит вокруг своей территории.
+
+      '
+    stats:
+      hp: 280
+      damage_dice: 3d6+13
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    - rescue
+    flags:
+    - AGGRESSIVE
+    - SENTINEL
+    resistances:
+      fire: -10
+      cold: 25
+    loot:
+      items:
+      - item_id: obj_003
+        chance: 40
+      exp: 1440
+      gold:
+        min: 42
+        max: 78
+    spawn:
+      rooms:
+      - room_002
+      - room_006
+      max_count: 1
+  - id: mob_012
+    vnum: 20103
+    name:
+      nominative: Теневая ведьма
+      genitive: Теневой ведьмы
+      dative: Теневой ведьме
+      accusative: Теневую ведьму
+      instrumental: Теневой ведьмой
+      prepositional: Теневой ведьме
+    level: 15
+    role: MAGE_DMG
+    race: SPIRIT
+    description: 'Женщина в черном платье с выцветшими узорами, вокруг нее клубится
+      тьма.
+
+      '
+    examine: 'Её глаза горят магическим огнем, и она держит кристалл темной энергии.
+
+      '
+    action: 'Теневая ведьма шепчет заклинание и бросает его в цель.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 8d12+28
+      armor_class: 30
+      hitroll: 8
+    abilities:
+    - magic_missile
+    - fireball
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: 50
+      cold: -25
+    loot:
+      items:
+      - item_id: obj_004
+        chance: 35
+      exp: 4050
+      gold:
+        min: 125
+        max: 234
+    spawn:
+      rooms:
+      - room_007
+      - room_001
+      max_count: 1
+  - id: mob_013
+    vnum: 20104
+    name:
+      nominative: Призрачная тень
+      genitive: Призрачной тени
+      dative: Призрачной тени
+      accusative: Призрачную тень
+      instrumental: Призрачной тенью
+      prepositional: Призрачной тени
+    level: 10
+    role: TRASH
+    race: SPIRIT
+    description: 'Призрачная фигура в старой одежде, покрытая паутиной.
+
+      '
+    examine: 'Её присутствие вызывает холодок в воздухе и туман вокруг неё.
+
+      '
+    action: 'Призрачная тень исчезает и появляется рядом с игроком.
+
+      '
+    stats:
+      hp: 200
+      damage_dice: 5d8+7
+      armor_class: 35
+      hitroll: 7
+    abilities:
+    - bash
+    - disarm
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -25
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_005
+        chance: 30
+      exp: 1000
+      gold:
+        min: 35
+        max: 65
+    spawn:
+      rooms:
+      - room_001
+      - room_003
+      max_count: 3
+  - id: mob_014
+    vnum: 20105
+    name:
+      nominative: Ночной вор
+      genitive: Ночного вора
+      dative: Ночному вору
+      accusative: Ночного вора
+      instrumental: Ночным вором
+      prepositional: Ночном воре
+    level: 13
+    role: ROGUE
+    race: HUMAN
+    description: 'Молодой человек в темной одежде с маской на лице.
+
+      '
+    examine: 'Его глаза внимательны и острожны, он держит небольшое копье.
+
+      '
+    action: 'Ночной вор бросает копье в игрока и исчезает.
+
+      '
+    stats:
+      hp: 240
+      damage_dice: 9d8+13
+      armor_class: 35
+      hitroll: 8
+    abilities:
+    - backstab
+    - stealth
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -20
+      cold: 35
+    loot:
+      items:
+      - item_id: obj_006
+        chance: 40
+      exp: 2535
+      gold:
+        min: 91
+        max: 169
+    spawn:
+      rooms:
+      - room_001
+      - room_007
+      max_count: 2
+  - id: mob_015
+    vnum: 20106
+    name:
+      nominative: Призрак стражника
+      genitive: Призрака стражника
+      dative: Призраку стражника
+      accusative: Призрака стражника
+      instrumental: Призраком стражника
+      prepositional: Призраке стражника
+    level: 14
+    role: MELLEE_DMG
+    race: SPIRIT
+    description: 'Призрачный воин в старой броне с мечом.
+
+      '
+    examine: 'Его глаза горят холодным светом, и он держит огромный меч.
+
+      '
+    action: 'Призрак стражника атакует игрока своим мечом.
+
+      '
+    stats:
+      hp: 260
+      damage_dice: 8d8+17
+      armor_class: 35
+      hitroll: 9
+    abilities:
+    - bash
+    - kick
+    flags:
+    - AGGRESSIVE
+    - WANDER
+    resistances:
+      fire: -20
+      cold: 40
+    loot:
+      items:
+      - item_id: obj_007
+        chance: 35
+      exp: 2940
+      gold:
+        min: 78
+        max: 145
+    spawn:
+      rooms:
+      - room_001
+      - room_006
+      max_count: 2
+  objects:
+  - id: obj_001
+    vnum: 20201
+    type: TREASURE
+    name:
+      nominative: Соляной кристалл
+      genitive: Соляного кристалла
+      dative: Соляному кристаллу
+      accusative: Соляной кристалл
+      instrumental: Соляным кристаллом
+      prepositional: Соляном кристалле
+    description: 'Прозрачный кристалл соли с замороженной внутри тенью.
+
+      '
+    examine: 'Внутри кристалла видна застывшая человеческая фигура, словно в оцепенении.
+
+      '
+    value: 50
+    weight: 1
+    material: CRYSTAL
+    wear_slots:
+    - HOLD
+    affects:
+      strength: 1
+      armor: -5
+    flags:
+    - MAGIC
+    - GLOW
+  - id: obj_002
+    vnum: 20202
+    type: POTION
+    name:
+      nominative: Зелье оживления
+      genitive: Зелья оживления
+      dative: Зелью оживления
+      accusative: Зелье оживления
+      instrumental: Зельем оживления
+      prepositional: Зелье оживления
+    description: 'Зеленовато-блестящее зелье, из которого вьются тонкие серые нити.
+
+      '
+    examine: 'Зелье источает холодный свет, как будто оно наполнено древними силами.
+
+      '
+    value: 100
+    weight: 0.2
+    material: GLASS
+    effects:
+    - RESTORE: 50
+    - SLOW: -10
+    flags:
+    - MAGIC
+  - id: obj_013
+    vnum: 20203
+    type: SCROLL
+    name:
+      nominative: Рунический свиток
+      genitive: Рунического свитка
+      dative: Руническому свитку
+      accusative: Рунический свиток
+      instrumental: Руническим свитком
+      prepositional: Руническом свитке
+    description: 'Свиток из тонкой бумаги, на котором вырезаны древние руны.
+
+      '
+    examine: 'Рунные символы светятся слабым синим светом, словно они наполнены магией.
+
+      '
+    value: 200
+    weight: 0.1
+    material: PAPER
+    effects:
+    - SPELL: HEAL
+    flags:
+    - MAGIC
+  - id: obj_014
+    vnum: 20204
+    type: ARMOR
+    name:
+      nominative: Плащ ведьмы
+      genitive: Плаща ведьмы
+      dative: Плащу ведьмы
+      accusative: Плащ ведьмы
+      instrumental: Плащом ведьмы
+      prepositional: Плаще ведьмы
+    description: 'Темный плащ с блестящими нитями и рунами на плечах.
+
+      '
+    examine: 'Плащ источает холодный свет, словно он наполнен магическими силами.
+
+      '
+    value: 150
+    weight: 3
+    material: Wool
+    wear_slots:
+    - BODY
+    affects:
+    - DEFENSE: 5
+    - SPELL_RESIST: 10
+    flags:
+    - MAGIC
+  - id: obj_015
+    vnum: 20205
+    type: WEAPON
+    name:
+      nominative: Рунный кинжал
+      genitive: Рунного кинжала
+      dative: Рунному кинжалу
+      accusative: Рунный кинжал
+      instrumental: Рунным кинжалом
+      prepositional: Рунном кинжале
+    description: 'Клинок с рунами, которые светятся при контакте со слабыми тенями.
+
+      '
+    examine: 'Руны на клинке светятся холодным голубым светом, словно они наполнены
+      силой.
+
+      '
+    value: 250
+    weight: 1
+    material: STEEL
+    wear_slots:
+    - WEAPON
+    affects:
+    - ATTACK: 5
+    - CRITICAL: 10
+    flags:
+    - MAGIC
+  - id: obj_016
+    vnum: 20206
+    type: KEY
+    name:
+      nominative: Ключ от теневого замка
+      genitive: Ключа от теневого замка
+      dative: Ключу от теневого замка
+      accusative: Ключ от теневого замка
+      instrumental: Ключем от теневого замка
+      prepositional: От теневого замка
+    description: 'Ключ, покрытый рунами и сияющий холодным светом.
+
+      '
+    examine: 'Ключ источает слабый голубой свет, словно он связан с силами тьмы.
+
+      '
+    value: 300
+    weight: 0.1
+    material: IRON
+    flags:
+    - MAGIC
+  - id: obj_017
+    vnum: 20207
+    type: FOOD
+    name:
+      nominative: Сольная булка
+      genitive: Сольной булки
+      dative: Сольной булке
+      accusative: Сольную булку
+      instrumental: Сольной булкой
+      prepositional: Сольной булкой
+    description: 'Булка, покрытая тонким слоем соли.
+
+      '
+    examine: 'Булка свежая и неприступная, словно она защищена силами соли.
+
+      '
+    value: 20
+    weight: 1.5
+    material: BREAD
+    effects:
+    - FOOD: 20
+    - SLOW: -5
+    flags:
+    - MAGIC
+  quests:
+  - id: quest_001
+    name: Успокой души Полегшей Поляны
+    type: KILL
+    description: 'Старый Батюшка из соседней деревни просит тебя исследовать Полегшую
+      Поляну и уничтожить призраков, которые мешают местным жителям. Он говорит, что
+      если успокоить души погибших воинов, поле снова станет безопасным для посещения.
+
+      '
+    objectives:
+    - type: KILL
+      target: mob_010
+      count: 1
+    - type: KILL
+      target:
+      - mob_003
+      - mob_005
+      - mob_007
+      - mob_008
+      - mob_012
+      - mob_014
+      count: 20
+    rewards:
+      exp: 5000
+      gold: 200
+      items:
+      - obj_reward_crown
+    giver_npc: mob_004
+    completion_npc: npc_questgiver
+  - id: quest_002
+    name: Помоги Ветряной Ведьме
+    type: COLLECT
+    description: 'Ты встречаешь странную женщину, известную как Ветряная Ведьма. Она
+      ищет составляющие для своих зелий и просит помочь ей найти редкие травы в Полегшей
+      Поляне.
+
+      '
+    objectives:
+    - type: COLLECT
+      item:
+      - obj_trash_flower
+      - obj_trash_root
+      count: 5
+    rewards:
+      exp: 200
+      gold: 100
+      items:
+      - obj_brewing_material
+    giver_npc: npc_witch
+    completion_npc: npc_questgiver
+  - id: quest_003
+    name: Сокровища забытого колдуна
+    type: EXPLORE
+    description: 'Говорят, что под старым сгоревшим деревом спрятана ритуальная книга
+      местного колдуна. Кто-то может найти ее и использовать в своих целях.
+
+      '
+    objectives:
+    - type: EXPLORATION
+      target:
+      - room_004
+      - room_005
+      count: 1
+    - type: COLLECT
+      item: obj_secret_book
+      count: 1
+    rewards:
+      exp: 300
+      gold: 200
+      items:
+      - obj_secret_book
+    giver_npc: npc_tavern_bard
+    completion_npc: npc_questgiver
