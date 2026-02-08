@@ -482,9 +482,11 @@ rooms:
 1. Имя (в падежах: nominative, genitive, dative, accusative, instrumental, prepositional)
 2. Уровень (в пределах level_range)
 3. Роль (TRASH, BOSS, TANK, MELLEE_DMG, ARCHER, ROGUE, MAGE_DMG, MAGE_BUFF, HEALER)
-4. Раса (HUMAN, UNDEAD, ANIMAL, GIANT, DRAGON, DEMON, SPIRIT, CONSTRUCT)
+4. Раса (ТОЛЬКО валидные): BASIC, HUMAN, BEASTMAN, BIRD, ANIMAL, REPTILE, FISH, INSECT, PLANT, CONSTRUCT, ZOMBIE, GHOST, BOGGART, SPIRIT, MAGIC_CREATURE
 5. Описания (description, examine, action)
 6. Характеристики (stats) - НЕ заполняй exp и gold, они рассчитаются автоматически!
+
+⚠️ ВАЖНО: Используй ТОЛЬКО расы из списка выше! UNDEAD, GIANT, DRAGON, DEMON - НЕ валидны!
 
 Выдай YAML:
 ```yaml
@@ -502,7 +504,7 @@ mobiles:
 
     level: 13
     role: "TRASH"
-    race: "UNDEAD"
+    race: "GHOST"  # Полупрозрачный дух - используем GHOST вместо UNDEAD
 
     description: |
       Полупрозрачная фигура в изодранной рубахе рудокопа.

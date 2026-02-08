@@ -104,6 +104,29 @@ def mobs_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
                 role = mob.get('role', 'TRASH')
                 mob_name = mob.get('name', {}).get('nominative', f'Моб {len(all_mobiles)+idx+1}')
 
+                # 0. Проверяем и исправляем расу если невалидна
+                VALID_RACES = ['BASIC', 'HUMAN', 'BEASTMAN', 'BIRD', 'ANIMAL',
+                               'REPTILE', 'FISH', 'INSECT', 'PLANT', 'CONSTRUCT',
+                               'ZOMBIE', 'GHOST', 'BOGGART', 'SPIRIT', 'MAGIC_CREATURE']
+
+                # Маппинг невалидных рас на валидные
+                RACE_MAPPING = {
+                    'UNDEAD': 'ZOMBIE',      # Нежить → Зомби
+                    'GIANT': 'BEASTMAN',     # Гигант → Зверочеловек
+                    'DRAGON': 'REPTILE',     # Дракон → Рептилия
+                    'DEMON': 'MAGIC_CREATURE', # Демон → Магическое существо
+                    'ELEMENTAL': 'MAGIC_CREATURE', # Элементаль → Магическое существо
+                }
+
+                current_race = mob.get('race')
+                if current_race and current_race not in VALID_RACES:
+                    new_race = RACE_MAPPING.get(current_race, 'BASIC')
+                    print(f"      🔧 {mob_name}: раса '{current_race}' → '{new_race}'")
+                    mob['race'] = new_race
+                elif not current_race:
+                    # Если расы нет вообще - ставим BASIC
+                    mob['race'] = 'BASIC'
+
                 # 1. Пересчитываем EXP
                 correct_exp = calc_mob_exp(level, role)
                 if 'loot' not in mob:
