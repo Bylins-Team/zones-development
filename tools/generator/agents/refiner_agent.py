@@ -25,7 +25,7 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
     validator_path = Path(__file__).parent.parent.parent / "validator.py"
 
     if not validator_path.exists():
-        print(f"⚠️  Validator не найден: {validator_path}")
+        print(f"⚠️  Validator не найден: {validator_path}", flush=True)
         return ([], ["Validator не найден"], 0)
 
     try:
@@ -42,12 +42,12 @@ def run_validator(zone_file: Path) -> Tuple[List[str], List[str], int]:
         output = result.stdout + result.stderr
 
         # DEBUG: Показываем что вернул validator
-        print(f"🐛 DEBUG: Validator return code: {result.returncode}")
-        print(f"🐛 DEBUG: Validator output length: {len(output)} chars")
+        print(f"🐛 DEBUG: Validator return code: {result.returncode}", flush=True)
+        print(f"🐛 DEBUG: Validator output length: {len(output)} chars", flush=True)
         if output:
-            print(f"🐛 DEBUG: First 500 chars of output:\n{output[:500]}")
+            print(f"🐛 DEBUG: First 500 chars of output:\n{output[:500]}", flush=True)
         else:
-            print(f"🐛 DEBUG: Validator returned EMPTY output!")
+            print(f"🐛 DEBUG: Validator returned EMPTY output!", flush=True)
 
         # Парсим вывод validator
         errors = []
@@ -103,14 +103,14 @@ def refiner_agent(
     Returns:
         Путь к улучшенному файлу
     """
-    print(f"\n{'='*60}")
-    print(f"🔧 REFINER AGENT - Исправление ошибок зоны")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}", flush=True)
+    print(f"🔧 REFINER AGENT - Исправление ошибок зоны", flush=True)
+    print(f"{'='*60}\n", flush=True)
 
-    print(f"📂 Файл: {zone_file}")
-    print(f"🌐 Провайдер: {provider}")
+    print(f"📂 Файл: {zone_file}", flush=True)
+    print(f"🌐 Провайдер: {provider}", flush=True)
     if model:
-        print(f"🤖 Модель: {model}")
+        print(f"🤖 Модель: {model}", flush=True)
 
     # Проверяем что файл существует
     if not zone_file.exists():
@@ -120,7 +120,7 @@ def refiner_agent(
     with open(zone_file, 'r', encoding='utf-8') as f:
         current_yaml = f.read()
 
-    print(f"✓ Загружено {len(current_yaml)} символов\n")
+    print(f"✓ Загружено {len(current_yaml)} символов\n", flush=True)
 
     # Создаём LLM клиент через фабрику
     llm = create_llm_client(
@@ -133,9 +133,9 @@ def refiner_agent(
 
     # Итеративное улучшение
     for iteration in range(1, max_iterations + 1):
-        print(f"\n{'─'*60}")
-        print(f"🔄 ИТЕРАЦИЯ {iteration}/{max_iterations}")
-        print(f"{'─'*60}\n")
+        print(f"\n{'─'*60}", flush=True)
+        print(f"🔄 ИТЕРАЦИЯ {iteration}/{max_iterations}", flush=True)
+        print(f"{'─'*60}\n", flush=True)
 
         # Сохраняем текущую версию во временный файл
         temp_file = zone_file.parent / f"{zone_file.stem}_temp.yaml"
@@ -143,38 +143,38 @@ def refiner_agent(
             f.write(current_yaml)
 
         # Запускаем validator
-        print("📊 Запуск validator...")
+        print("📊 Запуск validator...", flush=True)
         errors, warnings, score = run_validator(temp_file)
 
-        print(f"\n✓ Валидация завершена:")
-        print(f"   Балл: {score}/100")
-        print(f"   Ошибок: {len(errors)}")
-        print(f"   Предупреждений: {len(warnings)}")
+        print(f"\n✓ Валидация завершена:", flush=True)
+        print(f"   Балл: {score}/100", flush=True)
+        print(f"   Ошибок: {len(errors)}", flush=True)
+        print(f"   Предупреждений: {len(warnings)}", flush=True)
 
         # Удаляем временный файл
         temp_file.unlink()
 
         # Проверяем достигли ли цели
         if score >= target_score and len(errors) == 0:
-            print(f"\n✅ Целевой балл достигнут: {score} >= {target_score}")
-            print(f"✅ Ошибок нет")
+            print(f"\n✅ Целевой балл достигнут: {score} >= {target_score}", flush=True)
+            print(f"✅ Ошибок нет", flush=True)
             break
 
         if len(errors) == 0 and len(warnings) == 0:
-            print(f"\n✅ Ошибок и предупреждений нет")
-            print(f"   Балл: {score}/100")
+            print(f"\n✅ Ошибок и предупреждений нет", flush=True)
+            print(f"   Балл: {score}/100", flush=True)
             break
 
         # Показываем ошибки
         if errors:
-            print(f"\n❌ Критичные ошибки (первые 10):")
+            print(f"\n❌ Критичные ошибки (первые 10):", flush=True)
             for err in errors[:10]:
-                print(f"   {err}")
+                print(f"   {err}", flush=True)
 
         if warnings:
-            print(f"\n⚠️  Предупреждения (первые 5):")
+            print(f"\n⚠️  Предупреждения (первые 5):", flush=True)
             for warn in warnings[:5]:
-                print(f"   {warn}")
+                print(f"   {warn}", flush=True)
 
         # Формируем feedback для LLM
         if score < 60:
@@ -194,7 +194,7 @@ def refiner_agent(
         )
 
         # Вызываем LLM
-        print(f"\n🤖 Генерация исправлений...")
+        print(f"\n🤖 Генерация исправлений...", flush=True)
         response = llm.generate(
             prompt=prompt,
             stage='refiner',
@@ -206,19 +206,19 @@ def refiner_agent(
         refined_yaml = extract_code_block(response['content'], 'yaml')
 
         if not refined_yaml:
-            print(f"\n⚠️  LLM не вернул валидный YAML, используем оригинал")
+            print(f"\n⚠️  LLM не вернул валидный YAML, используем оригинал", flush=True)
             break
 
         # Проверяем что YAML парсится
         parsed = safe_parse_yaml(refined_yaml)
         if parsed is None:
-            print(f"\n⚠️  Исправленный YAML не парсится, используем оригинал")
+            print(f"\n⚠️  Исправленный YAML не парсится, используем оригинал", flush=True)
             break
 
         # КРИТИЧНО: Проверяем что структура сохранена
         if not isinstance(parsed, dict) or 'zone' not in parsed:
-            print(f"\n⚠️  LLM вернул невалидную структуру (нет корневого 'zone'), используем оригинал")
-            print(f"      Ключи в ответе: {list(parsed.keys()) if isinstance(parsed, dict) else type(parsed)}")
+            print(f"\n⚠️  LLM вернул невалидную структуру (нет корневого 'zone'), используем оригинал", flush=True)
+            print(f"      Ключи в ответе: {list(parsed.keys()) if isinstance(parsed, dict) else type(parsed)}", flush=True)
             break
 
         # Проверяем обязательные секции
@@ -227,36 +227,36 @@ def refiner_agent(
         missing_sections = [s for s in required_sections if s not in zone_data]
 
         if missing_sections:
-            print(f"\n⚠️  LLM вернул неполную структуру, отсутствуют секции: {missing_sections}")
-            print(f"      Используем оригинал")
+            print(f"\n⚠️  LLM вернул неполную структуру, отсутствуют секции: {missing_sections}", flush=True)
+            print(f"      Используем оригинал", flush=True)
             break
 
         # Обновляем текущую версию
         current_yaml = refined_yaml
-        print(f"✓ Исправления применены ({len(refined_yaml)} символов)")
+        print(f"✓ Исправления применены ({len(refined_yaml)} символов)", flush=True)
 
     # Сохраняем улучшенную версию
     output_file = zone_file.parent / f"{zone_file.stem}_refined.yaml"
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(current_yaml)
 
-    print(f"\n{'='*60}")
-    print(f"✅ Улучшенная зона сохранена: {output_file}")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}", flush=True)
+    print(f"✅ Улучшенная зона сохранена: {output_file}", flush=True)
+    print(f"{'='*60}\n", flush=True)
 
     # Финальная валидация
-    print("📊 Финальная валидация...")
+    print("📊 Финальная валидация...", flush=True)
     errors, warnings, score = run_validator(output_file)
 
-    print(f"\n📈 РЕЗУЛЬТАТ:")
-    print(f"   Балл: {score}/100")
-    print(f"   Ошибок: {len(errors)}")
-    print(f"   Предупреждений: {len(warnings)}")
+    print(f"\n📈 РЕЗУЛЬТАТ:", flush=True)
+    print(f"   Балл: {score}/100", flush=True)
+    print(f"   Ошибок: {len(errors)}", flush=True)
+    print(f"   Предупреждений: {len(warnings)}", flush=True)
 
     if score >= target_score:
-        print(f"\n🎉 Целевой балл достигнут!")
+        print(f"\n🎉 Целевой балл достигнут!", flush=True)
     else:
-        print(f"\n⚠️  Целевой балл не достигнут ({score} < {target_score})")
-        print(f"   Возможно нужно ещё улучшение или ручная правка")
+        print(f"\n⚠️  Целевой балл не достигнут ({score} < {target_score})", flush=True)
+        print(f"   Возможно нужно ещё улучшение или ручная правка", flush=True)
 
     return output_file
