@@ -28,15 +28,18 @@ def idea_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
     # Получить параметры
     user_theme = state.get('user_theme')
     level_range = state.get('level_range')
+    requested_rooms = state.get('requested_rooms')
 
     # Генерация промпта
-    prompt = prompts.get_idea_prompt(user_theme, level_range)
+    prompt = prompts.get_idea_prompt(user_theme, level_range, requested_rooms)
 
     print("\n🎨 Генерация концепции зоны...")
     if user_theme:
         print(f"   Тема: {user_theme}")
     if level_range:
         print(f"   Уровни: {level_range[0]}-{level_range[1]}")
+    if requested_rooms:
+        print(f"   Желаемое количество комнат: {requested_rooms}")
 
     try:
         # Вызов LLM
@@ -54,6 +57,11 @@ def idea_agent(state: Dict, ollama_url: str = "http://localhost:11434") -> Dict:
         missing = [f for f in required_fields if f not in idea]
         if missing:
             raise ValueError(f"Отсутствуют обязательные поля: {missing}")
+
+        # Если пользователь явно указал количество комнат - используем его
+        if requested_rooms:
+            idea['estimated_rooms'] = requested_rooms
+            print(f"   ℹ️  Установлено явное количество комнат: {requested_rooms}")
 
         # Обновление state
         state['idea'] = idea

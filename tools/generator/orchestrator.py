@@ -441,7 +441,8 @@ def run_zone_generation(
     interactive: bool = True,
     output_dir: str = "zones/draft/",
     resume_thread_id: str = None,
-    provider: str = "ollama"
+    provider: str = "ollama",
+    requested_rooms: int = None
 ) -> Path:
     """
     Запуск генерации зоны через LangGraph
@@ -452,6 +453,9 @@ def run_zone_generation(
         ollama_url: URL Ollama API
         interactive: Интерактивный режим
         output_dir: Директория для сохранения
+        resume_thread_id: Thread ID для продолжения с checkpoint
+        provider: LLM провайдер
+        requested_rooms: Желаемое количество комнат (опционально)
 
     Returns:
         Путь к сгенерированному файлу
@@ -515,6 +519,7 @@ def run_zone_generation(
                 'ollama_url': ollama_url,
                 'interactive': interactive,
                 'provider': provider,
+                'requested_rooms': requested_rooms,  # Желаемое количество комнат (или None)
                 'validation_score': 0,
                 'refinement_iteration': 0,
                 'validation_attempts': 0,

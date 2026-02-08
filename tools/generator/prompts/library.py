@@ -33,13 +33,18 @@ class PromptLibrary:
 - Система уровней 1-50, рекомендуемые зоны для групп 3-5 игроков"""
 
     @staticmethod
-    def get_idea_prompt(user_theme: str = None, level_range: Tuple[int, int] = None) -> str:
+    def get_idea_prompt(
+        user_theme: str = None,
+        level_range: Tuple[int, int] = None,
+        requested_rooms: int = None
+    ) -> str:
         """
         Промпт для генерации идеи зоны
 
         Args:
             user_theme: Тема от пользователя (опционально)
             level_range: Диапазон уровней (опционально)
+            requested_rooms: Желаемое количество комнат (опционально)
 
         Returns:
             Промпт для LLM
@@ -49,8 +54,12 @@ class PromptLibrary:
             f"\n\nЦелевые уровни: {level_range[0]}-{level_range[1]}"
             if level_range else "\n\nЦелевые уровни: определи сам (1-50)"
         )
+        rooms_text = (
+            f"\n\n⚠️ ВАЖНО: estimated_rooms должно быть РОВНО {requested_rooms} (пользователь явно указал)"
+            if requested_rooms else ""
+        )
 
-        return f"""Создай концепцию новой зоны для МУД "Былины".{theme_text}{level_text}
+        return f"""Создай концепцию новой зоны для МУД "Былины".{theme_text}{level_text}{rooms_text}
 
 Зона должна:
 1. Основываться на славянском фольклоре (былины, сказки, поверья)

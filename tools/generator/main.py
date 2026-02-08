@@ -389,6 +389,14 @@ def main():
         help='LLM провайдер (по умолчанию: ollama). Алиасы: claude→anthropic, chatgpt/gpt→openai, grok→xai'
     )
 
+    # Zone size
+    parser.add_argument(
+        '--rooms',
+        type=int,
+        metavar='N',
+        help='Желаемое количество комнат в зоне (например: --rooms 15). По умолчанию LLM решает сам (~8-12 комнат)'
+    )
+
     # Режим работы
     parser.add_argument(
         '--no-langgraph',
@@ -461,7 +469,8 @@ def main():
                 interactive=interactive,
                 output_dir=args.output,
                 resume_thread_id=args.resume,
-                provider=args.provider
+                provider=args.provider,
+                requested_rooms=args.rooms
             )
 
         else:
